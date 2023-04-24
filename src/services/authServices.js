@@ -19,6 +19,29 @@ const logout = () => {
     localStorage.clear()
 }
 
+const checkUsername = async (username) => {
+    try {
+        if (username != "") {
+            const response = await request.get(`/checkUsername/${username}`)
+            return response;
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const checkPassword = async (username, password) => {
+    try {
+        const response = await request.post('/checkPassword', {
+            username,
+            password
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const logged = () => {
     if (token() === "")
         return false
@@ -28,7 +51,9 @@ const logged = () => {
 const AuthService = {
     login,
     logged,
-    logout
+    logout,
+    checkUsername,
+    checkPassword
 }
 
 export default AuthService

@@ -85,6 +85,21 @@
     width: 100%;
   }
 
+  .colorGreen {
+    color: green;
+    font-size: 120%;
+  }
+
+  .colorRed {
+    color: red;
+    font-size: 120%;
+  }
+
+  .signInButton {
+    background-color: #eee;
+    border: 1px solid #eee;
+  }
+
 }
 
 .container {
@@ -249,5 +264,22 @@
   &:hover {
     text-decoration: red solid 1px;
     color: red;
+  }
+}
+
+.box {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 90%;
+    margin-left: 10%;
+  }
+
+  span {
+    display: inline-block;
+    width: 10%;
   }
 }

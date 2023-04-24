@@ -47,7 +47,7 @@ function Header() {
             <nav className={clsx(styles.navbar)}>
                 <div className={clsx(styles.navbarLeft)}>
                     <div>
-                        <a href={""}><img className={clsx(styles.logo)} src={"assert/images/logo.svg"}/></a>
+                        <a href={""}><img className={clsx(styles.logo)} src={"assert/images/logo.png"}/></a>
                     </div>
                     <ul>
                         <li>
