@@ -7,11 +7,16 @@ const login = async (username, password) => {
         if (response?.data) {
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('userID', response.data.userID)
+            localStorage.setItem('avatar', response.data.avatar)
         }
         return response
     } catch (error) {
         return error.response.status
     }
+}
+
+const logout = () => {
+    localStorage.clear()
 }
 
 const logged = () => {
@@ -22,7 +27,8 @@ const logged = () => {
 
 const AuthService = {
     login,
-    logged
+    logged,
+    logout
 }
 
 export default AuthService
