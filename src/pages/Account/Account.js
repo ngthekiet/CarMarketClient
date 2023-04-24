@@ -1,9 +1,10 @@
-import styles from "./Account.module.scss"
-import clsx from "clsx";
-
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {FaFacebook, FaGoogle} from "react-icons/fa";
+
+import clsx from "clsx";
+import styles from "./Account.module.scss"
+
 import AuthService from "../../services/authServices";
 
 function Account() {
@@ -37,6 +38,11 @@ function Account() {
         }
     }
 
+    const handleSubmitLogin = (e) => {
+        if (e.key === 'Enter')
+            handleLogin()
+    }
+
     return (
         <div className={clsx(styles.accountBody)}>
             <div className={clsx(styles.container, {
@@ -57,18 +63,22 @@ function Account() {
                     </form>
                 </div>
                 <div className={clsx(styles.formContainer, styles.signInContainer)}>
-                    <form action="#">
+                    <form>
                         <h1>Sign in</h1>
                         <div className={clsx(styles.socialContainer)}>
                             <a href="#" className={clsx(styles.fbIcons)}><FaFacebook/></a>
                             <a href="#" className={clsx(styles.ggIcons)}><FaGoogle/></a>
                         </div>
                         <span>or use your account</span>
-                        <input autoFocus={true} type="text" placeholder="Username" value={username}
+                        <input onKeyDown={handleSubmitLogin} autoFocus={true} type="text" placeholder="Username"
+                               value={username}
                                onChange={handleUsername}/>
-                        <input type="password" placeholder="Password" value={password} onChange={handlePassword}/>
+                        <input onKeyDown={handleSubmitLogin} type="password" placeholder="Password" value={password}
+                               onChange={handlePassword}/>
                         <a href="#" className={clsx(styles.hoverTextRed)}>Forgot your password?</a>
-                        <button className={clsx(styles.hover)} onClick={handleLogin}>Sign In</button>
+                        <button type={"button"} className={clsx(styles.hover)}
+                                onClick={handleLogin}>Sign In
+                        </button>
                     </form>
                 </div>
                 <div className={clsx(styles.overlayContainer)}>

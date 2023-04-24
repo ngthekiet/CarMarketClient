@@ -1,8 +1,11 @@
+import Header from "../Header";
+import React from "react";
+
 function Home() {
     return (
-        <div>
-            <h2>Home pages</h2>
-        </div>
+        <React.Fragment>
+            <Header/>
+        </React.Fragment>
     )
 }
 

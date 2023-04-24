@@ -1,0 +1,111 @@
+.container {
+
+  ul {
+    display: flex;
+    align-items: center;
+
+    li {
+      display: inline-block;
+      padding: 0 20px;
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+
+  .optionUser {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    padding: 0;
+    background-color: #333;
+    width: 300%;
+    margin-left: -100%;
+    border-radius: 5px;
+
+    li {
+      padding: 10px 0;
+      display: block;
+
+      a {
+        display: block;
+        height: 150%;
+        color: white;
+        font-size: 120%;
+
+        &:hover {
+          cursor: pointer;
+          color: red;
+        }
+      }
+    }
+  }
+
+  .activeOptionUser {
+    display: block;
+  }
+}
+
+.navbar {
+  display: flex;
+  background-color: #232323;
+}
+
+.navbarLeft {
+  width: 65%;
+  display: flex;
+  justify-content: center;
+}
+
+.navbarRight {
+  width: 35%;
+  display: flex;
+  align-items: center;
+}
+
+.language {
+  width: 30%;
+  text-align: center;
+}
+
+.tool {
+  width: 70%;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  height: 80px;
+}
+
+.languageIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.linkIcon {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.toolIcon {
+  font-size: 200%;
+  color: red;
+
+  &:hover {
+    cursor: pointer;
+    color: #0033FF;
+  }
+}
+
+.optionUserParent {
+  position: relative;
+}
+
+.avatar{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
