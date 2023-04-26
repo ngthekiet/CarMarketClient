@@ -18,8 +18,13 @@ function Header() {
     const logged = AuthService.logged();
 
     useEffect(() => {
-        if (AuthService.logged())
+        if (AuthService.logged()) {
+            if (localStorage.getItem('avatar') === "null") {
+                setAvatar('assert/images/avatar.png')
+                return
+            }
             setAvatar(localStorage.getItem('avatar'))
+        }
     }, [])
 
     const handleClickUser = () => {
