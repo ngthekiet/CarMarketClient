@@ -75,6 +75,32 @@ function Header() {
                             <input placeholder={"Search"} className={clsx(styles.boxSearch)} type={"text"}/>
                             <span><FaSearch/></span>
                         </div>
+                        <div className={clsx(styles.listSearch)}>
+                            <div className={clsx(styles.searchItem)}>
+                                <div>
+                                    <img
+                                        src={"https://assets.ucars.sg/image/upload/c_fit,f_auto,w_1080/v1/s3/images/12956055851658307204616.PNG"}
+                                    />
+                                </div>
+                                <span>BMW X3</span>
+                            </div>
+                            <div className={clsx(styles.searchItem)}>
+                                <div>
+                                    <img
+                                        src={"https://assets.ucars.sg/image/upload/c_fit,f_auto,w_1080/v1/s3/images/12956055851658307204616.PNG"}
+                                    />
+                                </div>
+                                <span>BMW X3</span>
+                            </div>
+                            <div className={clsx(styles.searchItem)}>
+                                <div>
+                                    <img
+                                        src={"https://assets.ucars.sg/image/upload/c_fit,f_auto,w_1080/v1/s3/images/12956055851658307204616.PNG"}
+                                    />
+                                </div>
+                                <span>BMW X3</span>
+                            </div>
+                        </div>
                     </div>
                     <div className={clsx(styles.tools)}>
                         <div className={clsx(styles.tool)}>

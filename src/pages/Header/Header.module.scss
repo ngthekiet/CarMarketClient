@@ -78,11 +78,11 @@
   display: flex;
   justify-content: center;
 
-  &:first-child{
+  &:first-child {
     width: 50%;
   }
 
-  &:last-child{
+  &:last-child {
     width: 50%;
   }
 }
@@ -132,6 +132,7 @@
 
 .search {
   width: 45%;
+  position: relative;
 
   div {
     display: flex;
@@ -163,5 +164,41 @@
     padding: 5px 0;
     text-indent: 10px;
     font-size: 110%;
+  }
+
+  .listSearch {
+    display: none;
+    flex-wrap: wrap;
+    width: 100%;
+    position: absolute;
+    background-color: #606060;
+    border-radius: 5px;
+    z-index: 999;
+    transform: translateY(15px);
+  }
+
+  .searchItem {
+    //background-color: #fcfbf7;
+    margin: 5px 0;
+    border-radius: 5px;
+
+    div {
+      width: 30%;
+
+      img {
+        width: 80%;
+        height: 80%;
+      }
+    }
+
+    span {
+      width: 80%;
+    }
+  }
+
+  &:focus-within{
+    .listSearch{
+      display: flex;
+    }
   }
 }
