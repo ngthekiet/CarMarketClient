@@ -76,6 +76,7 @@
   width: 30%;
   text-align: center;
   display: flex;
+  justify-content: center;
 
   &:first-child{
     width: 50%;
@@ -89,6 +90,8 @@
 .tool {
   width: 70%;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
