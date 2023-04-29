@@ -72,7 +72,7 @@ function Header() {
                 <div className={clsx(styles.navbarRight)}>
                     <div className={clsx(styles.search)}>
                         <div className={clsx(styles.containerSearch)}>
-                            <input className={clsx(styles.boxSearch)} type={"text"}/>
+                            <input placeholder={"Search"} className={clsx(styles.boxSearch)} type={"text"}/>
                             <span><FaSearch/></span>
                         </div>
                     </div>
