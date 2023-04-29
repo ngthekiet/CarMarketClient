@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {FaUserCircle, FaShoppingBag, FaCog, FaTools} from "react-icons/fa"
+import {FaUserCircle, FaShoppingBag, FaCog, FaTools, FaSearch} from "react-icons/fa"
 import {IoMdLogOut} from "react-icons/io"
 import {useNavigate} from "react-router-dom";
 
@@ -70,33 +70,41 @@ function Header() {
                     </ul>
                 </div>
                 <div className={clsx(styles.navbarRight)}>
-                    <div className={clsx(styles.language)}>
-                        <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
-                                                                            src={"assert/images/vn.png"}/></a>
-                        <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
-                                                                            src={"assert/images/usa.png"}/></a>
-                    </div>
-                    <div className={clsx(styles.tool)}>
-                        <div className={clsx(styles.linkIcon, styles.optionUserParent)}>
-                            <a onClick={handleClickUser}
-                               className={clsx(styles.linkIcon, styles.toolIcon)}>{(logged &&
-                                    <img className={clsx(styles.avatar)} src={avatar}/>) ||
-                                <FaUserCircle/>}</a>
-                            <ul className={clsx(styles.optionUser, {
-                                [styles.activeOptionUser]: activeOptionUser
-                            })}>
-                                <li>
-                                    <a href={""}><FaTools/> Manage</a>
-                                </li>
-                                <li>
-                                    <a href={""}><FaCog/> Setting</a>
-                                </li>
-                                <li>
-                                    <a onClick={logout}><IoMdLogOut/> Logout</a>
-                                </li>
-                            </ul>
+                    <div className={clsx(styles.search)}>
+                        <div className={clsx(styles.containerSearch)}>
+                            <input className={clsx(styles.boxSearch)} type={"text"}/>
+                            <span><FaSearch/></span>
                         </div>
-                        <a className={clsx(styles.linkIcon, styles.toolIcon)}><FaShoppingBag/></a>
+                    </div>
+                    <div className={clsx(styles.tools)}>
+                        <div className={clsx(styles.tool)}>
+                            <div className={clsx(styles.linkIcon, styles.optionUserParent)}>
+                                <a onClick={handleClickUser}
+                                   className={clsx(styles.linkIcon, styles.toolIcon)}>{(logged &&
+                                        <img className={clsx(styles.avatar)} src={avatar}/>) ||
+                                    <FaUserCircle/>}</a>
+                                <ul className={clsx(styles.optionUser, {
+                                    [styles.activeOptionUser]: activeOptionUser
+                                })}>
+                                    <li>
+                                        <a href={""}><FaTools/> Manage</a>
+                                    </li>
+                                    <li>
+                                        <a href={""}><FaCog/> Setting</a>
+                                    </li>
+                                    <li>
+                                        <a onClick={logout}><IoMdLogOut/> Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a className={clsx(styles.linkIcon, styles.toolIcon)}><FaShoppingBag/></a>
+                        </div>
+                        <div className={clsx(styles.language)}>
+                            <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
+                                                                                src={"assert/images/vn.png"}/></a>
+                            <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
+                                                                                src={"assert/images/usa.png"}/></a>
+                        </div>
                     </div>
                 </div>
             </nav>
