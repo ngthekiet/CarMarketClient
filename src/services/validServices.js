@@ -2,7 +2,7 @@ import request from "../utils/request";
 
 const validUsername = async (username) => {
     try {
-        const response = await request.post("/valid/username", {
+        const response = await request.post("/pub/valid/username", {
             username
         })
         return response;
@@ -13,7 +13,7 @@ const validUsername = async (username) => {
 
 const validPassword = async (password) => {
     try {
-        const response = await request.post("/valid/password", {
+        const response = await request.post("/pub/valid/password", {
             password
         })
         return response;
@@ -24,7 +24,7 @@ const validPassword = async (password) => {
 
 const validEmail = async (email) => {
     try {
-        const response = await request.post("/valid/email", {
+        const response = await request.post("/pub/valid/email", {
             email
         })
         return response;
