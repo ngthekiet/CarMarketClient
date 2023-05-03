@@ -2,6 +2,8 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./ProductItem.module.scss";
 import {FaPaypal, FaShoppingBag} from "react-icons/fa";
+import {Link} from "react-router-dom";
+import config from "../../config";
 
 function ProductItem({data}) {
     return (
@@ -20,14 +22,16 @@ function ProductItem({data}) {
                         </div>
                     </div>
                 </div>
-                <div className={clsx(styles.nameCar, styles.paddingItemCar)}>{data.name}</div>
-                <div className={clsx(styles.priceCar, styles.paddingItemCar)}>From <span>${data.price}</span></div>
-                <div className={clsx(styles.desCar, styles.paddingItemCar)}>4 variants | with COE</div>
-                <div className={clsx(styles.brand, styles.paddingItemCar)}>
-                    <img
-                        src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"}/>
-                    <span>Performance Motos</span>
-                </div>
+                <Link to={`/detail/${data.id}`}>
+                    <div className={clsx(styles.nameCar, styles.paddingItemCar)}>{data.name}</div>
+                    <div className={clsx(styles.priceCar, styles.paddingItemCar)}>From <span>${data.price}</span></div>
+                    <div className={clsx(styles.desCar, styles.paddingItemCar)}>4 variants | with COE</div>
+                    <div className={clsx(styles.brand, styles.paddingItemCar)}>
+                        <img
+                            src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"}/>
+                        <span>Performance Motos</span>
+                    </div>
+                </Link>
             </div>
         </React.Fragment>
     )
