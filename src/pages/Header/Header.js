@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {FaUserCircle, FaShoppingBag, FaCog, FaTools, FaSearch} from "react-icons/fa"
 import {IoMdLogOut} from "react-icons/io"
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import clsx from "clsx";
 import styles from "./Header.module.scss"
@@ -13,12 +13,14 @@ function Header() {
 
     const [activeOptionUser, setActiveOptionUser] = useState(false);
     const [avatar, setAvatar] = useState("")
+    const [id, setID] = useState("")
     const navigate = useNavigate()
 
     const logged = AuthService.logged();
 
     useEffect(() => {
         if (AuthService.logged()) {
+            setID(localStorage.getItem('userID'))
             if (localStorage.getItem('avatar') === "null") {
                 setAvatar('assert/images/avatar.png')
                 return
@@ -113,13 +115,17 @@ function Header() {
                                     [styles.activeOptionUser]: activeOptionUser
                                 })}>
                                     <li>
-                                        <a href={""}><FaTools/> Manage</a>
+                                        <Link to={""}>
+                                            <FaTools/><span>Manage</span>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href={""}><FaCog/> Setting</a>
+                                        <Link to={`/profile/${id}`}>
+                                            <FaCog/><span>Setting</span>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a onClick={logout}><IoMdLogOut/> Logout</a>
+                                        <a onClick={logout}><IoMdLogOut/><span>Logout</span></a>
                                     </li>
                                 </ul>
                             </div>

@@ -30,10 +30,16 @@
       display: block;
 
       a {
-        display: block;
+        display: flex;
         height: 150%;
         color: white;
         font-size: 120%;
+        justify-content: center;
+        align-items: center;
+
+        span{
+          margin-left: 10px;
+        }
 
         &:hover {
           cursor: pointer;
