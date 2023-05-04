@@ -1,0 +1,30 @@
+.notify {
+  position: fixed;
+  top: 2%;
+  left: 45%;
+  width: 10%;
+  height: 15%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.success {
+  display: none;
+  border: #80ff80 5px inset;
+  background-color: rgb(128, 255, 128, 0.2);
+  color: green;
+}
+
+.fail {
+  display: none;
+  border: #f54545 5px inset;
+  background-color: rgb(255, 0, 0, 0.2);
+  color: red;
+}
+
+.active {
+  display: flex;
+}

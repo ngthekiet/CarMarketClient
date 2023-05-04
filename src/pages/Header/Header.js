@@ -7,6 +7,8 @@ import clsx from "clsx";
 import styles from "./Header.module.scss"
 
 import AuthService from "../../services/authServices";
+import Search from "./Search";
+import config from "../../config";
 
 
 function Header() {
@@ -54,7 +56,9 @@ function Header() {
             <nav className={clsx(styles.navbar)}>
                 <div className={clsx(styles.navbarLeft)}>
                     <div>
-                        <a href={""}><img className={clsx(styles.logo)} src={"assert/images/logo.png"}/></a>
+                        <Link to={config.routes.home}>
+                            <img className={clsx(styles.logo)} src={"assert/images/logo.png"}/>
+                        </Link>
                     </div>
                     <ul>
                         <li>
@@ -72,38 +76,7 @@ function Header() {
                     </ul>
                 </div>
                 <div className={clsx(styles.navbarRight)}>
-                    <div className={clsx(styles.search)}>
-                        <div className={clsx(styles.containerSearch)}>
-                            <input placeholder={"Search"} className={clsx(styles.boxSearch)} type={"text"}/>
-                            <span><FaSearch/></span>
-                        </div>
-                        <div className={clsx(styles.listSearch)}>
-                            <div className={clsx(styles.searchItem)}>
-                                <div>
-                                    <img
-                                        src={"https://assets.ucars.sg/image/upload/c_fit,f_auto,w_1080/v1/s3/images/12956055851658307204616.PNG"}
-                                    />
-                                </div>
-                                <span>BMW X3</span>
-                            </div>
-                            <div className={clsx(styles.searchItem)}>
-                                <div>
-                                    <img
-                                        src={"https://assets.ucars.sg/image/upload/c_fit,f_auto,w_1080/v1/s3/images/12956055851658307204616.PNG"}
-                                    />
-                                </div>
-                                <span>BMW X3</span>
-                            </div>
-                            <div className={clsx(styles.searchItem)}>
-                                <div>
-                                    <img
-                                        src={"https://assets.ucars.sg/image/upload/c_fit,f_auto,w_1080/v1/s3/images/12956055851658307204616.PNG"}
-                                    />
-                                </div>
-                                <span>BMW X3</span>
-                            </div>
-                        </div>
-                    </div>
+                    <Search/>
                     <div className={clsx(styles.tools)}>
                         <div className={clsx(styles.tool)}>
                             <div className={clsx(styles.linkIcon, styles.optionUserParent)}>
