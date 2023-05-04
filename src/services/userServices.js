@@ -12,8 +12,37 @@ const getUser = async (id) => {
     }
 }
 
+const updateProfile = async (
+    id,
+    address,
+    avatar,
+    birthyear,
+    email,
+    firstname,
+    lastname,
+    phone
+) => {
+    try {
+        const response = await request.put(`/pri/user/${id}`, {
+            address,
+            avatar,
+            birthyear,
+            email,
+            firstname,
+            lastname,
+            phone
+        }, {
+            headers: token()
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const UserService = {
-    getUser
+    getUser,
+    updateProfile
 }
 
 export default UserService
