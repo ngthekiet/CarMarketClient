@@ -1,9 +1,10 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import {useParams} from "react-router-dom";
+
 import {StarIcon} from '@heroicons/react/20/solid'
 import {RadioGroup} from '@headlessui/react'
-import {useParams} from "react-router-dom";
-import {useEffect} from "react";
-import ProductService from "../../services/productServices";
+
+import ProductService from "~/services/productServices";
 
 const product = {
     name: 'Basic Tee 6-Pack',

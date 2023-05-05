@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
-import {FaUserCircle, FaShoppingBag, FaCog, FaTools, FaSearch} from "react-icons/fa"
-import {IoMdLogOut} from "react-icons/io"
 import {Link, useNavigate} from "react-router-dom";
 
-import clsx from "clsx";
-import styles from "./Header.module.scss"
+import {FaUserCircle, FaShoppingBag, FaCog, FaTools} from "react-icons/fa"
+import {IoMdLogOut} from "react-icons/io"
 
-import AuthService from "../../services/authServices";
-import Search from "./Search";
-import config from "../../config";
+import clsx from "clsx";
+
+import styles from "~/pages/Header/Header.module.scss"
+import Search from "~/pages/Header/Search";
+import AuthService from "~/services/authServices";
+import config from "~/config";
 
 
 function Header() {

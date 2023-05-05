@@ -2,11 +2,11 @@ import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
 import clsx from "clsx";
-import styles from "./Account.module.scss"
 
-import AuthService from "../../services/authServices";
-import Register from "./Register/Register";
-import Login from "./Login/Login";
+import styles from "~/pages/Account/Account.module.scss"
+import AuthService from "~/services/authServices";
+import Register from "~/pages/Account/Register/Register";
+import Login from "~/pages/Account/Login/Login";
 
 function Account() {
     const [active, setActive] = useState(false)

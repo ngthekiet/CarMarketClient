@@ -1,1 +1,1 @@
-export {default} from "./Notfound"
+export {default} from "~/pages/Notfound/Notfound"

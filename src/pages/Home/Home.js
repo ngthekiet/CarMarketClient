@@ -1,6 +1,7 @@
-import Header from "../Header";
 import React from "react";
-import Content from "../Content";
+
+import Header from "~/pages/Header";
+import Content from "~/pages/Content";
 
 function Home() {
     return (

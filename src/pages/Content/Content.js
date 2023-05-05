@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import clsx from "clsx";
-import styles from "./Content.module.scss"
-import ProductItem from "../../components/ProductItem";
-import ProductService from "../../services/productServices";
 import {useEffect} from "react";
+
+import clsx from "clsx";
+
+import styles from "~/pages/Content/Content.module.scss"
+import ProductItem from "~/pages/Content/ProductItem";
+import ProductService from "~/services/productServices";
 
 function Content() {
     const [products, setProducts] = useState([])

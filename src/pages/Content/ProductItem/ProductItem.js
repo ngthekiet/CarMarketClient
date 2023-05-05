@@ -1,9 +1,11 @@
 import React from "react";
-import clsx from "clsx";
-import styles from "./ProductItem.module.scss";
-import {FaPaypal, FaShoppingBag} from "react-icons/fa";
 import {Link} from "react-router-dom";
-import config from "../../config";
+
+import {FaPaypal, FaShoppingBag} from "react-icons/fa";
+
+import clsx from "clsx";
+
+import styles from "~/pages/Content/ProductItem/ProductItem.module.scss";
 
 function ProductItem({data}) {
     return (
