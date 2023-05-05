@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react";
-import UserService from "../../services/userServices";
 import {Link, useParams} from "react-router-dom";
-import config from "../../config";
+
 import clsx from "clsx";
-import styles from "./Profile.module.scss"
+
+import styles from "~/pages/Profile/Profile.module.scss"
+import UserService from "~/services/userServices";
+import config from "~/config";
 
 function Profile() {
     const {id} = useParams()

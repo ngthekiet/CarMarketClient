@@ -1,5 +1,5 @@
-import request from "../utils/request";
-import token from "../local/token";
+import request from "~/utils/request";
+import token from "~/local/token";
 
 const getUser = async (id) => {
     try {

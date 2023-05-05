@@ -1,10 +1,13 @@
-import clsx from "clsx";
-import styles from "./Search.module.scss";
-import {FaSearch} from "react-icons/fa";
-import SearchItem from "./SearchItem";
 import {useEffect, useState} from "react";
-import SearchService from "../../../services/searchServices";
+
+import {FaSearch} from "react-icons/fa";
 import {RxDividerVertical} from "react-icons/rx";
+
+import clsx from "clsx";
+
+import styles from "~/pages/Header/Search/Search.module.scss";
+import SearchItem from "~/pages/Header/Search/SearchItem";
+import SearchService from "~/services/searchServices";
 
 
 function Search() {

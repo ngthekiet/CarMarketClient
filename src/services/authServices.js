@@ -1,5 +1,5 @@
-import request from "../utils/request";
-import token from "../local/token";
+import request from "~/utils/request";
+import token from "~/local/token";
 
 const login = async (username, password) => {
     try {

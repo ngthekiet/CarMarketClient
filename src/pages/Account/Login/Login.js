@@ -1,10 +1,13 @@
-import clsx from "clsx";
-import styles from "../Account.module.scss";
-import {FaFacebook, FaGoogle} from "react-icons/fa";
-import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
-import AuthService from "../../../services/authServices";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+
+import {FaFacebook, FaGoogle} from "react-icons/fa";
+import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
+
+import clsx from "clsx";
+
+import styles from "~/pages/Account/Account.module.scss";
+import AuthService from "~/services/authServices";
 
 function Login() {
     const navigate = useNavigate()

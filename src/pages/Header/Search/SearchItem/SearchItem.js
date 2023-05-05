@@ -1,6 +1,8 @@
-import clsx from "clsx";
-import styles from "../Search.module.scss";
 import {Link} from "react-router-dom";
+
+import clsx from "clsx";
+
+import styles from "~/pages/Header/Search/Search.module.scss";
 
 function SearchItem({data}) {
     return (
