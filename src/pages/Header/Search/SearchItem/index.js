@@ -1,0 +1,1 @@
+export {default} from "~/pages/Header/Search/SearchItem/SearchItem"
