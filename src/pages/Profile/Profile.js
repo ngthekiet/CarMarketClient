@@ -6,6 +6,8 @@ import clsx from "clsx";
 import styles from "~/pages/Profile/Profile.module.scss"
 import UserService from "~/services/userServices";
 import config from "~/config";
+import token from "~/local/token";
+import {Avatar} from "~/assert/images";
 
 function Profile() {
     const {id} = useParams()
@@ -26,7 +28,7 @@ function Profile() {
             const response = (await UserService.getUser(id))
             if (response?.data) {
                 if (response.data.avatar === null)
-                    setAvatar("../assert/images/avatar.png")
+                    setAvatar(Avatar)
                 else
                     setAvatar(response.data.avatar)
                 if (response.data.firstname === null)
@@ -91,6 +93,14 @@ function Profile() {
     }
 
     const handleSave = async () => {
+        if (token() === "") {
+            setFail(true)
+            setTimeout(() => {
+                setFail(false)
+            }, 1000)
+            return
+        }
+
         try {
             await UserService.updateProfile(id, address, avatar, birthyear, email, firstname, lastname, phone)
             setSuccess(true)

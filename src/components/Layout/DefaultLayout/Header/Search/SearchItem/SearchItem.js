@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 import clsx from "clsx";
 
-import styles from "~/pages/Header/Search/Search.module.scss";
+import styles from "~/components/Layout/DefaultLayout/Header/Search/Search.module.scss";
 
 function SearchItem({data}) {
     return (
