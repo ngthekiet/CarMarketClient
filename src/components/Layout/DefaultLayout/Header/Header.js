@@ -6,10 +6,11 @@ import {IoMdLogOut} from "react-icons/io"
 
 import clsx from "clsx";
 
-import styles from "~/pages/Header/Header.module.scss"
-import Search from "~/pages/Header/Search";
+import styles from "~/components/Layout/DefaultLayout/Header/Header.module.scss"
+import Search from "~/components/Layout/DefaultLayout/Header/Search";
 import AuthService from "~/services/authServices";
 import config from "~/config";
+import {Avatar, Logo, Usa, Vn} from "~/assert/images"
 
 
 function Header() {
@@ -17,7 +18,6 @@ function Header() {
     const [activeOptionUser, setActiveOptionUser] = useState(false);
     const [avatar, setAvatar] = useState("")
     const [id, setID] = useState("")
-    const navigate = useNavigate()
 
     const logged = AuthService.logged();
 
@@ -25,17 +25,17 @@ function Header() {
         if (AuthService.logged()) {
             setID(localStorage.getItem('userID'))
             if (localStorage.getItem('avatar') === "null") {
-                setAvatar('assert/images/avatar.png')
+                setAvatar(Avatar)
                 return
             }
             setAvatar(localStorage.getItem('avatar'))
         }
-    }, [])
+    }, [logged])
 
     const handleClickUser = () => {
         if (!AuthService.logged()) {
-            navigate("account")
-            return;
+            setActiveOptionUser(false)
+            return
         }
         if (activeOptionUser) {
             setActiveOptionUser(false)
@@ -50,7 +50,6 @@ function Header() {
 
     const logout = () => {
         AuthService.logout()
-        navigate("account")
     }
     return (
         <div onMouseLeave={handleMouseLeave} className={clsx(styles.container)}>
@@ -58,7 +57,7 @@ function Header() {
                 <div className={clsx(styles.navbarLeft)}>
                     <div>
                         <Link to={config.routes.home}>
-                            <img className={clsx(styles.logo)} src={"assert/images/logo.png"}/>
+                            <img className={clsx(styles.logo)} src={Logo}/>
                         </Link>
                     </div>
                     <ul>
@@ -81,10 +80,10 @@ function Header() {
                     <div className={clsx(styles.tools)}>
                         <div className={clsx(styles.tool)}>
                             <div className={clsx(styles.linkIcon, styles.optionUserParent)}>
-                                <a onClick={handleClickUser}
-                                   className={clsx(styles.linkIcon, styles.toolIcon)}>{(logged &&
+                                <div onClick={handleClickUser}
+                                     className={clsx(styles.linkIcon, styles.toolIcon)}>{(logged &&
                                         <img className={clsx(styles.avatar)} src={avatar}/>) ||
-                                    <FaUserCircle/>}</a>
+                                    <Link to={config.routes.account}><FaUserCircle/></Link>}</div>
                                 <ul className={clsx(styles.optionUser, {
                                     [styles.activeOptionUser]: activeOptionUser
                                 })}>
@@ -99,7 +98,9 @@ function Header() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <a onClick={logout}><IoMdLogOut/><span>Logout</span></a>
+                                        <Link to={config.routes.account} onClick={logout}>
+                                            <IoMdLogOut/><span>Logout</span>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -107,9 +108,9 @@ function Header() {
                         </div>
                         <div className={clsx(styles.language)}>
                             <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
-                                                                                src={"assert/images/vn.png"}/></a>
+                                                                                src={Vn}/></a>
                             <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
-                                                                                src={"assert/images/usa.png"}/></a>
+                                                                                src={Usa}/></a>
                         </div>
                     </div>
                 </div>

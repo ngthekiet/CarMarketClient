@@ -5,8 +5,8 @@ import {RxDividerVertical} from "react-icons/rx";
 
 import clsx from "clsx";
 
-import styles from "~/pages/Header/Search/Search.module.scss";
-import SearchItem from "~/pages/Header/Search/SearchItem";
+import styles from "~/components/Layout/DefaultLayout/Header/Search/Search.module.scss";
+import SearchItem from "~/components/Layout/DefaultLayout/Header/Search/SearchItem";
 import SearchService from "~/services/searchServices";
 
 
