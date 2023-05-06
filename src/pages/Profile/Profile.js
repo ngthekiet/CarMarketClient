@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
+import {ref, uploadBytes, getDownloadURL} from "firebase/storage"
+import {v4} from "uuid"
 
 import clsx from "clsx";
 
@@ -8,9 +10,14 @@ import UserService from "~/services/userServices";
 import config from "~/config";
 import token from "~/local/token";
 import {Avatar} from "~/assert/images";
+import {storage} from "~/firebase"
 
 function Profile() {
     const {id} = useParams()
+    const navigate = useNavigate()
+
+    if (localStorage.getItem("userID") !== id)
+        navigate("/notfound")
 
     const [avatar, setAvatar] = useState("")
     const [firstname, setFirstname] = useState("")
@@ -22,6 +29,7 @@ function Profile() {
     const [birthyear, setBirthyear] = useState(0)
     const [success, setSuccess] = useState(false)
     const [fail, setFail] = useState(false)
+    const [avatarChange, setAvatarChange] = useState("")
 
     useEffect(() => {
         const fetchData = async () => {
@@ -102,7 +110,7 @@ function Profile() {
         }
 
         try {
-            await UserService.updateProfile(id, address, avatar, birthyear, email, firstname, lastname, phone)
+            await UserService.updateProfile(id, address, birthyear, email, firstname, lastname, phone)
             setSuccess(true)
             setTimeout(() => {
                 setSuccess(false)
@@ -113,6 +121,27 @@ function Profile() {
                 setFail(false)
             }, 1000)
         }
+    }
+
+    const changeAvatar = async () => {
+        if (avatarChange === "") {
+            setFail(true)
+            setTimeout(() => {
+                setFail(false)
+            }, 1000)
+            return
+        }
+        const imageRef = ref(storage, `images/avatar/${avatarChange.name + v4()}`)
+        const imageRespone = await uploadBytes(imageRef, avatarChange)
+        const response = await getDownloadURL(imageRespone.ref)
+        await UserService.changeAvatar(response, id)
+        setAvatar(response)
+        localStorage.setItem("avatar", response)
+        setAvatarChange("")
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 1000)
     }
 
     return (
@@ -130,8 +159,13 @@ function Profile() {
                                 Photo
                             </label>
                             <div className="mt-2 flex items-center gap-x-3">
-                                <img src={avatar} className="h-12 w-12 text-gray-300 rounded-full" alt={""}/>
+                                <img src={avatar} className="h-12 w-12 text-gray-300 rounded-full" alt={"Image"}/>
+                                <input onChange={(e) => {
+                                    setAvatarChange(e.target.files[0])
+                                }
+                                } type={"file"}/>
                                 <button
+                                    onClick={changeAvatar}
                                     type="button"
                                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                 >
