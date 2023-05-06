@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next"
 
 import {FaUserCircle, FaShoppingBag, FaCog, FaTools} from "react-icons/fa"
+
 import {IoMdLogOut} from "react-icons/io"
 
 import clsx from "clsx";
-
 import styles from "~/components/Layout/DefaultLayout/Header/Header.module.scss"
 import Search from "~/components/Layout/DefaultLayout/Header/Search";
 import AuthService from "~/services/authServices";
@@ -14,6 +15,8 @@ import {Avatar, Logo, Usa, Vn} from "~/assert/images"
 
 
 function Header() {
+    const {t} = useTranslation()
+    const {i18n} = useTranslation()
 
     const [activeOptionUser, setActiveOptionUser] = useState(false);
     const [avatar, setAvatar] = useState("")
@@ -48,6 +51,10 @@ function Header() {
         setActiveOptionUser(false)
     }
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng)
+    }
+
     const logout = () => {
         AuthService.logout()
     }
@@ -62,16 +69,16 @@ function Header() {
                     </div>
                     <ul>
                         <li>
-                            <a href={""}>New Cars</a>
+                            <a href={""}>{t("navbar-new cars")}</a>
                         </li>
                         <li>
-                            <a href={""}>Used Cars</a>
+                            <a href={""}>{t("navbar-used cars")}</a>
                         </li>
                         <li>
-                            <a href={""}>Reviews</a>
+                            <a href={""}>{t("navbar-reviews")}</a>
                         </li>
                         <li>
-                            <a href={""}>New</a>
+                            <a href={""}>{t("navbar-new")}</a>
                         </li>
                     </ul>
                 </div>
@@ -107,10 +114,16 @@ function Header() {
                             <a className={clsx(styles.linkIcon, styles.toolIcon)}><FaShoppingBag/></a>
                         </div>
                         <div className={clsx(styles.language)}>
-                            <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
-                                                                                src={Vn}/></a>
-                            <a className={clsx(styles.linkIcon)} href={""}><img className={clsx(styles.languageIcon)}
-                                                                                src={Usa}/></a>
+                            <a onClick={() => {
+                                changeLanguage("vi")
+                            }
+                            } className={clsx(styles.linkIcon)}><img className={clsx(styles.languageIcon)}
+                                                                     src={Vn}/></a>
+                            <a onClick={() => {
+                                changeLanguage("en")
+                            }
+                            } className={clsx(styles.linkIcon)}><img className={clsx(styles.languageIcon)}
+                                                                     src={Usa}/></a>
                         </div>
                     </div>
                 </div>

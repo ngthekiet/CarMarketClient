@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import {FaFacebook, FaGoogle} from "react-icons/fa";
 import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
@@ -11,6 +12,7 @@ import AuthService from "~/services/authServices";
 import ValidService from "~/services/validServices";
 
 function Register() {
+    const {t} = useTranslation()
     const navigate = useNavigate()
 
     const [username, setUsername] = useState("")
@@ -109,14 +111,14 @@ function Register() {
 
     return (
         <form action="#">
-            <h1>Create Account</h1>
+            <h1>{t("register-create")}</h1>
             <div className={clsx(styles.socialContainer)}>
                 <a href="#" className={clsx(styles.fbIcons)}><FaFacebook/></a>
                 <a href="#" className={clsx(styles.ggIcons)}><FaGoogle/></a>
             </div>
-            <span>or use your email for registration</span>
+            <span>{t("register-account")}</span>
             <div className={clsx(styles.box)}>
-                <input onKeyDown={handleSubmit} type="text" placeholder="Username"
+                <input onKeyDown={handleSubmit} type="text" placeholder={t("register-username")}
                        value={username}
                        onChange={handleUsername}/>
                 {acceptUsername &&
@@ -124,7 +126,7 @@ function Register() {
                     <span className={clsx(styles.colorRed)}><AiFillCloseCircle/></span>}
             </div>
             <div className={clsx(styles.box)}>
-                <input onKeyDown={handleSubmit} type="password" placeholder="Password"
+                <input onKeyDown={handleSubmit} type="password" placeholder={t("register-password")}
                        value={password}
                        onChange={handlePassword}/>
                 {validPassword &&
@@ -132,7 +134,7 @@ function Register() {
                     <span className={clsx(styles.colorRed)}><AiFillCloseCircle/></span>}
             </div>
             <div className={clsx(styles.box)}>
-                <input onKeyDown={handleSubmit} type="password" placeholder="Confirm Password"
+                <input onKeyDown={handleSubmit} type="password" placeholder={t("register-confirm")}
                        value={confirmPassword}
                        onChange={handleConfirmPassword}/>
                 {validConfirmPassword &&
@@ -142,7 +144,7 @@ function Register() {
             <button type={"button"} className={clsx(styles.hover, {
                 [styles.signInButton]: activeSubmit
             })}
-                    onClick={handleRegister}>Sign Up
+                    onClick={handleRegister}>{t("register-signup")}
             </button>
         </form>
     )

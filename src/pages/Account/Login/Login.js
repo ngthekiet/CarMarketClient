@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import {FaFacebook, FaGoogle} from "react-icons/fa";
 import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
@@ -10,6 +11,7 @@ import styles from "~/pages/Account/Account.module.scss";
 import AuthService from "~/services/authServices";
 
 function Login() {
+    const {t} = useTranslation()
     const navigate = useNavigate()
 
     const [username, setUsername] = useState("")
@@ -80,14 +82,14 @@ function Login() {
     }
     return (
         <form>
-            <h1>Sign in</h1>
+            <h1>{t("login-sign in")}</h1>
             <div className={clsx(styles.socialContainer)}>
-                <a href="#" className={clsx(styles.fbIcons)}><FaFacebook/></a>
-                <a href="#" className={clsx(styles.ggIcons)}><FaGoogle/></a>
+                <a className={clsx(styles.fbIcons)}><FaFacebook/></a>
+                <a className={clsx(styles.ggIcons)}><FaGoogle/></a>
             </div>
-            <span>or use your account</span>
+            <span>{t("login-account")}</span>
             <div className={clsx(styles.box)}>
-                <input onKeyDown={handleSubmit} autoFocus={true} type="text" placeholder="Username"
+                <input onKeyDown={handleSubmit} autoFocus={true} type="text" placeholder={t("login-username")}
                        value={username}
                        onChange={handleUsername}/>
                 {existUsername &&
@@ -96,18 +98,18 @@ function Login() {
 
             </div>
             <div className={clsx(styles.box)}>
-                <input onKeyDown={handleSubmit} type="password" placeholder="Password"
+                <input onKeyDown={handleSubmit} type="password" placeholder={t("login-password")}
                        value={password}
                        onChange={handlePassword}/>
                 {validPassword &&
                     <span className={clsx(styles.colorGreen)}><AiFillCheckCircle/></span> ||
                     <span className={clsx(styles.colorRed)}><AiFillCloseCircle/></span>}
             </div>
-            <a href="#" className={clsx(styles.hoverTextRed)}>Forgot your password?</a>
+            <a href="#" className={clsx(styles.hoverTextRed)}>{t("login-forgot")}</a>
             <button type={"button"} className={clsx(styles.hover, {
                 [styles.signInButton]: activeSubmit
             })}
-                    onClick={handleLogin}>Sign In
+                    onClick={handleLogin}>{t("login-login")}
             </button>
         </form>
     )
