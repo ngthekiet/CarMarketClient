@@ -26,7 +26,21 @@ const resources = {
             "register-signup": process.env.REACT_APP_REGISTER_VI_SIGNUP,
             "register-welcome": process.env.REACT_APP_REGISTER_VI_WELCOMEBACK,
             "register-instruct": process.env.REACT_APP_REGISTER_VI_INSTRUCT,
-            "register-sign in": process.env.REACT_APP_REGISTER_VI_SIGNIN
+            "register-sign in": process.env.REACT_APP_REGISTER_VI_SIGNIN,
+            "profile-profile": process.env.REACT_APP_PROFILE_VI_PROFILE,
+            "profile-content profile": process.env.REACT_APP_PROFILE_VI_CONTENTPROFILE,
+            "profile-photo": process.env.REACT_APP_PROFILE_VI_PHOTO,
+            "profile-change": process.env.REACT_APP_PROFILE_VI_CHANGE,
+            "profile-info": process.env.REACT_APP_PROFILE_VI_INFO,
+            "profile-content info": process.env.REACT_APP_PROFILE_VI_CONTENTINFO,
+            "profile-firstname": process.env.REACT_APP_PROFILE_VI_FIRSTNAME,
+            "profile-lastname": process.env.REACT_APP_PROFILE_VI_LASTNAME,
+            "profile-email": process.env.REACT_APP_PROFILE_VI_EMAIL,
+            "profile-address": process.env.REACT_APP_PROFILE_VI_ADDRESS,
+            "profile-phone": process.env.REACT_APP_PROFILE_VI_PHONE,
+            "profile-birthday": process.env.REACT_APP_PROFILE_VI_BIRTHDAY,
+            "profile-cancel": process.env.REACT_APP_PROFILE_VI_CANCEL,
+            "profile-save": process.env.REACT_APP_PROFILE_VI_SAVE
         }
     },
     en: {
@@ -53,7 +67,21 @@ const resources = {
             "register-signup": process.env.REACT_APP_REGISTER_EN_SIGNUP,
             "register-welcome": process.env.REACT_APP_REGISTER_EN_WELCOMEBACK,
             "register-instruct": process.env.REACT_APP_REGISTER_EN_INSTRUCT,
-            "register-sign in": process.env.REACT_APP_REGISTER_EN_SIGNIN
+            "register-sign in": process.env.REACT_APP_REGISTER_EN_SIGNIN,
+            "profile-profile": process.env.REACT_APP_PROFILE_EN_PROFILE,
+            "profile-content profile": process.env.REACT_APP_PROFILE_EN_CONTENTPROFILE,
+            "profile-photo": process.env.REACT_APP_PROFILE_EN_PHOTO,
+            "profile-change": process.env.REACT_APP_PROFILE_EN_CHANGE,
+            "profile-info": process.env.REACT_APP_PROFILE_EN_INFO,
+            "profile-content info": process.env.REACT_APP_PROFILE_EN_CONTENTINFO,
+            "profile-firstname": process.env.REACT_APP_PROFILE_EN_FIRSTNAME,
+            "profile-lastname": process.env.REACT_APP_PROFILE_EN_LASTNAME,
+            "profile-email": process.env.REACT_APP_PROFILE_EN_EMAIL,
+            "profile-address": process.env.REACT_APP_PROFILE_EN_ADDRESS,
+            "profile-phone": process.env.REACT_APP_PROFILE_EN_PHONE,
+            "profile-birthday": process.env.REACT_APP_PROFILE_EN_BIRTHDAY,
+            "profile-cancel": process.env.REACT_APP_PROFILE_EN_CANCEL,
+            "profile-save": process.env.REACT_APP_PROFILE_EN_SAVE
         }
     }
 };

@@ -14,6 +14,7 @@ function ProductItem({data}) {
                 <div className={clsx(styles.imagesCar)}>
                     <img
                         src={data.image}
+                        alt={""}
                     />
                     <div className={clsx(styles.optionCar)}>
                         <div className={clsx(styles.pay)}>
@@ -30,7 +31,7 @@ function ProductItem({data}) {
                     <div className={clsx(styles.desCar, styles.paddingItemCar)}>4 variants | with COE</div>
                     <div className={clsx(styles.brand, styles.paddingItemCar)}>
                         <img
-                            src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"}/>
+                            src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"} alt={""}/>
                         <span>Performance Motos</span>
                     </div>
                 </Link>

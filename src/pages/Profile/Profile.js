@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {Link, useParams, useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage"
 import {v4} from "uuid"
-
 import clsx from "clsx";
 
 import styles from "~/pages/Profile/Profile.module.scss"
@@ -18,6 +19,8 @@ function Profile() {
 
     if (localStorage.getItem("userID") !== id)
         navigate("/notfound")
+
+    const {t} = useTranslation()
 
     const [avatar, setAvatar] = useState("")
     const [firstname, setFirstname] = useState("")
@@ -148,18 +151,18 @@ function Profile() {
         <div className="container mx-auto w-6/12 pt-2 pb-10 ">
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
+                    <h2 className="text-base font-semibold leading-7 text-gray-900">{t("profile-profile")}</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">
-                        This information will be displayed publicly so be careful what you share.
+                        {t("profile-content profile")}
                     </p>
 
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div className="col-span-full">
                             <label htmlFor="photo" className="block text-sm font-medium leading-6 text-gray-900">
-                                Photo
+                                {t("profile-photo")}
                             </label>
                             <div className="mt-2 flex items-center gap-x-3">
-                                <img src={avatar} className="h-12 w-12 text-gray-300 rounded-full" alt={"Image"}/>
+                                <img src={avatar} className="h-12 w-12 text-gray-300 rounded-full" alt={""}/>
                                 <input onChange={(e) => {
                                     setAvatarChange(e.target.files[0])
                                 }
@@ -169,7 +172,7 @@ function Profile() {
                                     type="button"
                                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                 >
-                                    Change
+                                    {t("profile-change")}
                                 </button>
                             </div>
                         </div>
@@ -177,14 +180,13 @@ function Profile() {
                 </div>
 
                 <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-                    <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive
-                        mail.</p>
+                    <h2 className="text-base font-semibold leading-7 text-gray-900">{t("profile-info")}</h2>
+                    <p className="mt-1 text-sm leading-6 text-gray-600">{t("profile-content info")}</p>
 
                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div className="sm:col-span-3">
                             <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
-                                First name
+                                {t("profile-firstname")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -201,7 +203,7 @@ function Profile() {
 
                         <div className="sm:col-span-3">
                             <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
-                                Last name
+                                {t("profile-lastname")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -218,7 +220,7 @@ function Profile() {
 
                         <div className="sm:col-span-4">
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                Email address
+                                {t("profile-email")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -235,7 +237,7 @@ function Profile() {
                         <div className="col-span-full">
                             <label htmlFor="street-address"
                                    className="block text-sm font-medium leading-6 text-gray-900">
-                                Address
+                                {t("profile-address")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -251,7 +253,7 @@ function Profile() {
                         </div>
                         <div className="sm:col-span-3">
                             <label htmlFor="phone-number" className="block text-sm font-medium leading-6 text-gray-900">
-                                Number phone
+                                {t("profile-phone")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -267,7 +269,7 @@ function Profile() {
                         </div>
                         <div className="sm:col-span-3">
                             <label htmlFor="birthday" className="block text-sm font-medium leading-6 text-gray-900">
-                                Birthday
+                                {t("profile-birthday")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -289,14 +291,14 @@ function Profile() {
             <div className="mt-6 flex items-center justify-end gap-x-6">
                 <Link to={config.routes.home}>
                     <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-                        Cancel
+                        {t("profile-cancel")}
                     </button>
                 </Link>
                 <button onClick={handleSave}
                         type="button"
                         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                    Save
+                    {t("profile-save")}
                 </button>
             </div>
             <div className={clsx(styles.notify, styles.success, {
