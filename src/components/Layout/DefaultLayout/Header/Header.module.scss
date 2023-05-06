@@ -113,6 +113,10 @@
 .linkIcon {
   display: inline-block;
   margin: 0 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .toolIcon {

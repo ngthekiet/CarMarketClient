@@ -1,6 +1,8 @@
 import "~/App.css";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+
+import "~/i18n/i18n"
 import {publicRoutes} from "~/routes";
 import {DefaultLayout} from "~/components/Layout";
 

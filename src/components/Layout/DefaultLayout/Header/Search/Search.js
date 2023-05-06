@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next"
 
 import {FaSearch} from "react-icons/fa";
 import {RxDividerVertical} from "react-icons/rx";
@@ -11,6 +12,8 @@ import SearchService from "~/services/searchServices";
 
 
 function Search() {
+    const {t} = useTranslation()
+
     const [text, setText] = useState("")
     const [data, setData] = useState([])
 
@@ -39,7 +42,8 @@ function Search() {
     return (
         <div className={clsx(styles.search)}>
             <div className={clsx(styles.containerSearch)}>
-                <input onChange={handleText} placeholder={"Search"} className={clsx(styles.boxSearch)} type={"text"}/>
+                <input onChange={handleText} placeholder={t("navbar-search")} className={clsx(styles.boxSearch)}
+                       type={"text"}/>
                 <div className={clsx(styles.line)}><RxDividerVertical/></div>
                 <span className={clsx(styles.searchIcon)}><FaSearch/></span>
             </div>
