@@ -12,20 +12,10 @@ const getUser = async (id) => {
     }
 }
 
-const updateProfile = async (
-    id,
-    address,
-    avatar,
-    birthyear,
-    email,
-    firstname,
-    lastname,
-    phone
-) => {
+const updateProfile = async (id, address, birthyear, email, firstname, lastname, phone) => {
     try {
         const response = await request.put(`/pri/user/${id}`, {
             address,
-            avatar,
             birthyear,
             email,
             firstname,
@@ -40,9 +30,23 @@ const updateProfile = async (
     }
 }
 
+const changeAvatar = async (avatar, id) => {
+    try {
+        const response = await request.put(`/pri/avatar/${id}`, {
+            avatar
+        }, {
+            headers: token()
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const UserService = {
     getUser,
-    updateProfile
+    updateProfile,
+    changeAvatar
 }
 
 export default UserService
