@@ -6,8 +6,10 @@ import {FaPaypal, FaShoppingBag} from "react-icons/fa";
 import clsx from "clsx";
 
 import styles from "~/pages/Content/ProductItem/ProductItem.module.scss";
+import {NumericFormat} from "react-number-format";
 
 function ProductItem({data}) {
+    console.log(data)
     return (
         <React.Fragment>
             <div className={clsx(styles.carBoxItem)}>
@@ -27,11 +29,17 @@ function ProductItem({data}) {
                 </div>
                 <Link to={`/detail/${data.id}`}>
                     <div className={clsx(styles.nameCar, styles.paddingItemCar)}>{data.name}</div>
-                    <div className={clsx(styles.priceCar, styles.paddingItemCar)}>From <span>${data.price}</span></div>
-                    <div className={clsx(styles.desCar, styles.paddingItemCar)}>4 variants | with COE</div>
+                    <div className={clsx(styles.priceCar, styles.paddingItemCar)}>From <span><NumericFormat
+                        value={data.price}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"$"}/></span></div>
+                    <div className={clsx(styles.desCar, styles.paddingItemCar)}>Power: {data.power} |
+                        Fuel: {data.fuel}</div>
                     <div className={clsx(styles.brand, styles.paddingItemCar)}>
                         <img
-                            src={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/2048px-BMW.svg.png"} alt={""}/>
+                            src={data.brand.logo}
+                            alt={""}/>
                         <span>Performance Motos</span>
                     </div>
                 </Link>
