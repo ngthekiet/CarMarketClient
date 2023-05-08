@@ -1,15 +1,27 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {NumericFormat} from "react-number-format";
 
 import {FaPaypal, FaShoppingBag} from "react-icons/fa";
 
 import clsx from "clsx";
-
 import styles from "~/pages/Content/ProductItem/ProductItem.module.scss";
-import {NumericFormat} from "react-number-format";
+import userID from "~/local/userID";
+import CartService from "~/services/cartServices";
+import config from "~/config";
 
 function ProductItem({data}) {
-    console.log(data)
+    const id = userID()
+    const navigate = useNavigate()
+
+    const addToCart = async (product) => {
+        if (id === "") {
+            navigate(config.routes.account)
+            return
+        }
+        await CartService.addToCart(id, product, 1)
+    }
     return (
         <React.Fragment>
             <div className={clsx(styles.carBoxItem)}>
@@ -22,7 +34,10 @@ function ProductItem({data}) {
                         <div className={clsx(styles.pay)}>
                             <FaPaypal/>
                         </div>
-                        <div className={clsx(styles.bag)}>
+                        <div onClick={() => {
+                            addToCart(data.id)
+                        }
+                        } className={clsx(styles.bag)}>
                             <FaShoppingBag/>
                         </div>
                     </div>
@@ -38,7 +53,7 @@ function ProductItem({data}) {
                         Fuel: {data.fuel}</div>
                     <div className={clsx(styles.brand, styles.paddingItemCar)}>
                         <img
-                            src={data.brand.logo}
+                            src={data.brand?.logo || ""}
                             alt={""}/>
                         <span>Performance Motos</span>
                     </div>

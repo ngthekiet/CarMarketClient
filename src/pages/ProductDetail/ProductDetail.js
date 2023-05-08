@@ -1,12 +1,17 @@
 import {useState, useEffect} from 'react'
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 
 import ProductService from "~/services/productServices";
 import {NumericFormat} from "react-number-format";
+import userID from "~/local/userID";
+import config from "~/config";
+import CartService from "~/services/cartServices";
 
 function ProductDetail() {
     const [data, setData] = useState({})
-    const {id} = useParams();
+    const {id} = useParams()
+    const userId = userID()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -15,6 +20,14 @@ function ProductDetail() {
         }
         fetchData()
     }, [id])
+
+    const addToCart = async (product) => {
+        if (userId === "") {
+            navigate(config.routes.account)
+            return
+        }
+        await CartService.addToCart(userId, product, 1)
+    }
 
     return (
         <div className="bg-white">
@@ -56,16 +69,20 @@ function ProductDetail() {
                                 Pay now
                             </button>
                             <button
+                                onClick={() => {
+                                    addToCart(data.id)
+                                }
+                                }
                                 type="button"
                                 className="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                 Add to bag
                             </button>
                         </div>
                         <div className="w-full h-0.5 bg-gray-300 mt-5"></div>
-                        <table className="w-full mt-1">
-                            <thead className="font-bold">
+                        <div className="font-bold">
                             Key Info
-                            </thead>
+                        </div>
+                        <table className="w-full mt-1">
                             <tbody>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">

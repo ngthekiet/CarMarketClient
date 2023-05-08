@@ -12,6 +12,7 @@ import Search from "~/components/Layout/DefaultLayout/Header/Search";
 import AuthService from "~/services/authServices";
 import config from "~/config";
 import {Avatar, Logo, Usa, Vn} from "~/assert/images"
+import Cart from "~/components/Layout/DefaultLayout/Header/Cart";
 
 
 function Header() {
@@ -19,6 +20,7 @@ function Header() {
     const {i18n} = useTranslation()
 
     const [activeOptionUser, setActiveOptionUser] = useState(false);
+    const [activeOptionBag, setActiveOptionBag] = useState(false);
     const [avatar, setAvatar] = useState("")
     const [id, setID] = useState("")
 
@@ -45,6 +47,18 @@ function Header() {
             return
         }
         setActiveOptionUser(true)
+    }
+
+    const handleClickBag = () => {
+        if (activeOptionBag) {
+            setActiveOptionBag(false)
+            return
+        }
+        setActiveOptionBag(true)
+    }
+
+    const handleHideBag = () => {
+        setActiveOptionBag(false)
     }
 
     const handleMouseLeave = () => {
@@ -111,7 +125,11 @@ function Header() {
                                     </li>
                                 </ul>
                             </div>
-                            <a className={clsx(styles.linkIcon, styles.toolIcon)}><FaShoppingBag/></a>
+                            <div>
+                                <div onClick={handleClickBag}
+                                   className={clsx(styles.linkIcon, styles.toolIcon)}><div><FaShoppingBag/></div></div>
+                                {activeOptionBag && <Cart handleHideBag={handleHideBag}/>}
+                            </div>
                         </div>
                         <div className={clsx(styles.language)}>
                             <a onClick={() => {

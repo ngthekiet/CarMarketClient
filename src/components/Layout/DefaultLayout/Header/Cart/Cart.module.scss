@@ -1,0 +1,13 @@
+
+.container{
+  position: absolute;
+  background-color: gray;
+  transform: translateX(-50%);
+  margin-top: 15px;
+  z-index: 999;
+
+  img{
+    width: 25%;
+    height: 25%;
+  }
+}

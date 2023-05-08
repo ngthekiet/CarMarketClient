@@ -1,0 +1,1 @@
+export {default} from "~/components/Layout/DefaultLayout/Header/Cart/CartItem/CartItem"
