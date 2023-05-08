@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 import {FaFacebook, FaGoogle} from "react-icons/fa";
@@ -12,7 +11,6 @@ import AuthService from "~/services/authServices";
 
 function Login() {
     const {t} = useTranslation()
-    const navigate = useNavigate()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -66,11 +64,9 @@ function Login() {
         if (!activeSubmit) {
             const response = await AuthService.login(username, password)
             if (response?.data) {
-                console.log(response.data.token)
-                navigate("/")
+                window.history.back()
             }
             if (response === 403) {
-                console.log('khong co quyen truy cap')
                 setPassword("")
             }
         }
