@@ -10,3 +10,65 @@
   justify-content: center;
   align-items: center;
 }
+
+.notify {
+  display: none;
+  position: fixed;
+  top: 100px;
+  left: 44%;
+  text-align: center;
+  padding: 20px 0;
+  background: #d2d2d2;
+  width: 12%;
+
+  h1 {
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-weight: 450;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #404F5E;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-size: 10px;
+    margin: 0;
+  }
+
+  i {
+    font-size: 50px;
+    line-height: 100px;
+  }
+
+  .icon {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background: #F8FAF5;
+    margin: 0 auto;
+  }
+}
+
+.success {
+  h1 {
+    color: #88B04B;
+  }
+
+  i {
+    color: #4cff00;
+  }
+}
+
+.fail {
+  h1 {
+    color: #f54545;
+  }
+
+  i {
+    color: #ff0000;
+  }
+}
+
+.active {
+  display: block;
+}

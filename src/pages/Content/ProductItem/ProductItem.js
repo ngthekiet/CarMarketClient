@@ -11,7 +11,7 @@ import userID from "~/local/userID";
 import CartService from "~/services/cartServices";
 import config from "~/config";
 
-function ProductItem({data}) {
+function ProductItem({data, handleActive}) {
     const id = userID()
     const navigate = useNavigate()
 
@@ -20,7 +20,19 @@ function ProductItem({data}) {
             navigate(config.routes.account)
             return
         }
-        await CartService.addToCart(id, product, 1)
+        try {
+            await CartService.addToCart(id, product, 1)
+            handleActive(true, false)
+            setTimeout(() => {
+                handleActive(false, false)
+            }, 1000)
+        } catch (error) {
+            handleActive(false, true)
+            setTimeout(() => {
+                handleActive(false, false)
+            }, 1000)
+            console.log(error)
+        }
     }
     return (
         <React.Fragment>

@@ -39,18 +39,25 @@
     flex-wrap: wrap;
     width: 100%;
     position: absolute;
-    background-color: #606060;
+    background-color: #bbbbbb;
     border-radius: 5px;
     z-index: 999;
     transform: translateY(15px);
+    min-height: 70px;
+    max-height: 500px;
+    overflow-y: auto;
   }
 
   .searchItem {
-    //background-color: #fcfbf7;
-    margin: 5px 0;
+    margin: 5px;
+    border-bottom: solid 2px white;
     border-radius: 5px;
 
-    div {
+    &:hover {
+      background-color: #eeeeee;
+    }
+
+    .itemImage {
       width: 30%;
 
       img {
@@ -59,8 +66,22 @@
       }
     }
 
-    span {
-      width: 80%;
+    .itemContent {
+      width: 70%;
+      display: block;
+
+      div {
+        display: block;
+      }
+
+      .itemName {
+        font-weight: bold;
+      }
+
+      .itemPrice {
+        font-weight: bold;
+        color: #0f5edd;
+      }
     }
   }
 
