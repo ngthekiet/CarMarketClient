@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useParams, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
@@ -301,15 +301,23 @@ function Profile() {
                     {t("profile-save")}
                 </button>
             </div>
-            <div className={clsx(styles.notify, styles.success, {
+            <div className={clsx(styles.success, styles.notify, {
                 [styles.active]: success
             })}>
-                Success
+                <div className={clsx(styles.icon)}>
+                    <i className="checkmark">✓</i>
+                </div>
+                <h1>Success</h1>
+                <p>User information update successful!</p>
             </div>
-            <div className={clsx(styles.notify, styles.fail, {
+            <div className={clsx(styles.fail, styles.notify, {
                 [styles.active]: fail
             })}>
-                Fail
+                <div className={clsx(styles.icon)}>
+                    <i className="checkmark">x</i>
+                </div>
+                <h1>Fail</h1>
+                <p>User information update failed!</p>
             </div>
         </div>
     )

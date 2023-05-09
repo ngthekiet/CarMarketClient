@@ -6,12 +6,14 @@ import styles from "~/components/Layout/DefaultLayout/Header/Cart/Cart.module.sc
 import CartService from "~/services/cartServices";
 import userID from "~/local/userID";
 import CartItem from "~/components/Layout/DefaultLayout/Header/Cart/CartItem";
-import {AiFillCloseCircle} from "react-icons/ai";
 
 function Cart({handleHideBag}) {
     const [data, setData] = useState([])
+    const [haveData, setHaveData] = useState(false)
     const uid = userID()
     useEffect(() => {
+        if (uid === "")
+            return
         const fetchData = async () => {
             const response = await CartService.getCart(uid)
             if (response?.data)
@@ -19,15 +21,40 @@ function Cart({handleHideBag}) {
         }
         fetchData()
     }, [])
+
+    useEffect(() => {
+        if (data.length === 0) {
+            setHaveData(false)
+            return
+        }
+        setHaveData(true)
+    }, [data])
     return (
         <div className={clsx(styles.container)}>
-            {data.map((result) => (
-                <CartItem key={result.cartID} data={result}/>
-            ))}
-            <div><AiFillCloseCircle onClick={() => {
-                handleHideBag()
+            <div className={clsx(styles.cart)}>
+                GIỎ HÀNG
+            </div>
+            {
+                haveData
+                &&
+                <div>
+                    {data.map((result) => (
+                        <CartItem key={result.cartID} data={result}/>
+                    ))}
+                </div>
+                ||
+                <div>Không có sản phẩm</div>
             }
-            }/></div>
+            <div className={clsx(styles.cartOption)}>
+                <div onClick={() => {
+                    handleHideBag()
+                }}>
+                    Đóng
+                </div>
+                <div>
+                    Thanh toán
+                </div>
+            </div>
         </div>
     )
 }

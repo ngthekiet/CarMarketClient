@@ -16,6 +16,7 @@ function Search() {
 
     const [text, setText] = useState("")
     const [data, setData] = useState([])
+    const [look, setLook] = useState(false)
 
     useEffect(() => {
         let timeout
@@ -39,6 +40,14 @@ function Search() {
         setText(e.target.value)
     }
 
+    useEffect(() => {
+        if (data.length !== 0) {
+            setLook(true)
+            return
+        }
+        setLook(false)
+    }, [data])
+
     return (
         <div className={clsx(styles.search)}>
             <div className={clsx(styles.containerSearch)}>
@@ -47,11 +56,11 @@ function Search() {
                 <div className={clsx(styles.line)}><RxDividerVertical/></div>
                 <span className={clsx(styles.searchIcon)}><FaSearch/></span>
             </div>
-            <div className={clsx(styles.listSearch)}>
+            {look && <div className={clsx(styles.listSearch)}>
                 {data.map((result) => (
                     <SearchItem key={result.id} data={result}/>
                 ))}
-            </div>
+            </div> || <div className={clsx(styles.listSearch)}>{t("search-look")}</div>}
         </div>
     )
 }

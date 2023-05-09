@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useParams, useNavigate} from "react-router-dom";
 
 import ProductService from "~/services/productServices";
@@ -6,12 +6,16 @@ import {NumericFormat} from "react-number-format";
 import userID from "~/local/userID";
 import config from "~/config";
 import CartService from "~/services/cartServices";
+import clsx from "clsx";
+import styles from "~/pages/Content/Content.module.scss";
 
 function ProductDetail() {
     const [data, setData] = useState({})
     const {id} = useParams()
     const userId = userID()
     const navigate = useNavigate()
+    const [success, setSuccess] = useState(false)
+    const [fail, setFail] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +30,19 @@ function ProductDetail() {
             navigate(config.routes.account)
             return
         }
-        await CartService.addToCart(userId, product, 1)
+        try {
+            await CartService.addToCart(userId, product, 1)
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+            }, 1000)
+        } catch (error) {
+            setFail(true)
+            setTimeout(() => {
+                setFail(false)
+            }, 1000)
+            console.log(error)
+        }
     }
 
     return (
@@ -160,6 +176,24 @@ function ProductDetail() {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={clsx(styles.success, styles.notify, {
+                [styles.active]: success
+            })}>
+                <div className={clsx(styles.icon)}>
+                    <i className="checkmark">✓</i>
+                </div>
+                <h1>Success</h1>
+                <p>Successfully added to cart!</p>
+            </div>
+            <div className={clsx(styles.fail, styles.notify, {
+                [styles.active]: fail
+            })}>
+                <div className={clsx(styles.icon)}>
+                    <i className="checkmark">x</i>
+                </div>
+                <h1>Fail</h1>
+                <p>Add to cart failed!</p>
             </div>
         </div>
     )
