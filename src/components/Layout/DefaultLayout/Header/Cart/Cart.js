@@ -6,6 +6,7 @@ import styles from "~/components/Layout/DefaultLayout/Header/Cart/Cart.module.sc
 import CartService from "~/services/cartServices";
 import userID from "~/local/userID";
 import CartItem from "~/components/Layout/DefaultLayout/Header/Cart/CartItem";
+import {Link} from "react-router-dom";
 
 function Cart({handleHideBag}) {
     const [data, setData] = useState([])
@@ -51,9 +52,13 @@ function Cart({handleHideBag}) {
                 }}>
                     Đóng
                 </div>
-                <div>
-                    Thanh toán
-                </div>
+                <Link onClick={() => {
+                    handleHideBag()
+                }} to={`/cart/${uid}`}>
+                    <div>
+                        Đặt hàng
+                    </div>
+                </Link>
             </div>
         </div>
     )
