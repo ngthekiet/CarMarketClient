@@ -24,10 +24,20 @@ const removeFromCart = async (id) => {
     }
 }
 
+const updateCart = async (cartID, quantity) => {
+    try {
+        const response = await request.put("/pri/updateCart", {cartID, quantity}, {headers: token()})
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const CartService = {
     addToCart,
     getCart,
-    removeFromCart
+    removeFromCart,
+    updateCart
 }
 
 export default CartService
