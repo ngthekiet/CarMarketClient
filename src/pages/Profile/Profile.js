@@ -4,14 +4,13 @@ import {useTranslation} from "react-i18next";
 
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage"
 import {v4} from "uuid"
-import clsx from "clsx";
 
-import styles from "~/pages/Profile/Profile.module.scss"
 import UserService from "~/services/userServices";
 import config from "~/config";
 import token from "~/local/token";
 import {Avatar} from "~/assert/images";
 import {storage} from "~/firebase"
+import Notify from "~/components/Notify";
 
 function Profile() {
     const {id} = useParams()
@@ -31,11 +30,12 @@ function Profile() {
     const [birthday, setBirthday] = useState(0)
     const [birthyear, setBirthyear] = useState(0)
     const [success, setSuccess] = useState(false)
-    const [fail, setFail] = useState(false)
     const [avatarChange, setAvatarChange] = useState("")
 
     useEffect(() => {
+        setSuccess(false)
         const fetchData = async () => {
+            console.log("fetch")
             const response = (await UserService.getUser(id))
             if (response?.data) {
                 if (response.data.avatar === null)
@@ -105,46 +105,33 @@ function Profile() {
 
     const handleSave = async () => {
         if (token() === "") {
-            setFail(true)
-            setTimeout(() => {
-                setFail(false)
-            }, 1000)
+            Notify.notifyError("Cập nhật không thành công")
             return
         }
 
         try {
             await UserService.updateProfile(id, address, birthyear, email, firstname, lastname, phone)
+            Notify.notifySuccess("Cập nhật thành công")
             setSuccess(true)
-            setTimeout(() => {
-                setSuccess(false)
-            }, 1000)
         } catch (error) {
-            setFail(true)
-            setTimeout(() => {
-                setFail(false)
-            }, 1000)
+            Notify.notifyError("Cập nhật không thành công")
         }
     }
 
     const changeAvatar = async () => {
         if (avatarChange === "") {
-            setFail(true)
-            setTimeout(() => {
-                setFail(false)
-            }, 1000)
+            Notify.notifyError("Cập nhật không thành công")
             return
         }
         const imageRef = ref(storage, `images/avatar/${avatarChange.name + v4()}`)
-        const imageRespone = await uploadBytes(imageRef, avatarChange)
-        const response = await getDownloadURL(imageRespone.ref)
+        const imageResponse = await uploadBytes(imageRef, avatarChange)
+        const response = await getDownloadURL(imageResponse.ref)
         await UserService.changeAvatar(response, id)
         setAvatar(response)
         localStorage.setItem("avatar", response)
         setAvatarChange("")
+        Notify.notifySuccess("Cập nhật thành công")
         setSuccess(true)
-        setTimeout(() => {
-            setSuccess(false)
-        }, 1000)
     }
 
     return (
@@ -300,24 +287,6 @@ function Profile() {
                 >
                     {t("profile-save")}
                 </button>
-            </div>
-            <div className={clsx(styles.success, styles.notify, {
-                [styles.active]: success
-            })}>
-                <div className={clsx(styles.icon)}>
-                    <i className="checkmark">✓</i>
-                </div>
-                <h1>Success</h1>
-                <p>User information update successful!</p>
-            </div>
-            <div className={clsx(styles.fail, styles.notify, {
-                [styles.active]: fail
-            })}>
-                <div className={clsx(styles.icon)}>
-                    <i className="checkmark">x</i>
-                </div>
-                <h1>Fail</h1>
-                <p>User information update failed!</p>
             </div>
         </div>
     )
