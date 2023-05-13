@@ -15,9 +15,19 @@ const getCart = async (uid) => {
     }
 }
 
+const removeFromCart = async (id) => {
+    try {
+        const response = await request.delete(`/pri/removeFromCart/${id}`, {headers: token()})
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const CartService = {
     addToCart,
-    getCart
+    getCart,
+    removeFromCart
 }
 
 export default CartService

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useNavigate} from "react-router-dom";
+import {useParams, useNavigate, Link} from "react-router-dom";
 
 import ProductService from "~/services/productServices";
 import {NumericFormat} from "react-number-format";
@@ -22,16 +22,18 @@ function ProductDetail() {
         fetchData()
     }, [id])
 
-    const addToCart = async (product) => {
+    const addToCart = async (product, notify) => {
         if (userId === "") {
             navigate(config.routes.account)
             return
         }
         try {
             await CartService.addToCart(userId, product, 1)
-            Notify.notifySuccess("Đã thêm vào giỏ")
+            if (notify)
+                Notify.notifySuccess("Đã thêm vào giỏ")
         } catch (error) {
-            Notify.notifyError("Chưa thêm vào giỏ")
+            if (notify)
+                Notify.notifyError("Chưa thêm vào giỏ")
         }
     }
 
@@ -69,16 +71,19 @@ function ProductDetail() {
                                 <span className="text-2xl ml-8 text-zinc-500">|</span>
                                 <span className="text-2xl ml-8 text-zinc-500">{data.brand?.name || ""}</span>
                             </div>
-                            <button
-                                type="button"
-                                className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                Pay now
-                            </button>
+                            <Link onClick={() => {
+                                addToCart(data.id, false)
+                            }} to={`/cart/${userId}`}>
+                                <button
+                                    type="button"
+                                    className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    Pay now
+                                </button>
+                            </Link>
                             <button
                                 onClick={() => {
-                                    addToCart(data.id)
-                                }
-                                }
+                                    addToCart(data.id, true)
+                                }}
                                 type="button"
                                 className="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                                 Add to bag

@@ -12,19 +12,21 @@ import config from "~/config";
 import Notify from "~/components/Notify";
 
 function ProductItem({data}) {
-    const id = userID()
+    const uid = userID()
     const navigate = useNavigate()
 
-    const addToCart = async (product) => {
-        if (id === "") {
+    const addToCart = async (product, notify) => {
+        if (uid === "") {
             navigate(config.routes.account)
             return
         }
         try {
-            await CartService.addToCart(id, product, 1)
-            Notify.notifySuccess("Đã thêm vào giỏ")
+            await CartService.addToCart(uid, product, 1)
+            if (notify)
+                Notify.notifySuccess("Đã thêm vào giỏ")
         } catch (error) {
-            Notify.notifyError("Chưa thêm vào giỏ")
+            if (notify)
+                Notify.notifyError("Chưa thêm vào giỏ")
             console.log(error)
         }
     }
@@ -38,12 +40,15 @@ function ProductItem({data}) {
                     />
                     <div className={clsx(styles.optionCar)}>
                         <div className={clsx(styles.pay)}>
-                            <FaPaypal/>
+                            <Link onClick={() => {
+                                addToCart(data.id, false)
+                            }} to={`/cart/${uid}`}>
+                                <FaPaypal/>
+                            </Link>
                         </div>
                         <div onClick={() => {
-                            addToCart(data.id)
-                        }
-                        } className={clsx(styles.bag)}>
+                            addToCart(data.id, true)
+                        }} className={clsx(styles.bag)}>
                             <FaShoppingBag/>
                         </div>
                     </div>
