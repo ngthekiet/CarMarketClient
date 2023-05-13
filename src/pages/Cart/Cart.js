@@ -14,17 +14,19 @@ function Cart() {
     const [data, setData] = useState([])
     const [change, setChange] = useState(false)
     const [haveData, setHaveData] = useState(false)
+    const [total, setTotal] = useState(0)
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
-            console.log("fetch")
             const response = await CartService.getCart(id)
             if (response?.data) {
                 setData(response?.data.products)
+                setTotal(response.data.total)
                 setHaveData(true)
                 return
             }
             setHaveData(false)
+            setTotal(0)
         }
         fetchData()
     }, [change])
@@ -36,6 +38,15 @@ function Cart() {
             Notify.notifySuccess("Xóa thành công")
         } catch (error) {
             Notify.notifyError("Xóa thất bại")
+            console.log(error)
+        }
+    }
+
+    const handleUpdateCart = async (cartID, quantity) => {
+        try {
+            await CartService.updateCart(cartID, quantity)
+            setChange(true)
+        } catch (error) {
             console.log(error)
         }
     }
@@ -56,7 +67,21 @@ function Cart() {
         },
         {
             name: 'Quantity',
-            selector: row => row.quantity,
+            selector: row => <div>
+                <button
+                    className="w-8 h-8 inline-flex items-center justify-center rounded-md bg-blue-50 text-xl font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                    onClick={() => {
+                        handleUpdateCart(row.cartID, -1)
+                    }}>-
+                </button>
+                <span className="mx-2"><span className="font-bold">{row.quantity}</span> in cart</span>
+                <button
+                    className="w-8 h-8 inline-flex items-center justify-center rounded-md bg-blue-50 text-xl font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                    onClick={() => {
+                        handleUpdateCart(row.cartID, 1)
+                    }}>+
+                </button>
+            </div>,
             sortable: true,
             style: {
                 fontSize: '120%'
@@ -101,8 +126,6 @@ function Cart() {
         },
     ]
 
-    console.log(data)
-
     return (
         <div>
             {
@@ -118,6 +141,7 @@ function Cart() {
                 ||
                 <DataTable/>
             }
+            <div>Total: {total}</div>
         </div>
     )
 }

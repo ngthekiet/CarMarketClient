@@ -7,18 +7,24 @@ import CartService from "~/services/cartServices";
 import userID from "~/local/userID";
 import CartItem from "~/components/Layout/DefaultLayout/Header/Cart/CartItem";
 import {Link} from "react-router-dom";
+import {NumericFormat} from "react-number-format";
 
 function Cart({handleHideBag}) {
     const [data, setData] = useState([])
     const [haveData, setHaveData] = useState(false)
+    const [total, setTotal] = useState(0)
     const uid = userID()
     useEffect(() => {
         if (uid === "")
             return
         const fetchData = async () => {
             const response = await CartService.getCart(uid)
-            if (response?.data)
+            if (response?.data) {
+                setTotal(response.data.total)
                 setData(response.data.products)
+                return
+            }
+            setTotal(0)
         }
         fetchData()
     }, [])
@@ -46,6 +52,11 @@ function Cart({handleHideBag}) {
                 ||
                 <div>Không có sản phẩm</div>
             }
+            <div className="text-right mr-10"><span className="font-bold">Total:</span> <NumericFormat className="font-bold text-blue-700"
+                value={total}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"$"}/></div>
             <div className={clsx(styles.cartOption)}>
                 <div onClick={() => {
                     handleHideBag()

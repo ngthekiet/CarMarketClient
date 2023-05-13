@@ -35,7 +35,6 @@ function Profile() {
     useEffect(() => {
         setSuccess(false)
         const fetchData = async () => {
-            console.log("fetch")
             const response = (await UserService.getUser(id))
             if (response?.data) {
                 if (response.data.avatar === null)
