@@ -2,7 +2,6 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {NumericFormat} from "react-number-format";
-
 import {FaPaypal, FaShoppingBag} from "react-icons/fa";
 
 import clsx from "clsx";
@@ -10,8 +9,9 @@ import styles from "~/pages/Content/ProductItem/ProductItem.module.scss";
 import userID from "~/local/userID";
 import CartService from "~/services/cartServices";
 import config from "~/config";
+import Notify from "~/components/Notify";
 
-function ProductItem({data, handleActive}) {
+function ProductItem({data}) {
     const id = userID()
     const navigate = useNavigate()
 
@@ -22,15 +22,9 @@ function ProductItem({data, handleActive}) {
         }
         try {
             await CartService.addToCart(id, product, 1)
-            handleActive(true, false)
-            setTimeout(() => {
-                handleActive(false, false)
-            }, 1000)
+            Notify.notifySuccess("Đã thêm vào giỏ")
         } catch (error) {
-            handleActive(false, true)
-            setTimeout(() => {
-                handleActive(false, false)
-            }, 1000)
+            Notify.notifyError("Chưa thêm vào giỏ")
             console.log(error)
         }
     }

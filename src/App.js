@@ -1,10 +1,13 @@
 import "~/App.css";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 
 import "~/i18n/i18n"
 import {publicRoutes} from "~/routes";
 import {DefaultLayout} from "~/components/Layout";
+import {ToastContainer} from "react-toastify";
+import React from "react";
 
 function App() {
     return (
@@ -18,6 +21,19 @@ function App() {
                     })}
                 </Routes>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={1000}
+                limit={5}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Router>
     )
 }
