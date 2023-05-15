@@ -6,6 +6,7 @@ import Notfound from "~/pages/Notfound";
 import ProductDetail from "~/pages/ProductDetail";
 import Profile from "~/pages/Profile";
 import Cart from "~/pages/Cart";
+import Dashboard from "~/pages/Dashboard";
 
 
 const publicRoutes = [
@@ -14,7 +15,8 @@ const publicRoutes = [
     {path: config.routes.notfound, component: Notfound},
     {path: config.routes.detail, component: ProductDetail},
     {path: config.routes.profile, component: Profile},
-    {path: config.routes.cart, component: Cart}
+    {path: config.routes.cart, component: Cart},
+    {path: config.routes.dashboard, component: Dashboard, layout: "dashboard"}
 ]
 
 const privateRoutes = []

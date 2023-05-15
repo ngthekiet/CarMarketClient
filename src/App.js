@@ -8,6 +8,7 @@ import {publicRoutes} from "~/routes";
 import {DefaultLayout} from "~/components/Layout";
 import {ToastContainer} from "react-toastify";
 import React from "react";
+import DashboardLayout from "~/components/Layout/DashboardLayout";
 
 function App() {
     return (
@@ -15,7 +16,11 @@ function App() {
             <div className="App">
                 <Routes>
                     {publicRoutes.map((route, index) => {
-                        const Layout = route.layout || DefaultLayout
+                        let Layout
+                        if (route.layout === "dashboard")
+                            Layout = DashboardLayout
+                        else
+                            Layout = DefaultLayout
                         const Page = route.component
                         return <Route key={index} path={route.path} element={<Layout><Page/></Layout>}/>
                     })}
