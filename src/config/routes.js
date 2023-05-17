@@ -5,6 +5,9 @@ const routes = {
     detail: "/detail/:id",
     profile: "/profile/:id",
     cart: "/cart/:id",
-    dashboard: "/dashboard"
+    dashboard: "/dashboard",
+    confirm: "/confirm",
+    cartNull: "/cart/",
+    profileNull: "/profile/"
 };
 export default routes;

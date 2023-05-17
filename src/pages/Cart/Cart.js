@@ -1,13 +1,17 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import DataTable from 'react-data-table-component';
+import {NumericFormat} from "react-number-format";
+import {useNavigate} from "react-router-dom";
+import {FaTrash} from "react-icons/fa";
+import Button from "@mui/material/Button";
 
 import CartService from "~/services/cartServices";
-import {NumericFormat} from "react-number-format";
-import {FaTrash} from "react-icons/fa";
 import clsx from "clsx";
 import styles from "~/pages/Cart/Cart.module.scss"
 import Notify from "~/components/Notify";
+import OrderService from "~/services/orderServices";
+import userID from "~/local/userID";
 
 function Cart() {
     const {id} = useParams()
@@ -15,6 +19,20 @@ function Cart() {
     const [change, setChange] = useState(false)
     const [haveData, setHaveData] = useState(false)
     const [total, setTotal] = useState(0)
+    const navigate = useNavigate()
+    console.log(id)
+    console.log(userID())
+
+    useEffect(() => {
+        console.log(userID())
+        if (userID() === "") {
+            navigate("/account")
+            return
+        }
+        if (userID() !== id)
+            navigate("/notfound")
+    }, [])
+
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
@@ -47,6 +65,23 @@ function Cart() {
             await CartService.updateCart(cartID, quantity)
             setChange(true)
         } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleOrder = async () => {
+        try {
+            if (!haveData) {
+                Notify.notifyError("Không có sản phẩm")
+                return
+            }
+            const response = await OrderService.order(id)
+            setChange(true)
+            Notify.notifySuccess("Đặt hàng thành công")
+            navigate("/confirm")
+            console.log(response)
+        } catch (error) {
+            Notify.notifyError("Đặt hàng thất bại")
             console.log(error)
         }
     }
@@ -127,7 +162,8 @@ function Cart() {
     ]
 
     return (
-        <div>
+        <div className={clsx(styles.container)}>
+            <div className={clsx(styles.title)}>Giỏ hàng</div>
             {
                 haveData
                 &&
@@ -141,7 +177,15 @@ function Cart() {
                 ||
                 <DataTable/>
             }
-            <div>Total: {total}</div>
+            <div className={clsx(styles.checkout)}>
+                <div>Total: <NumericFormat value={total}
+                                           displayType={"text"}
+                                           thousandSeparator={true}
+                                           decimalScale={2}
+                                           fixedDecimalScale={true}
+                                           prefix={"$"}/></div>
+                <Button onClick={handleOrder} variant="contained">Đặt hàng</Button>
+            </div>
         </div>
     )
 }

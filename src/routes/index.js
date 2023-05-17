@@ -7,6 +7,7 @@ import ProductDetail from "~/pages/ProductDetail";
 import Profile from "~/pages/Profile";
 import Cart from "~/pages/Cart";
 import Dashboard from "~/pages/Dashboard";
+import Confirm from "~/pages/Confirm";
 
 
 const publicRoutes = [
@@ -16,6 +17,9 @@ const publicRoutes = [
     {path: config.routes.detail, component: ProductDetail},
     {path: config.routes.profile, component: Profile},
     {path: config.routes.cart, component: Cart},
+    {path: config.routes.confirm, component: Confirm},
+    {path: config.routes.cartNull, component: Account},
+    {path: config.routes.profileNull, component: Account},
     {path: config.routes.dashboard, component: Dashboard, layout: "dashboard"}
 ]
 
