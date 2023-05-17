@@ -1,8 +1,41 @@
+.container {
+  width: 90%;
+  margin: 10px auto 40px auto;
 
-.trash {
-  color: #fa2e2e;
-  &:hover {
-    cursor: pointer;
-    color: #b22828;
+  .title{
+    font-weight: bold;
+    font-size: 200%;
+    text-align: center;
+  }
+
+  .trash {
+    color: #fa2e2e;
+
+    &:hover {
+      cursor: pointer;
+      color: #b22828;
+    }
+  }
+
+  .checkout {
+    width: 25%;
+    margin-top: 10px;
+    margin-left: 75%;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 9px 2px rgba(88, 130, 226, 0.8);
+    -webkit-box-shadow: 0 0 9px 2px rgba(88, 130, 226, 0.8);
+    -moz-box-shadow: 0 0 9px 2px rgba(88, 130, 226, 0.8);
+
+    div {
+      color: #0f5edd;
+      font-weight: bold;
+      font-size: 130%;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto 0 auto;
+    }
   }
 }
