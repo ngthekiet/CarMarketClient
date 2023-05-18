@@ -41,7 +41,20 @@ const resources = {
             "profile-phone": process.env.REACT_APP_PROFILE_VI_PHONE,
             "profile-birthday": process.env.REACT_APP_PROFILE_VI_BIRTHDAY,
             "profile-cancel": process.env.REACT_APP_PROFILE_VI_CANCEL,
-            "profile-save": process.env.REACT_APP_PROFILE_VI_SAVE
+            "profile-save": process.env.REACT_APP_PROFILE_VI_SAVE,
+            "content-from": process.env.REACT_APP_CONTENT_VI_FROM,
+            "content-power": process.env.REACT_APP_CONTENT_VI_POWER,
+            "content-fuel": process.env.REACT_APP_CONTENT_VI_FUEL,
+            "p-detail-cart": process.env.REACT_APP_CART_VI_CART,
+            "p-detail-image": process.env.REACT_APP_CART_VI_IMAGE,
+            "p-detail-name": process.env.REACT_APP_CART_VI_NAME,
+            "p-detail-quantity": process.env.REACT_APP_CART_VI_QUANTITY,
+            "p-detail-price": process.env.REACT_APP_CART_VI_PRICE,
+            "p-detail-temporary": process.env.REACT_APP_CART_VI_TEMPORARY,
+            "p-detail-action": process.env.REACT_APP_CART_VI_ACTION,
+            "p-detail-inCart": process.env.REACT_APP_CART_VI_INCART,
+            "p-detail-total": process.env.REACT_APP_CART_VI_TOTAL,
+            "p-detail-order": process.env.REACT_APP_CART_VI_ORDER
         }
     },
     en: {
@@ -83,7 +96,20 @@ const resources = {
             "profile-phone": process.env.REACT_APP_PROFILE_EN_PHONE,
             "profile-birthday": process.env.REACT_APP_PROFILE_EN_BIRTHDAY,
             "profile-cancel": process.env.REACT_APP_PROFILE_EN_CANCEL,
-            "profile-save": process.env.REACT_APP_PROFILE_EN_SAVE
+            "profile-save": process.env.REACT_APP_PROFILE_EN_SAVE,
+            "content-from": process.env.REACT_APP_CONTENT_EN_FROM,
+            "content-power": process.env.REACT_APP_CONTENT_EN_POWER,
+            "content-fuel": process.env.REACT_APP_CONTENT_EN_FUEL,
+            "p-detail-cart": process.env.REACT_APP_CART_EN_CART,
+            "p-detail-image": process.env.REACT_APP_CART_EN_IMAGE,
+            "p-detail-name": process.env.REACT_APP_CART_EN_NAME,
+            "p-detail-quantity": process.env.REACT_APP_CART_EN_QUANTITY,
+            "p-detail-price": process.env.REACT_APP_CART_EN_PRICE,
+            "p-detail-temporary": process.env.REACT_APP_CART_EN_TEMPORARY,
+            "p-detail-action": process.env.REACT_APP_CART_EN_ACTION,
+            "p-detail-inCart": process.env.REACT_APP_CART_EN_INCART,
+            "p-detail-total": process.env.REACT_APP_CART_EN_TOTAL,
+            "p-detail-order": process.env.REACT_APP_CART_EN_ORDER
         }
     }
 };

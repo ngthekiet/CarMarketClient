@@ -4,9 +4,10 @@ import DataTable from 'react-data-table-component';
 import {NumericFormat} from "react-number-format";
 import {useNavigate} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
-import Button from "@mui/material/Button";
+import {useTranslation} from "react-i18next";
 
 import CartService from "~/services/cartServices";
+import Button from "@mui/material/Button";
 import clsx from "clsx";
 import styles from "~/pages/Cart/Cart.module.scss"
 import Notify from "~/components/Notify";
@@ -20,11 +21,9 @@ function Cart() {
     const [haveData, setHaveData] = useState(false)
     const [total, setTotal] = useState(0)
     const navigate = useNavigate()
-    console.log(id)
-    console.log(userID())
+    const {t} = useTranslation()
 
     useEffect(() => {
-        console.log(userID())
         if (userID() === "") {
             navigate("/account")
             return
@@ -79,7 +78,6 @@ function Cart() {
             setChange(true)
             Notify.notifySuccess("Đặt hàng thành công")
             navigate("/confirm")
-            console.log(response)
         } catch (error) {
             Notify.notifyError("Đặt hàng thất bại")
             console.log(error)
@@ -88,11 +86,11 @@ function Cart() {
 
     const columns = [
         {
-            name: 'Image',
+            name: t("p-detail-image"),
             selector: row => <img width={130} height={130} src={row.product.image}/>
         },
         {
-            name: 'Name',
+            name: t("p-detail-name"),
             selector: row => row.product.name,
             sortable: true,
             style: {
@@ -101,7 +99,7 @@ function Cart() {
             }
         },
         {
-            name: 'Quantity',
+            name: t("p-detail-quantity"),
             selector: row => <div>
                 <button
                     className="w-8 h-8 inline-flex items-center justify-center rounded-md bg-blue-50 text-xl font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
@@ -109,7 +107,7 @@ function Cart() {
                         handleUpdateCart(row.cartID, -1)
                     }}>-
                 </button>
-                <span className="mx-2"><span className="font-bold">{row.quantity}</span> in cart</span>
+                <span className="mx-2"><span className="font-bold">{row.quantity} </span>{t("p-detail-inCart")}</span>
                 <button
                     className="w-8 h-8 inline-flex items-center justify-center rounded-md bg-blue-50 text-xl font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
                     onClick={() => {
@@ -123,7 +121,7 @@ function Cart() {
             }
         },
         {
-            name: 'Price',
+            name: t("p-detail-price"),
             selector: row => <NumericFormat value={row.product.price}
                                             displayType={"text"}
                                             thousandSeparator={true}
@@ -136,7 +134,7 @@ function Cart() {
             }
         },
         {
-            name: 'Temporary price',
+            name: t("p-detail-temporary"),
             selector: row => <NumericFormat value={row.temporaryPrice}
                                             displayType={"text"}
                                             thousandSeparator={true}
@@ -151,7 +149,7 @@ function Cart() {
             }
         },
         {
-            name: 'Action',
+            name: t("p-detail-action"),
             selector: row => <FaTrash className={clsx(styles.trash)} onClick={() => {
                 handleRemoveCart(row.cartID)
             }}/>,
@@ -163,7 +161,7 @@ function Cart() {
 
     return (
         <div className={clsx(styles.container)}>
-            <div className={clsx(styles.title)}>Giỏ hàng</div>
+            <div className={clsx(styles.title)}>{t("p-detail-cart")}</div>
             {
                 haveData
                 &&
@@ -178,13 +176,13 @@ function Cart() {
                 <DataTable/>
             }
             <div className={clsx(styles.checkout)}>
-                <div>Total: <NumericFormat value={total}
-                                           displayType={"text"}
-                                           thousandSeparator={true}
-                                           decimalScale={2}
-                                           fixedDecimalScale={true}
-                                           prefix={"$"}/></div>
-                <Button onClick={handleOrder} variant="contained">Đặt hàng</Button>
+                <div>{t("p-detail-total")}: <NumericFormat value={total}
+                                                           displayType={"text"}
+                                                           thousandSeparator={true}
+                                                           decimalScale={2}
+                                                           fixedDecimalScale={true}
+                                                           prefix={"$"}/></div>
+                <Button onClick={handleOrder} variant="contained">{t("p-detail-order")}</Button>
             </div>
         </div>
     )
