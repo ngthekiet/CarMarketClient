@@ -8,6 +8,7 @@ import Profile from "~/pages/Profile";
 import Cart from "~/pages/Cart";
 import Dashboard from "~/pages/Dashboard";
 import Confirm from "~/pages/Confirm";
+import MyOrder from "~/pages/MyOrder";
 
 
 const publicRoutes = [
@@ -20,6 +21,7 @@ const publicRoutes = [
     {path: config.routes.confirm, component: Confirm},
     {path: config.routes.cartNull, component: Account},
     {path: config.routes.profileNull, component: Account},
+    {path: config.routes.myOrder, component: MyOrder},
     {path: config.routes.dashboard, component: Dashboard, layout: "dashboard"}
 ]
 

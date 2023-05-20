@@ -1,0 +1,21 @@
+.container {
+  width: 80%;
+  margin: 15px auto 0 auto;
+
+  .containerItems {
+    margin-bottom: 50px;
+    border-radius: 5px;
+    background-color: #dadada;
+    padding: 0 10px;
+
+    .flexCenter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & > div {
+        width: 100%;
+      }
+    }
+  }
+}

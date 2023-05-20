@@ -2,8 +2,7 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next"
 
-import {FaUserCircle, FaShoppingBag, FaCog, FaTools} from "react-icons/fa"
-
+import {FaUserCircle, FaShoppingBag, FaCog, FaTools, FaBox} from "react-icons/fa"
 import {IoMdLogOut} from "react-icons/io"
 
 import clsx from "clsx";
@@ -109,6 +108,11 @@ function Header() {
                                     [styles.activeOptionUser]: activeOptionUser
                                 })}>
                                     <li>
+                                        <Link to={`/order/${id}`}>
+                                            <FaBox/><span>My Order</span>
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link to={""}>
                                             <FaTools/><span>Manage</span>
                                         </Link>
@@ -127,7 +131,9 @@ function Header() {
                             </div>
                             <div>
                                 <div onClick={handleClickBag}
-                                   className={clsx(styles.linkIcon, styles.toolIcon)}><div><FaShoppingBag/></div></div>
+                                     className={clsx(styles.linkIcon, styles.toolIcon)}>
+                                    <div><FaShoppingBag/></div>
+                                </div>
                                 {activeOptionBag && <Cart handleHideBag={handleHideBag}/>}
                             </div>
                         </div>
