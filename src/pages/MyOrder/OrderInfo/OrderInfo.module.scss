@@ -1,0 +1,17 @@
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 100px;
+  margin-bottom: 10px;
+
+  span{
+    font-size: 120%;
+    font-weight: bold;
+  }
+
+  .priceTotal{
+    color: blue;
+  }
+}

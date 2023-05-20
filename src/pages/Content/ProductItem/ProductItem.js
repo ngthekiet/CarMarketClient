@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {NumericFormat} from "react-number-format";
 import {FaPaypal, FaShoppingBag} from "react-icons/fa";
+import {useTranslation} from "react-i18next";
 
 import clsx from "clsx";
 import styles from "~/pages/Content/ProductItem/ProductItem.module.scss";
@@ -14,6 +15,7 @@ import Notify from "~/components/Notify";
 function ProductItem({data}) {
     const uid = userID()
     const navigate = useNavigate()
+    const {t} = useTranslation()
 
     const addToCart = async (product, notify) => {
         if (uid === "") {
@@ -55,13 +57,20 @@ function ProductItem({data}) {
                 </div>
                 <Link to={`/detail/${data.id}`}>
                     <div className={clsx(styles.nameCar, styles.paddingItemCar)}>{data.name}</div>
-                    <div className={clsx(styles.priceCar, styles.paddingItemCar)}>From <span><NumericFormat
-                        value={data.price}
-                        displayType={"text"}
-                        thousandSeparator={true}
-                        prefix={"$"}/></span></div>
-                    <div className={clsx(styles.desCar, styles.paddingItemCar)}>Power: {data.power} |
-                        Fuel: {data.fuel}</div>
+                    <div className={clsx(styles.priceCar, styles.paddingItemCar)}>{t("content-from")}
+                        <span><NumericFormat
+                            value={data.price}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"$"}/></span></div>
+                    <div className={clsx(styles.desCar, styles.paddingItemCar)}>
+                        <div>
+                            {t("content-power")}: {data.power}
+                        </div>
+                        <div>
+                            {t("content-fuel")}: {data.fuel}
+                        </div>
+                    </div>
                     <div className={clsx(styles.brand, styles.paddingItemCar)}>
                         <img
                             src={data.brand?.logo || ""}

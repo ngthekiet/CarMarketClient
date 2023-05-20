@@ -8,6 +8,7 @@ const routes = {
     dashboard: "/dashboard",
     confirm: "/confirm",
     cartNull: "/cart/",
-    profileNull: "/profile/"
+    profileNull: "/profile/",
+    myOrder: "/order/:id"
 };
 export default routes;
