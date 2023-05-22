@@ -17,7 +17,7 @@ import userID from "~/local/userID";
 function Cart() {
     const {id} = useParams()
     const [data, setData] = useState([])
-    const [change, setChange] = useState(false)
+    const [change, setChange] = useState(true)
     const [haveData, setHaveData] = useState(false)
     const [total, setTotal] = useState(0)
     const navigate = useNavigate()

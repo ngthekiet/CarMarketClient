@@ -44,7 +44,7 @@ function Cart({handleHideBag}) {
             {
                 haveData
                 &&
-                <div>
+                <div className={clsx(styles.cartItems)}>
                     {data.map((result) => (
                         <CartItem key={result.cartID} data={result}/>
                     ))}
@@ -52,7 +52,8 @@ function Cart({handleHideBag}) {
                 ||
                 <div>Không có sản phẩm</div>
             }
-            <div className="text-right mr-10"><span className="font-bold">Total:</span> <NumericFormat className="font-bold text-blue-700"
+            <div className="text-right mr-10"><span className="font-bold">Total:</span> <NumericFormat
+                className="font-bold text-blue-700"
                 value={total}
                 displayType={"text"}
                 thousandSeparator={true}

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 import {FaFacebook, FaGoogle} from "react-icons/fa";
 import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
@@ -11,6 +12,7 @@ import AuthService from "~/services/authServices";
 
 function Login() {
     const {t} = useTranslation()
+    const navigate = useNavigate()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -64,7 +66,7 @@ function Login() {
         if (!activeSubmit) {
             const response = await AuthService.login(username, password)
             if (response?.data) {
-                window.history.back()
+                navigate("/")
             }
             if (response === 403) {
                 setPassword("")

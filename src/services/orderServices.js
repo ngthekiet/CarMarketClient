@@ -13,10 +13,20 @@ const orderDetail = async (id) => {
     return await request.get(`/pri/orderDetail/${id}`, {headers: token()})
 }
 
+const cancelOrder = async (oid) => {
+    return await request.put("/pri/cancelOrder", {oid}, {headers: token()})
+}
+
+const getOrder = async (oid) => {
+    return await request.get(`/pri/orderBy/${oid}`, {headers: token()})
+}
+
 const OrderService = {
     order,
     myOrder,
-    orderDetail
+    orderDetail,
+    cancelOrder,
+    getOrder
 }
 
 export default OrderService

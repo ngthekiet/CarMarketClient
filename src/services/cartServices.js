@@ -33,11 +33,16 @@ const updateCart = async (cartID, quantity) => {
     }
 }
 
+const repurchase = async (oid) => {
+    return await request.post("/pri/repurchase", {oid}, {headers: token()})
+}
+
 const CartService = {
     addToCart,
     getCart,
     removeFromCart,
-    updateCart
+    updateCart,
+    repurchase
 }
 
 export default CartService
