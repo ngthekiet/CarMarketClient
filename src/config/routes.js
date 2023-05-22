@@ -9,6 +9,7 @@ const routes = {
     confirm: "/confirm",
     cartNull: "/cart/",
     profileNull: "/profile/",
-    myOrder: "/order/:id"
+    myOrder: "/order/:id",
+    orderDetail: "/order/detail/:id"
 };
 export default routes;
