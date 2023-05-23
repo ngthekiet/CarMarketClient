@@ -55,7 +55,7 @@ function OrderDetail() {
             setChange(true)
             notify.notifySuccess("Đã hủy đơn hàng")
         } catch (error) {
-            notify.notifyError("That bại")
+            notify.notifyError("Không thể hủy đơn hàng")
         }
     }
 
@@ -64,7 +64,7 @@ function OrderDetail() {
             await CartService.repurchase(id)
             notify.notifySuccess("Đã thêm vào giỏ")
         } catch (error) {
-            notify.notifyError("Thất bại")
+            notify.notifyError("Mua lại thất bại")
             console.log(error)
         }
     }

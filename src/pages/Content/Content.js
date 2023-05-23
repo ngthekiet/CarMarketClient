@@ -6,6 +6,7 @@ import clsx from "clsx";
 import styles from "~/pages/Content/Content.module.scss"
 import ProductItem from "~/pages/Content/ProductItem";
 import ProductService from "~/services/productServices";
+import BrandItem from "~/pages/Content/BrandItem";
 
 function Content() {
     const [products, setProducts] = useState([])
@@ -21,6 +22,9 @@ function Content() {
 
     return (
         <div className={clsx(styles.body)}>
+            <div className={clsx(styles.containerBrand)}>
+                <BrandItem/>
+            </div>
             <div className={clsx(styles.containerCar)}>
                 {
                     products.map((result) => (
