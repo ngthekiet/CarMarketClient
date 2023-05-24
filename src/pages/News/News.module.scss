@@ -5,3 +5,15 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 20px auto;
+  padding: 15px 0 15px 0;
+  width: 80%;
+}
+
+.boxHr {
+  border-bottom: solid 1px #8b8b8b;
+}

@@ -15,7 +15,7 @@ const getDescription = (text) => {
 }
 
 const getLink = (text) => {
-    return text.replace("https://thanhnien.vn/", "")
+    return text.replace(process.env.REACT_APP_URL_THANHNIEN, "")
 }
 
 const GlobalService = {
