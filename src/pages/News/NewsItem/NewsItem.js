@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import clsx from "clsx";
 
 import styles from "~/pages/News/NewsItem/NewsItem.module.scss"
-import GlobalService from "~/services/globalServices";
+import GlobalService from "~/utils/rss";
 
 function NewsItem({data}) {
     return (
