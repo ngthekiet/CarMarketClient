@@ -1,0 +1,19 @@
+
+.container {
+  width: 60%;
+  margin: 20px auto 0 auto;
+}
+
+.source {
+  width: 80%;
+  text-align: right;
+  font-weight: bold;
+  font-size: 120%;
+  margin: 0 0 40px 0;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+  }
+}

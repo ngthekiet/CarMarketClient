@@ -18,11 +18,22 @@ const getLink = (text) => {
     return text.replace(process.env.REACT_APP_URL_THANHNIEN, "")
 }
 
+const getPost = (text) => {
+    let result = text.replace(text.slice(text.indexOf('<div class="detail-top">'), text.indexOf('<h1 class="detail-title">')), "")
+    result = result.replace(result.slice(result.indexOf('<div class="detail-author"'), result.indexOf('<div class="detail-time">')), "")
+    result = result.replace(result.slice(result.indexOf('<div class="social-top">'), result.indexOf('<h2 class="detail-sapo"')), "")
+    result = result.replace(result.slice(result.indexOf('<div class="detail__related"'), result.indexOf('<div class="detail__cmain-sub">')), "")
+    result = result.replace(result.slice(result.indexOf('<div class="social-top">'), result.indexOf('<div class="detail__cmain-sub">')), "")
+    result = result.replaceAll("href", "link")
+    return result
+}
+
 const GlobalService = {
     getData,
     getImage,
     getDescription,
-    getLink
+    getLink,
+    getPost
 }
 
 export default GlobalService
