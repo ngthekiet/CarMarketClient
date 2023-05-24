@@ -19,10 +19,14 @@ const getProduct = async (id) => {
         console.log(error)
     }
 }
+const getProductsByBrand = async (cid) => {
+    return await request.get(`/pub/productBrand/${cid}`)
+}
 
 const ProductService = {
     getAllProducts,
-    getProduct
+    getProduct,
+    getProductsByBrand
 }
 
 export default ProductService
