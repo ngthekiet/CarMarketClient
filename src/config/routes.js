@@ -10,6 +10,8 @@ const routes = {
     cartNull: "/cart/",
     profileNull: "/profile/",
     myOrder: "/order/:id",
+    news: "/news",
+    post: "/news/:post",
     orderDetail: "/order/detail/:id"
 };
 export default routes;
