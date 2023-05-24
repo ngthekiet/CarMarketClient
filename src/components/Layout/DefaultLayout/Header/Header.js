@@ -91,7 +91,7 @@ function Header() {
                             <a href={""}>{t("navbar-reviews")}</a>
                         </li>
                         <li>
-                            <a href={""}>{t("navbar-new")}</a>
+                            <Link to={config.routes.news}>{t("navbar-new")}</Link>
                         </li>
                     </ul>
                 </div>

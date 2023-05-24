@@ -10,6 +10,8 @@ import Dashboard from "~/pages/Dashboard";
 import Confirm from "~/pages/Confirm";
 import MyOrder from "~/pages/MyOrder";
 import OrderDetail from "~/pages/OrderDetail";
+import News from "~/pages/News";
+import Post from "~/pages/Post";
 
 
 const publicRoutes = [
@@ -24,6 +26,8 @@ const publicRoutes = [
     {path: config.routes.profileNull, component: Account},
     {path: config.routes.myOrder, component: MyOrder},
     {path: config.routes.orderDetail, component: OrderDetail},
+    {path: config.routes.news, component: News},
+    {path: config.routes.post, component: Post},
     {path: config.routes.dashboard, component: Dashboard, layout: "dashboard"}
 ]
 
