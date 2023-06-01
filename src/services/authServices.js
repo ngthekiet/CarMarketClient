@@ -8,6 +8,7 @@ const login = async (username, password) => {
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('userID', response.data.userID)
             localStorage.setItem('avatar', response.data.avatar)
+            localStorage.setItem('role', response.data.role)
         }
         return response
     } catch (error) {

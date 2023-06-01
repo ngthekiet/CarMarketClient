@@ -12,6 +12,8 @@ import MyOrder from "~/pages/MyOrder";
 import OrderDetail from "~/pages/OrderDetail";
 import News from "~/pages/News";
 import Post from "~/pages/Post";
+import ManagerUser from "~/pages/Dashboard/ManagerUser/ManagerUser";
+import ManagerProduct from "~/pages/Dashboard/ManagerProduct/ManagerProduct";
 
 
 const publicRoutes = [
@@ -28,7 +30,9 @@ const publicRoutes = [
     {path: config.routes.orderDetail, component: OrderDetail},
     {path: config.routes.news, component: News},
     {path: config.routes.post, component: Post},
-    {path: config.routes.dashboard, component: Dashboard, layout: "dashboard"}
+    {path: config.routes.dashboard, component: ManagerUser, layout: "dashboard"},
+    {path: config.routes.managerUser, component: ManagerUser, layout: "dashboard"},
+    {path: config.routes.managerProduct, component: ManagerProduct, layout: "dashboard"}
 ]
 
 const privateRoutes = []

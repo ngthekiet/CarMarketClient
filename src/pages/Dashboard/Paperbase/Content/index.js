@@ -1,1 +1,0 @@
-export {default} from "~/pages/Dashboard/Paperbase/Content/Content"

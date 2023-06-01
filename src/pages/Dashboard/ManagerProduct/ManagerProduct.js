@@ -10,10 +10,37 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import HelpIcon from "@mui/icons-material/Help";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
-function Content() {
+const lightColor = 'rgba(255, 255, 255, 0.7)';
+
+function ManagerProduct() {
     return (
         <Paper sx={{maxWidth: 936, margin: 'auto', overflow: 'hidden'}}>
+            <AppBar
+                component="div"
+                color="primary"
+                position="static"
+                elevation={0}
+                sx={{zIndex: 0}}
+            >
+                <Toolbar>
+                    <Grid container alignItems="center" spacing={1}>
+                        <Grid item xs>
+                            <Typography color="inherit" variant="h5" component="h1">
+                                Manager Products
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+            <AppBar component="div" position="static" elevation={0} sx={{zIndex: 0}}>
+                <Tabs value={0} textColor="inherit">
+                    <Tab label="Products"/>
+                </Tabs>
+            </AppBar>
             <AppBar
                 position="static"
                 color="default"
@@ -38,7 +65,7 @@ function Content() {
                         </Grid>
                         <Grid item>
                             <Button variant="contained" sx={{mr: 1}}>
-                                Add user
+                                Add product
                             </Button>
                             <Tooltip title="Reload">
                                 <IconButton>
@@ -56,4 +83,4 @@ function Content() {
     );
 }
 
-export default Content
+export default ManagerProduct
