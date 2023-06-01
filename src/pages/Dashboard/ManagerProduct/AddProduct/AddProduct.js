@@ -1,6 +1,4 @@
 import Grid from "@mui/material/Unstable_Grid2";
-import {styled} from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import clsx from "clsx";
 
 import styles from "~/pages/Dashboard/ManagerProduct/AddProduct/AddProduct.module.scss"
@@ -10,6 +8,14 @@ import BrandService from "~/services/brandServices";
 import CategoriesService from "~/services/categoryServices";
 import Button from "@mui/material/Button";
 import * as React from "react";
+import {useDropzone} from 'react-dropzone';
+import {Link} from "react-router-dom";
+import config from "~/config";
+import ProductService from "~/services/productServices";
+import Notify from "~/components/Notify";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {storage} from "~/firebase";
+import {v4} from "uuid";
 
 function AddProduct() {
     const [name, setName] = useState("")
@@ -25,6 +31,10 @@ function AddProduct() {
     const [listBrand, setListBrand] = useState([])
     const [categories, setCategories] = useState("")
     const [listCategories, setListCategories] = useState([])
+    const [image, setImage] = useState("")
+    const [files, setFiles] = useState([])
+    const [brandId, setBrandId] = useState(0)
+    const [categoryId, setCategoryId] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,82 +42,146 @@ function AddProduct() {
             const resCategory = await CategoriesService.getAllCategories()
             if (resBrand?.data) {
                 setListBrand(resBrand.data)
+                setBrandId(resBrand.data[0].id)
                 setBrand(resBrand.data[0].name)
             }
             if (resCategory?.data) {
                 setListCategories(resCategory.data)
+                setCategoryId(resCategory.data[0].id)
                 setCategories(resCategory.data[0].name)
             }
         }
         fetchData()
     }, [])
 
-    const handleChangeName = (e) => {
-        setName(e.target.value)
-    }
-    const handleChangeSize = (e) => {
-        setSize(e.target.value)
-    }
-    const handleChangePower = (e) => {
-        setPower(e.target.value)
-    }
-    const handleChangeDescription = (e) => {
-        setDescription(e.target.value)
-    }
-    const handleChangeDetail = (e) => {
-        setDetail(e.target.value)
-    }
-
-    const handleChangeColor = (e) => {
-        setColor(e.target.value)
-    }
-
-    const handleChangeFuel = (e) => {
-        setFuel(e.target.value)
+    const handleAddProduct = async () => {
+        let imgURL
+        try {
+            const imageRef = await ref(storage, `images/products/${image.name + v4()}`)
+            const imageResponse = await uploadBytes(imageRef, image)
+            imgURL = await getDownloadURL(imageResponse.ref)
+        } catch (error) {
+            imgURL = ""
+        }
+        const brandResponse = await BrandService.getBrand(brandId)
+        const categoryResponse = await CategoriesService.getCategory(categoryId)
+        try {
+            await ProductService.addProduct(name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
+        } catch (error) {
+            Notify.notifyError("Thêm sản phẩm thất bại")
+        }
+        Notify.notifySuccess("Đã thêm sản phẩm")
     }
 
-    const handleChangeType = (e) => {
-        setType(e.target.value)
-    }
-    const handleChangeBrand = (e) => {
-        setBrand(e.target.value)
+    useEffect(() => {
+        setImage(files[0])
+    }, [files])
+
+    const thumbsContainer = {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     }
 
-    const handleChangeCategories = (e) => {
-        setCategories(e.target.value)
+    const thumb = {
+        display: 'inline-flex',
+        borderRadius: 2,
+        marginBottom: 8,
+        marginRight: 8,
+        width: "100%",
+        height: "100%",
+        padding: 4,
+        boxSizing: 'border-box',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 
-    const handleChangePrice = (e) => {
-        if (e.target.value > 0)
-            setPrice(e.target.value)
-        else setPrice(0)
+    const thumbInner = {
+        display: 'flex',
+        minWidth: 0,
+        overflow: 'hidden'
     }
+
+    const img = {
+        display: 'block',
+        width: '60%',
+        height: '60%',
+        maxHeight: 200
+    }
+
+    const {getRootProps, getInputProps} = useDropzone({
+        accept: {
+            'image/*': []
+        },
+        onDrop: acceptedFiles => {
+            setFiles(acceptedFiles.map(file => Object.assign(file, {
+                preview: URL.createObjectURL(file)
+            })))
+            setImage(acceptedFiles.map(file => Object.assign(file, {
+                preview: URL.createObjectURL(file)
+            })))
+        }
+    })
+
+    const thumbs = files.map(file => (
+        <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+                <img
+                    src={file.preview}
+                    style={img}
+                    // Revoke data uri after image is loaded
+                    onLoad={() => {
+                        URL.revokeObjectURL(file.preview)
+                    }}
+                    alt={"Image"}
+                />
+            </div>
+        </div>
+    ));
+
+    useEffect(() => {
+        // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+        return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, []);
 
     return (
         <div className={clsx(styles.container)}>
             <Grid container spacing={2}>
+                <Grid className={clsx(styles.title)} xs={12}>
+                    Add Product
+                </Grid>
                 <Grid xs={8}>
                     <div className={clsx(styles.frame)}>
                         <div className={clsx(styles.productInfo)}>
                             Product Information
                         </div>
                         <div className={clsx(styles.productName)}>
-                            <TextField value={name} onChange={handleChangeName} id="outlined-basic" label="Name"
+                            <TextField value={name} onChange={(e) => {
+                                setName(e.target.value)
+                            }} id="outlined-basic" label="Name"
                                        variant="outlined"
                                        size="small"/>
                         </div>
                         <div className={clsx(styles.productPP)}>
-                            <TextField value={size} onChange={handleChangeSize} id="outlined-basic"
+                            <TextField value={size} onChange={(e) => {
+                                setSize(e.target.value)
+                            }} id="outlined-basic"
                                        label="Size (L x W x H)" variant="outlined" size="small"/>
-                            <TextField value={power} onChange={handleChangePower} id="outlined-basic" label="Power (HP)"
+                            <TextField value={power} onChange={(e) => {
+                                setPower(e.target.value)
+                            }} id="outlined-basic" label="Power (HP)"
                                        variant="outlined" size="small"/>
                         </div>
                         <div className={clsx(styles.productDes)}>
-                            <TextField value={description} onChange={handleChangeDescription} id="outlined-basic"
+                            <TextField value={description} onChange={(e) => {
+                                setDescription(e.target.value)
+                            }} id="outlined-basic"
                                        label="Description" variant="outlined" multiline/>
                         </div>
                         <div className={clsx(styles.productDetail)}>
-                            <TextField value={detail} onChange={handleChangeDetail} id="outlined-basic" label="Details"
+                            <TextField value={detail} onChange={(e) => {
+                                setDetail(e.target.value)
+                            }} id="outlined-basic" label="Details"
                                        variant="outlined" multiline/>
                         </div>
                     </div>
@@ -125,15 +199,19 @@ function AddProduct() {
                                     id="color-select"
                                     value={color}
                                     label="Color"
-                                    onChange={handleChangeColor}
+                                    onChange={(e) => {
+                                        setColor(e.target.value)
+                                    }}
                                 >
-                                    <MenuItem value={"Red"}>Red</MenuItem>
-                                    <MenuItem value={"Yellow"}>Yellow</MenuItem>
-                                    <MenuItem value={"Blue"}>Blue</MenuItem>
-                                    <MenuItem value={"Green"}>Green</MenuItem>
                                     <MenuItem value={"Black"}>Black</MenuItem>
-                                    <MenuItem value={"White"}>White</MenuItem>
+                                    <MenuItem value={"Blue"}>Blue</MenuItem>
+                                    <MenuItem value={"Gold"}>Gold</MenuItem>
+                                    <MenuItem value={"Gray"}>Gray</MenuItem>
+                                    <MenuItem value={"Green"}>Green</MenuItem>
                                     <MenuItem value={"Purple"}>Purple</MenuItem>
+                                    <MenuItem value={"Red"}>Red</MenuItem>
+                                    <MenuItem value={"White"}>White</MenuItem>
+                                    <MenuItem value={"Yellow"}>Yellow</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
@@ -145,10 +223,13 @@ function AddProduct() {
                                     id="fuel-select"
                                     value={fuel}
                                     label="Fuel"
-                                    onChange={handleChangeFuel}
+                                    onChange={(e) => {
+                                        setFuel(e.target.value)
+                                    }}
                                 >
-                                    <MenuItem value={"Electricity"}>Electricity</MenuItem>
+                                    <MenuItem value={"Electricity"}>Electric</MenuItem>
                                     <MenuItem value={"Gasoline"}>Gasoline</MenuItem>
+                                    <MenuItem value={"Petrol"}>Petrol</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
@@ -160,8 +241,21 @@ function AddProduct() {
                                     id="type-select"
                                     value={type}
                                     label="Type"
-                                    onChange={handleChangeType}
+                                    onChange={(e) => {
+                                        setType(e.target.value)
+                                    }}
                                 >
+                                    <MenuItem value={"Cabriolet"}>Cabriolet</MenuItem>
+                                    <MenuItem value={"Convertible "}>Convertible </MenuItem>
+                                    <MenuItem value={"Coupe"}>Coupe</MenuItem>
+                                    <MenuItem value={"Crossover"}>Crossover</MenuItem>
+                                    <MenuItem value={"Hatchback"}>Hatchback</MenuItem>
+                                    <MenuItem value={"MPV"}>MPV</MenuItem>
+                                    <MenuItem value={"Pickup"}>Pickup</MenuItem>
+                                    <MenuItem value={"Roadster"}>Roadster</MenuItem>
+                                    <MenuItem value={"Sedan"}>Sedan</MenuItem>
+                                    <MenuItem value={"Spider"}>Spider</MenuItem>
+                                    <MenuItem value={"Spyder"}>Spyder</MenuItem>
                                     <MenuItem value={"SUV"}>SUV</MenuItem>
                                     <MenuItem value={"Van (Goods)"}>Van (Goods)</MenuItem>
                                 </Select>
@@ -175,10 +269,14 @@ function AddProduct() {
                                     id="brand-select"
                                     value={brand}
                                     label="Brand"
-                                    onChange={handleChangeBrand}
+                                    onChange={(e) => {
+                                        setBrand(e.target.value)
+                                    }}
                                 >
                                     {listBrand.map((result, index) => (
-                                        <MenuItem key={index} value={result.name}>{result.name}</MenuItem>
+                                        <MenuItem onClick={() => {
+                                            setBrandId(result.id)
+                                        }} key={index} value={result.name}>{result.name}</MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
@@ -194,10 +292,14 @@ function AddProduct() {
                                     id="categories-select"
                                     value={categories}
                                     label="Categories"
-                                    onChange={handleChangeCategories}
+                                    onChange={(e) => {
+                                        setCategories(e.target.value)
+                                    }}
                                 >
                                     {listCategories.map((result, index) => (
-                                        <MenuItem key={index} value={result.name}>{result.name}</MenuItem>
+                                        <MenuItem onClick={() => {
+                                            setCategoryId(result.id)
+                                        }} key={index} value={result.name}>{result.name}</MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
@@ -213,7 +315,11 @@ function AddProduct() {
                             Pricing
                         </div>
                         <div className={clsx(styles.productPrice)}>
-                            <TextField value={price} onChange={handleChangePrice} id="outlined-basic" label="Price ($)"
+                            <TextField value={price} onChange={(e) => {
+                                if (e.target.value > 0)
+                                    setPrice(e.target.value)
+                                else setPrice(0)
+                            }} id="outlined-basic" label="Price ($)"
                                        variant="outlined"
                                        size="small"
                                        type="number"
@@ -227,7 +333,27 @@ function AddProduct() {
                         <div className={clsx(styles.productInfo)}>
                             Media
                         </div>
+                        <section className={clsx(styles.image, "container")}>
+                            <aside style={thumbsContainer}>
+                                {thumbs}
+                            </aside>
+                            <div {...getRootProps({className: 'dropzone'})}>
+                                <input {...getInputProps()} />
+                                <span
+                                    className={clsx(styles.dropImage)}>Drag drop file here, or click to select file</span>
+                            </div>
+                        </section>
                     </div>
+                </Grid>
+                <Grid className={clsx(styles.action)} xs={4}>
+                    <Button onClick={handleAddProduct} variant="contained" sx={{mr: 1}}>
+                        Add
+                    </Button>
+                    <Link to={config.routes.managerProduct}>
+                        <Button variant="outlined" color="error">
+                            Cancel
+                        </Button>
+                    </Link>
                 </Grid>
             </Grid>
         </div>
