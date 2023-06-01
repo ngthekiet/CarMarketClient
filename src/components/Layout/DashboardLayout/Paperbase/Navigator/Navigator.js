@@ -81,7 +81,6 @@ export default function Navigator(props) {
     }
 
     useEffect(() => {
-        console.log("render")
     }, [change])
 
     return (
@@ -104,8 +103,8 @@ export default function Navigator(props) {
                             <ListItemText sx={{color: '#fff'}}>{id}</ListItemText>
                         </ListItem>
                         {children.map(({id: childId, icon, active, link}, index) => (
-                            <Link to={link}>
-                                <ListItem disablePadding key={childId}>
+                            <Link key={childId} to={link}>
+                                <ListItem disablePadding>
                                     <ListItemButton onClick={() => {
                                         setActive(index)
                                     }} selected={active} sx={item}>

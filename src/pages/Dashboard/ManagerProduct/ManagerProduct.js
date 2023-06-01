@@ -13,6 +13,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import HelpIcon from "@mui/icons-material/Help";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import {Link} from "react-router-dom";
+import config from "~/config";
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -64,9 +66,11 @@ function ManagerProduct() {
                             />
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" sx={{mr: 1}}>
-                                Add product
-                            </Button>
+                            <Link to={config.routes.addProduct}>
+                                <Button variant="contained" sx={{mr: 1}}>
+                                    Add product
+                                </Button>
+                            </Link>
                             <Tooltip title="Reload">
                                 <IconButton>
                                     <RefreshIcon color="inherit" sx={{display: 'block'}}/>
