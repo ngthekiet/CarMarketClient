@@ -12,18 +12,29 @@ import AuthService from "~/services/authServices";
 import config from "~/config";
 import {Avatar, Logo, Usa, Vn} from "~/assert/images"
 import Cart from "~/components/Layout/DefaultLayout/Header/Cart";
+import role from "~/local/role";
 
 
 function Header() {
     const {t} = useTranslation()
     const {i18n} = useTranslation()
+    const userRole = role();
 
     const [activeOptionUser, setActiveOptionUser] = useState(false);
     const [activeOptionBag, setActiveOptionBag] = useState(false);
     const [avatar, setAvatar] = useState("")
     const [id, setID] = useState("")
+    const [admin, setAdmin] = useState(false)
 
     const logged = AuthService.logged();
+
+    useEffect(() => {
+        if (userRole === "ADMIN") {
+            setAdmin(true)
+            return
+        }
+        setAdmin(false)
+    }, [userRole])
 
     useEffect(() => {
         if (AuthService.logged()) {
@@ -107,14 +118,18 @@ function Header() {
                                 <ul className={clsx(styles.optionUser, {
                                     [styles.activeOptionUser]: activeOptionUser
                                 })}>
+                                    {
+                                        admin
+                                        &&
+                                        <li>
+                                            <Link to={config.routes.managerUser}>
+                                                <FaTools/><span>Manage</span>
+                                            </Link>
+                                        </li>
+                                    }
                                     <li>
                                         <Link to={`/order/${id}`}>
                                             <FaBox/><span>My Order</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={""}>
-                                            <FaTools/><span>Manage</span>
                                         </Link>
                                     </li>
                                     <li>

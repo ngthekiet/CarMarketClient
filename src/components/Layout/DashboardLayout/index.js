@@ -1,9 +1,10 @@
 import React from "react";
+import Paperbase from "~/components/Layout/DashboardLayout/Paperbase/Paperbase";
 
 function DashboardLayout({children}) {
     return (
         <React.Fragment>
-            {children}
+            <Paperbase children={children}/>
         </React.Fragment>
     )
 }

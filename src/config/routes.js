@@ -12,6 +12,8 @@ const routes = {
     myOrder: "/order/:id",
     news: "/news",
     post: "/news/:post",
-    orderDetail: "/order/detail/:id"
+    orderDetail: "/order/detail/:id",
+    managerUser: "/dashboard/user",
+    managerProduct: "/dashboard/product"
 };
 export default routes;

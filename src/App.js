@@ -5,10 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import "~/i18n/i18n"
 import {publicRoutes} from "~/routes";
-import {DefaultLayout} from "~/components/Layout";
+import {DefaultLayout, DashboardLayout} from "~/components/Layout";
 import {ToastContainer} from "react-toastify";
 import React from "react";
-import DashboardLayout from "~/components/Layout/DashboardLayout";
 
 function App() {
     return (
