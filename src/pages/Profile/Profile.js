@@ -148,7 +148,7 @@ function Profile() {
                                 {t("profile-photo")}
                             </label>
                             <div className="mt-2 flex items-center gap-x-3">
-                                <img src={avatar} className="h-12 w-12 text-gray-300 rounded-full" alt={""}/>
+                                <img src={avatar} className="m-0 mt-2 h-12 w-12 text-gray-300 rounded-full" alt={""}/>
                                 <input onChange={(e) => {
                                     setAvatarChange(e.target.files[0])
                                 }

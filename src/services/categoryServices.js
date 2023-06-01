@@ -5,8 +5,13 @@ const getAllCategories = async () => {
     return await request.get("/pri/categories", {headers: token()})
 }
 
+const getCategory = async (id) => {
+    return await request.get(`/pri/category/${id}`, {headers: token()})
+}
+
 const CategoriesService = {
-    getAllCategories
+    getAllCategories,
+    getCategory
 }
 
 export default CategoriesService

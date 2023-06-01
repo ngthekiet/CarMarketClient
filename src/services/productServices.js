@@ -1,4 +1,5 @@
 import request from "~/utils/request";
+import token from "~/local/token";
 
 const getAllProducts = async () => {
     try {
@@ -23,10 +24,19 @@ const getProductsByBrand = async (cid) => {
     return await request.get(`/pub/productBrand/${cid}`)
 }
 
+const addProduct = async (
+    name, image, price, type, size, fuel, power, color, description, details, category, brand
+) => {
+    return await request.post("/pri/product", {
+        name, image, price, type, size, fuel, power, color, description, details, category, brand
+    }, {headers: token()})
+}
+
 const ProductService = {
     getAllProducts,
     getProduct,
-    getProductsByBrand
+    getProductsByBrand,
+    addProduct
 }
 
 export default ProductService
