@@ -22,6 +22,8 @@ function Login() {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (username === "")
+                setExistUsername(false)
             const response = (await AuthService.checkUsername(username))
             if (response?.data === false) {
                 setExistUsername(false)

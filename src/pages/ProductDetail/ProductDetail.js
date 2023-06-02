@@ -65,7 +65,7 @@ function ProductDetail() {
                             </div>
                             <div className="flex items-center mt-5">
                                 <img src={data.brand?.logo || ""}
-                                     className="w-1/6 h-1/6 min-w-6 min-h-6 max-w-10 max-h-10"
+                                     className="m-0 w-1/6 h-1/6 min-w-6 min-h-6 max-w-10 max-h-10"
                                      alt={data.brand?.logo || "image"}
                                 />
                                 <span className="text-2xl ml-8 text-zinc-500">|</span>

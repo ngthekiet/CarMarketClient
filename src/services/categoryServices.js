@@ -9,9 +9,14 @@ const getCategory = async (id) => {
     return await request.get(`/pri/category/${id}`, {headers: token()})
 }
 
+const newCategory = async (name) => {
+    return await request.post("/pri/category", {name}, {headers: token()})
+}
+
 const CategoriesService = {
     getAllCategories,
-    getCategory
+    getCategory,
+    newCategory
 }
 
 export default CategoriesService
