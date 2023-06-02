@@ -36,6 +36,10 @@ function ManagerProduct() {
         fetchData()
     }, [change])
 
+    const handleReset = () => {
+        setChange(true)
+    }
+
     const handleDeleteProduct = async (pid) => {
         try {
             await ProductService.deleteProduct(pid)
@@ -152,7 +156,7 @@ function ManagerProduct() {
                                 </Button>
                             </Link>
                             <Tooltip title="Reload">
-                                <IconButton>
+                                <IconButton onClick={handleReset}>
                                     <RefreshIcon color="inherit" sx={{display: 'block'}}/>
                                 </IconButton>
                             </Tooltip>

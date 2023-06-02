@@ -17,7 +17,7 @@ function App() {
     useEffect(() => {
         if (userRole === "ADMIN")
             setAdmin(true)
-    }, [])
+    }, [userRole])
     return (
         <Router>
             <div className="App">

@@ -14,7 +14,7 @@
     text-align: center;
     border-radius: 10px;
     padding: 20px 0;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
     .image {
       display: flex;
@@ -121,6 +121,26 @@
       div {
         width: 100%;
       }
+    }
+  }
+}
+
+.modalNew {
+
+  .name {
+    width: 100%;
+  }
+
+  .inputImage {
+    display: block;
+    margin: 20px auto 10px auto;
+  }
+
+  .action {
+    text-align: center;
+
+    button {
+      margin: 10px;
     }
   }
 }

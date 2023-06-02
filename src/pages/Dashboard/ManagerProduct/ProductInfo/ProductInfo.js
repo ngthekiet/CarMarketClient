@@ -14,8 +14,13 @@ import Notify from "~/components/Notify";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "~/firebase";
 import {v4} from "uuid";
+import {useNavigate} from "react-router-dom";
+import Modal from '@mui/material/Modal';
+import Box from "@mui/material/Box";
+import notify from "~/components/Notify";
 
 function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActionEdit}) {
+    const [change, setChange] = useState(false)
     const [name, setName] = useState("")
     const [size, setSize] = useState("")
     const [power, setPower] = useState("")
@@ -35,8 +40,17 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
     const [categoryId, setCategoryId] = useState(0)
     const [imageOld, setImageOld] = useState("")
     const [haveImageOld, setHaveImageOld] = useState(false)
+    const [openModalBrand, setOpenModalBrand] = useState(false)
+    const [openModalCategory, setOpenModalCategory] = useState(false)
+    const [brandNew, setBrandNew] = useState("")
+    const [brandNewLogo, setBrandNewLogo] = useState("")
+    const [haveBrandNewLogo, setHaveBrandNewLogo] = useState("")
+    const [categoryNew, setCategoryNew] = useState("")
+
+    const navigate = useNavigate()
 
     useEffect(() => {
+        setChange(false)
         const fetchData = async () => {
             const resBrand = await BrandService.getAllBrands()
             const resCategory = await CategoriesService.getAllCategories()
@@ -54,7 +68,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             }
         }
         fetchData()
-    }, [])
+    }, [change])
 
     useEffect(() => {
         if (editId === undefined)
@@ -113,6 +127,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             Notify.notifyError("Thêm sản phẩm thất bại")
         }
         Notify.notifySuccess("Đã thêm sản phẩm")
+        await navigate("/dashboard/product")
     }
 
     const handleEditProduct = async () => {
@@ -137,6 +152,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             Notify.notifyError("Cập nhật thất bại")
         }
         Notify.notifySuccess("Cập nhật thành công")
+        await navigate("/dashboard/product")
     }
 
     useEffect(() => {
@@ -204,12 +220,62 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                 />
             </div>
         </div>
-    ));
+    ))
 
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
         return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-    }, []);
+    }, [])
+
+    const styleModal = {
+        position: 'absolute',
+        top: '40%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+        borderRadius: '10px'
+    }
+
+    const handleNewCategory = async () => {
+        try {
+            await CategoriesService.newCategory(categoryNew)
+            setChange(true)
+            setOpenModalCategory(false)
+            notify.notifySuccess("Thêm thành công")
+        } catch (error) {
+            notify.notifyError("Thêm thất bại")
+        }
+    }
+
+    useEffect(() => {
+        setBrandNewLogo(haveBrandNewLogo)
+    }, [haveBrandNewLogo])
+
+    const handleNewBrand = async () => {
+        let imgURL
+        if (brandNewLogo === "") {
+            imgURL = ""
+        } else {
+            try {
+                const imageRef = await ref(storage, `images/brands/${brandNewLogo.name + v4()}`)
+                const imageResponse = await uploadBytes(imageRef, brandNewLogo)
+                imgURL = await getDownloadURL(imageResponse.ref)
+            } catch (error) {
+                imgURL = ""
+            }
+        }
+        try {
+            await BrandService.newBrand(brandNew, imgURL)
+            await setChange(true)
+            setOpenModalBrand(false)
+            notify.notifySuccess("Thêm thành công")
+        } catch (error) {
+            notify.notifyError("Thêm thất bại")
+        }
+    }
 
     return (
         <div className={clsx(styles.container)}>
@@ -347,9 +413,38 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                                     ))}
                                 </Select>
                             </FormControl>
-                            <Button variant="contained" sx={{mr: 1}}>
+                            <Button onClick={() => {
+                                setOpenModalBrand(true)
+                            }} variant="contained" sx={{mr: 1}}>
                                 New
                             </Button>
+                            <Modal
+                                open={openModalBrand}
+                                onClose={() => {
+                                    setOpenModalBrand(false)
+                                }}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box className={clsx(styles.modalNew)} sx={styleModal}>
+                                    <TextField onChange={(e) => {
+                                        setBrandNew(e.target.value)
+                                    }} className={clsx(styles.name)} id="outlined-basic"
+                                               label="Brand Name" variant="outlined"
+                                               size={"small"}/>
+                                    <input onChange={(e) => {
+                                        setHaveBrandNewLogo(e.target.files[0])
+                                    }} className={clsx(styles.inputImage)} type={"file"} accept={"image/*"}/>
+                                    <div className={clsx(styles.action)}>
+                                        <Button onClick={handleNewBrand} variant="contained">Add</Button>
+                                        <Button onClick={() => {
+                                            setOpenModalBrand(false)
+                                        }} variant="outlined" color="error">
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </Box>
+                            </Modal>
                         </div>
                         <div className={clsx(styles.moreInfoItem, styles.add)}>
                             <FormControl className={clsx(styles.addItem)} size="small">
@@ -370,9 +465,35 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                                     ))}
                                 </Select>
                             </FormControl>
-                            <Button variant="contained" sx={{mr: 1}}>
+                            <Button onClick={() => {
+                                setOpenModalCategory(true)
+                            }} variant="contained" sx={{mr: 1}}>
                                 New
                             </Button>
+                            <Modal
+                                open={openModalCategory}
+                                onClose={() => {
+                                    setOpenModalCategory(false)
+                                }}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box className={clsx(styles.modalNew)} sx={styleModal}>
+                                    <TextField onChange={(e) => {
+                                        setCategoryNew(e.target.value)
+                                    }} className={clsx(styles.name)} id="outlined-basic"
+                                               label="Category Name" variant="outlined"
+                                               size={"small"}/>
+                                    <div className={clsx(styles.action)}>
+                                        <Button onClick={handleNewCategory} variant="contained">Add</Button>
+                                        <Button onClick={() => {
+                                            setOpenModalCategory(false)
+                                        }} variant="outlined" color="error">
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </Box>
+                            </Modal>
                         </div>
                     </div>
                 </Grid>

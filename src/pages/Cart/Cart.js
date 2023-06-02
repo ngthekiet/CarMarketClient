@@ -13,6 +13,7 @@ import styles from "~/pages/Cart/Cart.module.scss"
 import Notify from "~/components/Notify";
 import OrderService from "~/services/orderServices";
 import userID from "~/local/userID";
+import {MdDelete} from "react-icons/md";
 
 function Cart() {
     const {id} = useParams()
@@ -86,20 +87,21 @@ function Cart() {
 
     const columns = [
         {
-            name: t("p-detail-image"),
-            selector: row => <img width={130} height={130} src={row.product.image}/>
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-image")}</div>,
+            selector: row => <img style={{width: "130px", height: "130px", margin: "0"}} src={row.product.image}/>
         },
         {
-            name: t("p-detail-name"),
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-name")}</div>,
             selector: row => row.product.name,
             sortable: true,
             style: {
                 fontWeight: 'bold',
-                fontSize: '120%'
+                fontSize: '120%',
+                justifyContent: "center"
             }
         },
         {
-            name: t("p-detail-quantity"),
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-quantity")}</div>,
             selector: row => <div>
                 <button
                     className="w-8 h-8 inline-flex items-center justify-center rounded-md bg-blue-50 text-xl font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
@@ -117,11 +119,12 @@ function Cart() {
             </div>,
             sortable: true,
             style: {
-                fontSize: '120%'
+                fontSize: '120%',
+                justifyContent: "center"
             }
         },
         {
-            name: t("p-detail-price"),
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-price")}</div>,
             selector: row => <NumericFormat value={row.product.price}
                                             displayType={"text"}
                                             thousandSeparator={true}
@@ -130,11 +133,12 @@ function Cart() {
             style: {
                 fontWeight: 'bold',
                 fontSize: '120%',
-                color: '#4f46e5'
+                color: '#4f46e5',
+                justifyContent: "center"
             }
         },
         {
-            name: t("p-detail-temporary"),
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-temporary")}</div>,
             selector: row => <NumericFormat value={row.temporaryPrice}
                                             displayType={"text"}
                                             thousandSeparator={true}
@@ -145,16 +149,23 @@ function Cart() {
             style: {
                 fontWeight: 'bold',
                 fontSize: '120%',
-                color: '#4f46e5'
+                color: '#4f46e5',
+                justifyContent: "center"
             }
         },
         {
-            name: t("p-detail-action"),
-            selector: row => <FaTrash className={clsx(styles.trash)} onClick={() => {
-                handleRemoveCart(row.cartID)
-            }}/>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-action")}</div>,
+            selector: row =>
+                <Button
+                    onClick={() => {
+                        handleRemoveCart(row.cartID)
+                    }}
+                    variant="outlined"
+                    startIcon={<MdDelete/>} color={"error"}>Delete
+                </Button>,
             style: {
-                fontSize: '200%'
+                fontSize: '200%',
+                justifyContent: "center"
             }
         },
     ]
