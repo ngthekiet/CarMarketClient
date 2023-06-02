@@ -10,10 +10,14 @@ import {Link} from "react-router-dom";
 import config from "~/config";
 import AuthService from "~/services/authServices";
 import {useEffect, useState} from "react";
-import {Avatar as useAvatar} from "~/assert/images"
+import {Avatar as useAvatar, Usa, Vn} from "~/assert/images"
+import clsx from "clsx";
+import styles from "~/components/Layout/DashboardLayout/Paperbase/Header/Header.module.scss"
+import {useTranslation} from "react-i18next";
 
 function Header(props) {
     const {onDrawerToggle} = props;
+    const {i18n} = useTranslation()
     const [avatar, setAvatar] = useState("")
 
     const handleLogout = () => {
@@ -28,6 +32,10 @@ function Header(props) {
         }
         setAvatar(img)
     }, [])
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng)
+    }
 
     return (
         <React.Fragment>
@@ -52,8 +60,22 @@ function Header(props) {
                         </Grid>
                         <Grid item>
                             <IconButton color="inherit" sx={{p: 0.5}}>
-                                <Avatar src={avatar} alt="My Avatar"/>
+                                <Avatar className={clsx(styles.avatar)} src={avatar} alt="My Avatar"/>
                             </IconButton>
+                        </Grid>
+                        <Grid item>
+                            <div className={clsx(styles.language)}>
+                                <a onClick={() => {
+                                    changeLanguage("vi")
+                                }
+                                } className={clsx(styles.linkIcon)}><img className={clsx(styles.languageIcon)}
+                                                                         src={Vn}/></a>
+                                <a onClick={() => {
+                                    changeLanguage("en")
+                                }
+                                } className={clsx(styles.linkIcon)}><img className={clsx(styles.languageIcon)}
+                                                                         src={Usa}/></a>
+                            </div>
                         </Grid>
                     </Grid>
                 </Toolbar>
