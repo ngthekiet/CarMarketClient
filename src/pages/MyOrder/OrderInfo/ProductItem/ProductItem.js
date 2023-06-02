@@ -10,7 +10,7 @@ function ProductItem({data}) {
         <React.Fragment>
             <div className={clsx(styles.container)}>
                 <Link to={`/detail/${data.product.id}`}>
-                    <img src={data.product.image}/>
+                    <img style={{margin: "0"}} src={data.product.image}/>
                 </Link>
                 <div className={clsx(styles.info)}>
                     <img src={data.product.brand.logo}/>

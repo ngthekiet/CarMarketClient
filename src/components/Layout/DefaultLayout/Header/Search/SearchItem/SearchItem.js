@@ -11,6 +11,7 @@ function SearchItem({data}) {
             <div className={clsx(styles.searchItem)}>
                 <div className={clsx(styles.itemImage)}>
                     <img
+                        style={{margin: "0"}}
                         src={data.image}
                     />
                 </div>

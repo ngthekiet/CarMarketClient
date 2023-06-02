@@ -1,0 +1,27 @@
+.language {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-left: 50px;
+
+  .linkIcon {
+    display: inline-block;
+    margin: 0 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .languageIcon {
+      width: 32px;
+      height: 32px;
+      margin: 0;
+    }
+  }
+}
+
+.avatar{
+  img{
+    margin: 0;
+  }
+}

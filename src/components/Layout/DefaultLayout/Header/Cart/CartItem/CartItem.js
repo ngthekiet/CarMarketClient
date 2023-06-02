@@ -5,7 +5,7 @@ import {NumericFormat} from "react-number-format";
 function CartItem({data}) {
     return (
         <div className={clsx(styles.cartItem)}>
-            <img src={data["product"].image}/>
+            <img style={{margin: "0"}} src={data["product"].image}/>
             <div>
                 <div className={clsx(styles.bold)}>
                     {data["product"].name}
