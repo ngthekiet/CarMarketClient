@@ -29,7 +29,7 @@ function Header() {
     const logged = AuthService.logged();
 
     useEffect(() => {
-        if (userRole === "ADMIN") {
+        if (userRole === "ADMIN" || userRole === "MANAGER") {
             setAdmin(true)
             return
         }

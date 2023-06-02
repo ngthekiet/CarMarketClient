@@ -15,7 +15,7 @@ function App() {
     const [admin, setAdmin] = useState(false)
 
     useEffect(() => {
-        if (userRole === "ADMIN")
+        if (userRole === "ADMIN" || userRole === "MANAGER")
             setAdmin(true)
     }, [userRole])
     return (
