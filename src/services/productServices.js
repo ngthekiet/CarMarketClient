@@ -32,11 +32,16 @@ const addProduct = async (
     }, {headers: token()})
 }
 
+const deleteProduct = async (id) => {
+    return await request.delete(`/pri/product/${id}`, {headers: token()})
+}
+
 const ProductService = {
     getAllProducts,
     getProduct,
     getProductsByBrand,
-    addProduct
+    addProduct,
+    deleteProduct
 }
 
 export default ProductService
