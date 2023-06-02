@@ -9,10 +9,21 @@ import ProductService from "~/services/productServices";
 import BrandItem from "~/pages/Content/BrandItem";
 import BrandService from "~/services/brandServices";
 import {All} from "~/assert/images/index"
+import usePagination from "~/utils/pagination";
+import {Pagination} from "@mui/material";
 
 function Content() {
     const [products, setProducts] = useState([])
     const [brands, setBrands] = useState([])
+    const [page, setPage] = useState(1)
+    const PER_PAGE = 8
+    const count = Math.ceil(products.length / PER_PAGE)
+    const _DATA = usePagination(products, PER_PAGE)
+
+    const handleChangePage = (e, p) => {
+        setPage(p)
+        _DATA.jump(p)
+    }
 
     const fetchData = async () => {
         const responseP = (await ProductService.getAllProducts())
@@ -49,11 +60,14 @@ function Content() {
             </div>
             <div className={clsx(styles.containerCar)}>
                 {
-                    products.map((result) => (
+                    _DATA.currentData().map((result) => (
                         <ProductItem key={result.id} data={result}/>
                     ))
                 }
             </div>
+            <Pagination className={clsx(styles.pagination, styles.boxHr)} count={count} page={page}
+                        onChange={handleChangePage}
+                        color={"primary"} showFirstButton showLastButton/>
         </div>
     )
 }
