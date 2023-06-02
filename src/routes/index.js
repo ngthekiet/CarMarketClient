@@ -6,7 +6,6 @@ import Notfound from "~/pages/Notfound";
 import ProductDetail from "~/pages/ProductDetail";
 import Profile from "~/pages/Profile";
 import Cart from "~/pages/Cart";
-import Dashboard from "~/pages/Dashboard";
 import Confirm from "~/pages/Confirm";
 import MyOrder from "~/pages/MyOrder";
 import OrderDetail from "~/pages/OrderDetail";
@@ -31,12 +30,13 @@ const publicRoutes = [
     {path: config.routes.orderDetail, component: OrderDetail},
     {path: config.routes.news, component: News},
     {path: config.routes.post, component: Post},
+]
+
+const privateRoutes = [
     {path: config.routes.dashboard, component: ManagerUser, layout: "dashboard"},
     {path: config.routes.managerUser, component: ManagerUser, layout: "dashboard"},
     {path: config.routes.managerProduct, component: ManagerProduct, layout: "dashboard"},
     {path: config.routes.addProduct, component: AddProduct, layout: "dashboard"}
 ]
-
-const privateRoutes = []
 
 export {publicRoutes, privateRoutes}

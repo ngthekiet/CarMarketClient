@@ -4,16 +4,37 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
 import "~/i18n/i18n"
-import {publicRoutes} from "~/routes";
+import {publicRoutes, privateRoutes} from "~/routes";
 import {DefaultLayout, DashboardLayout} from "~/components/Layout";
 import {ToastContainer} from "react-toastify";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import role from "~/local/role";
 
 function App() {
+    const userRole = role()
+    const [admin, setAdmin] = useState(false)
+
+    useEffect(() => {
+        if (userRole === "ADMIN")
+            setAdmin(true)
+    }, [])
     return (
         <Router>
             <div className="App">
                 <Routes>
+                    {
+                        admin
+                        &&
+                        privateRoutes.map((route, index) => {
+                            let Layout
+                            if (route.layout === "dashboard")
+                                Layout = DashboardLayout
+                            else
+                                Layout = DefaultLayout
+                            const Page = route.component
+                            return <Route key={index} path={route.path} element={<Layout><Page/></Layout>}/>
+                        })
+                    }
                     {publicRoutes.map((route, index) => {
                         let Layout
                         if (route.layout === "dashboard")

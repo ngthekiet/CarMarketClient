@@ -169,7 +169,6 @@ function Cart() {
                     columns={columns}
                     data={data}
                     pagination={true}
-                    fixedHeader={true}
                     highlightOnHover={true}
                 />
                 ||

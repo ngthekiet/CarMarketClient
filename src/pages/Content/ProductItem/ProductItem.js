@@ -42,8 +42,8 @@ function ProductItem({data}) {
                     />
                     <div className={clsx(styles.optionCar)}>
                         <div className={clsx(styles.pay)}>
-                            <Link onClick={() => {
-                                addToCart(data.id, false)
+                            <Link onClick={async () => {
+                                await addToCart(data.id, false)
                             }} to={`/cart/${uid}`}>
                                 <FaPaypal/>
                             </Link>

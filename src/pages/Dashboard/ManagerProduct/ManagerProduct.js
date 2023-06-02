@@ -10,15 +10,94 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import HelpIcon from "@mui/icons-material/Help";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {Link} from "react-router-dom";
 import config from "~/config";
-
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+import DataTable from "react-data-table-component";
+import {useEffect, useState} from "react";
+import ProductService from "~/services/productServices";
+import {NumericFormat} from "react-number-format";
+import {MdDelete, MdEdit} from "react-icons/md";
+import notify from "~/components/Notify";
 
 function ManagerProduct() {
+
+    const [data, setData] = useState([])
+    const [change, setChange] = useState(false)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setChange(false)
+            const response = await ProductService.getAllProducts()
+            if (response?.data)
+                setData(response.data)
+            console.log(response.data)
+        }
+        fetchData()
+    }, [change])
+
+    const handleDeleteProduct = async (pid) => {
+        try {
+            await ProductService.deleteProduct(pid)
+            setChange(true)
+            notify.notifySuccess("Đã xóa sản phẩm")
+        } catch (error) {
+            notify.notifyError("Xóa thất bại")
+        }
+    }
+
+    const columns = [
+        {
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Image</div>,
+            selector: row => <img style={{width: "100px", height: "100px", margin: "0"}} src={row.image}/>,
+            style: {
+                justifyContent: "center"
+            }
+        },
+        {
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Name</div>,
+            sortable: true,
+            selector: row => <Link to={`/detail/${row.id}`}>{row.name}</Link>,
+            style: {
+                justifyContent: "center",
+                color: "#009be5",
+                fontWeight: "bold"
+            }
+        },
+        {
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Price</div>,
+            sortable: true,
+            selector: row => <NumericFormat value={row.price}
+                                            displayType={"text"}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={"$"}/>,
+            style: {
+                justifyContent: "center"
+            }
+        },
+        {
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Action</div>,
+            selector: row =>
+                <div>
+                    <Button style={{margin: "5px"}} variant="outlined" startIcon={<MdEdit/>}>
+                        Edit
+                    </Button>
+                    <Button onClick={() => {
+                        handleDeleteProduct(row.id)
+                    }} style={{margin: "5px"}} variant="outlined"
+                            startIcon={<MdDelete/>} color={"error"}>
+                        Delete
+                    </Button>
+                </div>,
+            style: {
+                justifyContent: "center"
+            }
+        }
+    ]
+
     return (
         <Paper sx={{maxWidth: 936, margin: 'auto', overflow: 'hidden'}}>
             <AppBar
@@ -80,9 +159,11 @@ function ManagerProduct() {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <Typography sx={{my: 5, mx: 2}} color="text.secondary" align="center">
-                No users for this project yet
-            </Typography>
+            <DataTable columns={columns}
+                       data={data}
+                       pagination={true}
+                       highlightOnHover={true}
+            />
         </Paper>
     );
 }
