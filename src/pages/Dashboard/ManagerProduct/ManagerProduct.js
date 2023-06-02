@@ -32,7 +32,6 @@ function ManagerProduct() {
             const response = await ProductService.getAllProducts()
             if (response?.data)
                 setData(response.data)
-            console.log(response.data)
         }
         fetchData()
     }, [change])
@@ -82,9 +81,11 @@ function ManagerProduct() {
             name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Action</div>,
             selector: row =>
                 <div>
-                    <Button style={{margin: "5px"}} variant="outlined" startIcon={<MdEdit/>}>
-                        Edit
-                    </Button>
+                    <Link to={`/dashboard/product/edit/${row.id}`}>
+                        <Button style={{margin: "5px"}} variant="outlined" startIcon={<MdEdit/>}>
+                            Edit
+                        </Button>
+                    </Link>
                     <Button onClick={() => {
                         handleDeleteProduct(row.id)
                     }} style={{margin: "5px"}} variant="outlined"

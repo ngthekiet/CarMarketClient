@@ -36,12 +36,30 @@ const deleteProduct = async (id) => {
     return await request.delete(`/pri/product/${id}`, {headers: token()})
 }
 
+const editProduct = async (id, name, image, price, type, size, fuel, power, color, description, details, category, brand) => {
+    return await request.put(`/pri/product/${id}`, {
+        name,
+        image,
+        price,
+        type,
+        size,
+        fuel,
+        power,
+        color,
+        description,
+        details,
+        category,
+        brand
+    }, {headers: token()})
+}
+
 const ProductService = {
     getAllProducts,
     getProduct,
     getProductsByBrand,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    editProduct
 }
 
 export default ProductService

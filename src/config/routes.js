@@ -15,6 +15,7 @@ const routes = {
     orderDetail: "/order/detail/:id",
     managerUser: "/dashboard/user",
     managerProduct: "/dashboard/product",
-    addProduct: "/dashboard/product/add"
+    addProduct: "/dashboard/product/add",
+    editProduct: "/dashboard/product/edit/:id"
 };
 export default routes;
