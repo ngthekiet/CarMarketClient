@@ -1,6 +1,10 @@
 import request from "~/utils/request";
 import token from "~/local/token";
 
+const getUsers = async () => {
+    return await request.get("/pri/users", {headers: token()})
+}
+
 const getUser = async (id) => {
     try {
         const response = await request.get(`/pri/user/${id}`, {
@@ -39,10 +43,16 @@ const changeAvatar = async (avatar, id) => {
     }
 }
 
+const updateRole = async (id, role) => {
+    return await request.put(`/pri/role/${id}`, {role}, {headers: token()})
+}
+
 const UserService = {
+    getUsers,
     getUser,
     updateProfile,
-    changeAvatar
+    changeAvatar,
+    updateRole
 }
 
 export default UserService

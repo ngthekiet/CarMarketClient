@@ -4,16 +4,30 @@ import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
-
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+import {Link} from "react-router-dom";
+import config from "~/config";
+import AuthService from "~/services/authServices";
+import {useEffect, useState} from "react";
+import {Avatar as useAvatar} from "~/assert/images"
 
 function Header(props) {
     const {onDrawerToggle} = props;
+    const [avatar, setAvatar] = useState("")
+
+    const handleLogout = () => {
+        AuthService.logout()
+    }
+
+    useEffect(() => {
+        const img = localStorage.getItem("avatar")
+        if (img === "null") {
+            setAvatar(useAvatar)
+            return
+        }
+        setAvatar(img)
+    }, [])
 
     return (
         <React.Fragment>
@@ -32,32 +46,13 @@ function Header(props) {
                         </Grid>
                         <Grid item xs/>
                         <Grid item>
-                            <Link
-                                href="/"
-                                variant="body2"
-                                sx={{
-                                    textDecoration: 'none',
-                                    color: lightColor,
-                                    '&:hover': {
-                                        color: 'common.white',
-                                    },
-                                }}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                            >
-                                Go to docs
+                            <Link onClick={handleLogout} to={config.routes.account}>
+                                Logout
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Tooltip title="Alerts • No alerts">
-                                <IconButton color="inherit">
-                                    <NotificationsIcon/>
-                                </IconButton>
-                            </Tooltip>
-                        </Grid>
-                        <Grid item>
                             <IconButton color="inherit" sx={{p: 0.5}}>
-                                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar"/>
+                                <Avatar src={avatar} alt="My Avatar"/>
                             </IconButton>
                         </Grid>
                     </Grid>
