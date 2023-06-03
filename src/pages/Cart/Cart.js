@@ -74,7 +74,7 @@ function Cart() {
                 Notify.notifyError("Không có sản phẩm")
                 return
             }
-            const response = await OrderService.order(id)
+            await OrderService.order(id)
             setChange(true)
             Notify.notifySuccess("Đặt hàng thành công")
             navigate("/confirm")
@@ -87,7 +87,8 @@ function Cart() {
     const columns = [
         {
             name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-image")}</div>,
-            selector: row => <img style={{width: "130px", height: "130px", margin: "0"}} src={row.product.image}/>
+            selector: row => <img style={{width: "130px", height: "130px", margin: "0"}} src={row.product.image}
+                                  alt={""}/>
         },
         {
             name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("p-detail-name")}</div>,
