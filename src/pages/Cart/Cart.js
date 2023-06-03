@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import DataTable from 'react-data-table-component';
 import {NumericFormat} from "react-number-format";
 import {useNavigate} from "react-router-dom";
-import {FaTrash} from "react-icons/fa";
 import {useTranslation} from "react-i18next";
 
 import CartService from "~/services/cartServices";

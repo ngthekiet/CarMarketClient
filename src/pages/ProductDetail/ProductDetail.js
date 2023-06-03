@@ -153,7 +153,7 @@ function ProductDetail() {
                                 <img
                                     src={data.image}
                                     alt={data.image}
-                                    className="h-full w-full object-contain object-center"
+                                    className="m-0 h-full w-full object-contain object-center"
                                 />
                             </div>
                         </div>

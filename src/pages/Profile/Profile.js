@@ -11,6 +11,7 @@ import token from "~/local/token";
 import {Avatar} from "~/assert/images";
 import {storage} from "~/firebase"
 import Notify from "~/components/Notify";
+import Button from "@mui/material/Button";
 
 function Profile() {
     const {id} = useParams()
@@ -153,13 +154,9 @@ function Profile() {
                                     setAvatarChange(e.target.files[0])
                                 }
                                 } type={"file"}/>
-                                <button
-                                    onClick={changeAvatar}
-                                    type="button"
-                                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                >
+                                <Button onClick={changeAvatar} variant={"outlined"}>
                                     {t("profile-change")}
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     </div>
@@ -276,16 +273,9 @@ function Profile() {
             </div>
             <div className="mt-6 flex items-center justify-end gap-x-6">
                 <Link to={config.routes.home}>
-                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
-                        {t("profile-cancel")}
-                    </button>
+                    <Button variant={"outlined"} color={"error"}>{t("profile-cancel")}</Button>
                 </Link>
-                <button onClick={handleSave}
-                        type="button"
-                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    {t("profile-save")}
-                </button>
+                <Button onClick={handleSave} variant={"contained"}>{t("profile-save")}</Button>
             </div>
         </div>
     )

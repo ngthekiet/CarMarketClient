@@ -1,0 +1,68 @@
+.frame {
+  background-color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px 0;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
+  .title {
+    font-size: 200%;
+    font-weight: bold;
+  }
+
+  .company {
+    font-size: 150%;
+    font-weight: bold;
+  }
+
+  .userInfo {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .hr {
+    width: 30%;
+    height: 1px;
+    background-color: black;
+    margin: 10px auto;
+  }
+
+  .total {
+    width: 80%;
+    text-align: right;
+    margin: 0 auto;
+    color: #009be5;
+    font-weight: bold;
+  }
+
+  .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+
+    aside {
+      min-height: 74px;
+      max-height: 300px;
+      width: 40%;
+      margin: 0 5%;
+      border: 1px solid #eaeaea;
+    }
+
+    .dropImage {
+      margin-top: 16px;
+      border: 2px #eaeaea dashed;
+      padding: 20px 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.back {
+  display: block;
+  margin: 20px 0 20px 10%;
+}
