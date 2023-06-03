@@ -11,7 +11,7 @@ function Action({oid}) {
         <React.Fragment>
             <div className={clsx(styles.container)}>
                 <Link to={`/order/detail/${oid}`}>
-                    <Button variant="contained">Detail</Button>
+                    <Button variant="outlined">Detail</Button>
                 </Link>
             </div>
         </React.Fragment>

@@ -10,6 +10,9 @@ import clsx from "clsx";
 import styles from "~/pages/Account/Account.module.scss";
 import AuthService from "~/services/authServices";
 
+import {UserRole} from "~/App";
+import {useContext} from "react";
+
 function Login() {
     const {t} = useTranslation()
     const navigate = useNavigate()
@@ -19,6 +22,8 @@ function Login() {
     const [existUsername, setExistUsername] = useState(false)
     const [validPassword, setValidPassword] = useState(false)
     const [activeSubmit, setActiveSubmit] = useState(true)
+
+    const handleChangeRole = useContext(UserRole)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,6 +73,7 @@ function Login() {
         if (!activeSubmit) {
             const response = await AuthService.login(username, password)
             if (response?.data) {
+                handleChangeRole(true)
                 navigate("/")
             }
             if (response === 403) {

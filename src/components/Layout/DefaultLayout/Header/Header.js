@@ -122,7 +122,7 @@ function Header() {
                                         admin
                                         &&
                                         <li>
-                                            <Link to={config.routes.managerUser}>
+                                            <Link to={config.routes.dashboard}>
                                                 <FaTools/><span>Manage</span>
                                             </Link>
                                         </li>

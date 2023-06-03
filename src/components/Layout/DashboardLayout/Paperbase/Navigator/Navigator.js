@@ -11,6 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import PublicIcon from '@mui/icons-material/Public';
 import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
 import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
@@ -26,13 +27,17 @@ const categories = [
         id: 'Build',
         children: [
             {
-                id: 'Manager Users',
-                icon: <PeopleIcon/>,
+                id: 'Orders',
+                icon: <ViewListIcon/>,
                 active: true,
+                link: config.routes.managerOrder
+            },
+            {
+                id: 'Users',
+                icon: <PeopleIcon/>,
                 link: config.routes.managerUser
             },
-            {id: 'Manager Product', icon: <DnsRoundedIcon/>, link: config.routes.managerProduct},
-            {id: 'Storage', icon: <PermMediaOutlinedIcon/>},
+            {id: 'Products', icon: <DnsRoundedIcon/>, link: config.routes.managerProduct},
             {id: 'Hosting', icon: <PublicIcon/>},
             {id: 'Functions', icon: <SettingsEthernetIcon/>},
             {

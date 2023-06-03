@@ -1,6 +1,10 @@
 import request from "~/utils/request";
 import token from "~/local/token";
 
+const getAllOrder = async () => {
+    return await request.get("/pri/orders", {headers: token()})
+}
+
 const order = async (uid) => {
     return await request.post(`/pri/order`, {uid}, {headers: token()})
 }
@@ -21,12 +25,18 @@ const getOrder = async (oid) => {
     return await request.get(`/pri/orderBy/${oid}`, {headers: token()})
 }
 
+const updateStatus = async (id, status) => {
+    return await request.put(`/pri/status/${id}`, {status}, {headers: token()})
+}
+
 const OrderService = {
+    getAllOrder,
     order,
     myOrder,
     orderDetail,
     cancelOrder,
-    getOrder
+    getOrder,
+    updateStatus
 }
 
 export default OrderService

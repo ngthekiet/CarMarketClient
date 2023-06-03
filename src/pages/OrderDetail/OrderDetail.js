@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import OrderService from "~/services/orderServices";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import clsx from "clsx";
@@ -12,6 +12,8 @@ import OrderInfo from "~/pages/MyOrder/OrderInfo";
 import Box from "@mui/material/Box";
 import notify from "~/components/Notify";
 import CartService from "~/services/cartServices";
+import {BiDetail} from "react-icons/bi";
+import Button from "@mui/material/Button";
 
 function OrderDetail() {
     const {id} = useParams()
@@ -40,7 +42,7 @@ function OrderDetail() {
     }, [data])
 
     useEffect(() => {
-        if (data.status === "Chờ xác nhận") {
+        if (data.status === "Confirming") {
             setCancel(true)
             setRepurchase(false)
             return
@@ -65,7 +67,6 @@ function OrderDetail() {
             notify.notifySuccess("Đã thêm vào giỏ")
         } catch (error) {
             notify.notifyError("Mua lại thất bại")
-            console.log(error)
         }
     }
 
@@ -122,6 +123,13 @@ function OrderDetail() {
                         </Grid>
                     </Grid>
                 }
+                <div className={clsx(styles.back)}>
+                    <Button onClick={() => {
+                        window.history.back()
+                    }} variant="outlined">
+                        Back
+                    </Button>
+                </div>
             </Box>
         </>
     )

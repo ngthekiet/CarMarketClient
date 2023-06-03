@@ -141,7 +141,7 @@ function ManagerProduct() {
                         <Grid item xs>
                             <TextField
                                 fullWidth
-                                placeholder="Search by email address, phone number, or user UID"
+                                placeholder="Search by name, or price"
                                 InputProps={{
                                     disableUnderline: true,
                                     sx: {fontSize: 'default'},
@@ -170,7 +170,7 @@ function ManagerProduct() {
                        highlightOnHover={true}
             />
         </Paper>
-    );
+    )
 }
 
 export default ManagerProduct
