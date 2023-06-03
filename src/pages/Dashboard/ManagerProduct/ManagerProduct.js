@@ -53,7 +53,7 @@ function ManagerProduct() {
     const columns = [
         {
             name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Image</div>,
-            selector: row => <img style={{width: "100px", height: "100px", margin: "0"}} src={row.image}/>,
+            selector: row => <img style={{width: "100px", height: "100px", margin: "0"}} src={row.image} alt={""}/>,
             style: {
                 justifyContent: "center"
             }

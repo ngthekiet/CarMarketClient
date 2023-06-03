@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import OrderService from "~/services/orderServices";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import clsx from "clsx";
@@ -12,7 +12,6 @@ import OrderInfo from "~/pages/MyOrder/OrderInfo";
 import Box from "@mui/material/Box";
 import notify from "~/components/Notify";
 import CartService from "~/services/cartServices";
-import {BiDetail} from "react-icons/bi";
 import Button from "@mui/material/Button";
 
 function OrderDetail() {

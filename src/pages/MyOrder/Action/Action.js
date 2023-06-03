@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import clsx from "clsx";
 
 import styles from "~/pages/MyOrder/Action/Action.module.scss"
