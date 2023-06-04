@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
+import clsx from "clsx";
+import {Pagination} from "@mui/material";
+
 import NewsService from "~/services/newsServices";
 import NewsItem from "~/pages/News/NewsItem";
-import clsx from "clsx";
 import styles from "~/pages/News/News.module.scss";
 import usePagination from "~/utils/pagination";
-import {Pagination} from "@mui/material";
 
 function News() {
     const [data, setData] = useState([])
@@ -20,9 +21,13 @@ function News() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await NewsService.getRss(process.env.REACT_APP_URL_RSS)
-            if (response?.data)
-                setData(response.data.rss.channel.item)
+            try {
+                const response = await NewsService.getRss(process.env.REACT_APP_URL_RSS)
+                if (response?.data)
+                    setData(response.data.rss.channel.item)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [])

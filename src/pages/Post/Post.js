@@ -14,9 +14,13 @@ function Post() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await NewsService.getPost(URL)
-            if (response?.data)
-                setData(response.data)
+            try {
+                const response = await NewsService.getPost(URL)
+                if (response?.data)
+                    setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [])

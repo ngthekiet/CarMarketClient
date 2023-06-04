@@ -1,4 +1,9 @@
 import * as React from 'react';
+import {useEffect, useState} from "react";
+import {MdDelete, MdEdit} from "react-icons/md";
+import {Link} from "react-router-dom";
+import {NumericFormat} from "react-number-format";
+import DataTable from "react-data-table-component";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -12,13 +17,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {Link} from "react-router-dom";
+
 import config from "~/config";
-import DataTable from "react-data-table-component";
-import {useEffect, useState} from "react";
 import ProductService from "~/services/productServices";
-import {NumericFormat} from "react-number-format";
-import {MdDelete, MdEdit} from "react-icons/md";
 import notify from "~/components/Notify";
 
 function ManagerProduct() {
@@ -29,9 +30,13 @@ function ManagerProduct() {
     useEffect(() => {
         const fetchData = async () => {
             setChange(false)
-            const response = await ProductService.getAllProducts()
-            if (response?.data)
-                setData(response.data)
+            try {
+                const response = await ProductService.getAllProducts()
+                if (response?.data)
+                    setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [change])

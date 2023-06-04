@@ -1,17 +1,14 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useContext} from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
-
+import clsx from "clsx";
 import {FaFacebook, FaGoogle} from "react-icons/fa";
 import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
 
-import clsx from "clsx";
-
 import styles from "~/pages/Account/Account.module.scss";
 import AuthService from "~/services/authServices";
-
 import {UserRole} from "~/App";
-import {useContext} from "react";
+import notify from "~/components/Notify";
 
 function Login() {
     const {t} = useTranslation()
@@ -29,12 +26,17 @@ function Login() {
         const fetchData = async () => {
             if (username === "")
                 setExistUsername(false)
-            const response = (await AuthService.checkUsername(username))
-            if (response?.data === false) {
-                setExistUsername(false)
-            }
-            if (response?.data === true) {
-                setExistUsername(true)
+            try {
+                const response = (await AuthService.checkUsername(username))
+                if (response?.data === false) {
+                    setExistUsername(false)
+                }
+                if (response?.data === true) {
+                    setExistUsername(true)
+                }
+            } catch (error) {
+                console.log(error)
+                notify.notifyError("Tải dữ liệu thất bại")
             }
         }
         fetchData()
@@ -42,12 +44,17 @@ function Login() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = (await AuthService.checkPassword(username, password))
-            if (response?.data === false) {
-                setValidPassword(false)
-            }
-            if (response?.data === true) {
-                setValidPassword(true)
+            try {
+                const response = (await AuthService.checkPassword(username, password))
+                if (response?.data === false) {
+                    setValidPassword(false)
+                }
+                if (response?.data === true) {
+                    setValidPassword(true)
+                }
+            } catch (error) {
+                console.log(error)
+                notify.notifyError("Tải dữ liệu thất bại")
             }
         }
         fetchData()
@@ -71,13 +78,16 @@ function Login() {
 
     const handleLogin = async () => {
         if (!activeSubmit) {
-            const response = await AuthService.login(username, password)
-            if (response?.data) {
-                handleChangeRole(true)
-                navigate("/")
-            }
-            if (response === 403) {
-                setPassword("")
+            try {
+                const response = await AuthService.login(username, password)
+                if (response?.data) {
+                    handleChangeRole(true)
+                    navigate("/")
+                    notify.notifySuccess("Đã đăng nhập")
+                }
+            } catch (error) {
+                console.log(error)
+                notify.notifyError("Tải dữ liệu thất bại")
             }
         }
     }

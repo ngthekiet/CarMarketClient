@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useEffect, useState} from "react";
+import DataTable from "react-data-table-component";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -11,10 +13,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {useEffect, useState} from "react";
-import UserService from "~/services/userServices";
-import DataTable from "react-data-table-component";
 import {FormControl, MenuItem, Select} from "@mui/material";
+
+import UserService from "~/services/userServices";
 import notify from "~/components/Notify";
 
 
@@ -25,9 +26,13 @@ function ManagerUser() {
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
-            const response = await UserService.getUsers()
-            if (response?.data)
-                setData(response.data)
+            try {
+                const response = await UserService.getUsers()
+                if (response?.data)
+                    setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [change])

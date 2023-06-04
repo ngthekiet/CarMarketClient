@@ -4,15 +4,15 @@ import DataTable from 'react-data-table-component';
 import {NumericFormat} from "react-number-format";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import clsx from "clsx";
+import Button from "@mui/material/Button";
+import {MdDelete} from "react-icons/md";
 
 import CartService from "~/services/cartServices";
-import Button from "@mui/material/Button";
-import clsx from "clsx";
 import styles from "~/pages/Cart/Cart.module.scss"
 import Notify from "~/components/Notify";
 import OrderService from "~/services/orderServices";
 import userID from "~/local/userID";
-import {MdDelete} from "react-icons/md";
 
 function Cart() {
     const {id} = useParams()
@@ -35,15 +35,19 @@ function Cart() {
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
-            const response = await CartService.getCart(id)
-            if (response?.data) {
-                setData(response?.data.products)
-                setTotal(response.data.total)
-                setHaveData(true)
-                return
+            try {
+                const response = await CartService.getCart(id)
+                if (response?.data) {
+                    setData(response?.data.products)
+                    setTotal(response.data.total)
+                    setHaveData(true)
+                    return
+                }
+                setHaveData(false)
+                setTotal(0)
+            } catch (error) {
+                console.log(error)
             }
-            setHaveData(false)
-            setTotal(0)
         }
         fetchData()
     }, [change])
@@ -64,6 +68,7 @@ function Cart() {
             await CartService.updateCart(cartID, quantity)
             setChange(true)
         } catch (error) {
+            Notify.notifyError("Update thất bại")
             console.log(error)
         }
     }

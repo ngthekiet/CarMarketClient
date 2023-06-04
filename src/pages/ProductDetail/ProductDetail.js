@@ -16,8 +16,12 @@ function ProductDetail() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = (await ProductService.getProduct(id))
-            setData(response.data)
+            try {
+                const response = (await ProductService.getProduct(id))
+                setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [id])

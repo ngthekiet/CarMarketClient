@@ -4,8 +4,8 @@ import {useNavigate} from "react-router-dom";
 import {NumericFormat} from "react-number-format";
 import {FaPaypal, FaShoppingBag} from "react-icons/fa";
 import {useTranslation} from "react-i18next";
-
 import clsx from "clsx";
+
 import styles from "~/pages/Content/ProductItem/ProductItem.module.scss";
 import userID from "~/local/userID";
 import CartService from "~/services/cartServices";

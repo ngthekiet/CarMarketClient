@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useEffect} from "react";
-
 import clsx from "clsx";
+import {Pagination} from "@mui/material";
 
 import styles from "~/pages/Content/Content.module.scss"
 import ProductItem from "~/pages/Content/ProductItem";
@@ -10,7 +10,6 @@ import BrandItem from "~/pages/Content/BrandItem";
 import BrandService from "~/services/brandServices";
 import {All} from "~/assert/images/index"
 import usePagination from "~/utils/pagination";
-import {Pagination} from "@mui/material";
 
 function Content() {
     const [products, setProducts] = useState([])
@@ -26,12 +25,20 @@ function Content() {
     }
 
     const fetchData = async () => {
-        const responseP = (await ProductService.getAllProducts())
-        if (responseP?.data)
-            setProducts(responseP.data)
-        const responseB = await BrandService.getAllBrands()
-        if (responseB?.data)
-            setBrands(responseB.data)
+        try {
+            const responseP = (await ProductService.getAllProducts())
+            if (responseP?.data)
+                setProducts(responseP.data)
+        } catch (error) {
+            console.log(error)
+        }
+        try {
+            const responseB = await BrandService.getAllBrands()
+            if (responseB?.data)
+                setBrands(responseB.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {

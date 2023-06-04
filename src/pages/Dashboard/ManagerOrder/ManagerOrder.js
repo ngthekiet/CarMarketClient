@@ -9,16 +9,17 @@ import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import DataTable from "react-data-table-component";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import {FormControl, MenuItem, Select} from "@mui/material";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import OrderService from "~/services/orderServices";
-import Moment from 'moment';
-import Button from "@mui/material/Button";
 import {Link} from "react-router-dom";
+import DataTable from "react-data-table-component";
 import {BiDetail} from "react-icons/bi";
-import {FormControl, MenuItem, Select} from "@mui/material";
+import Moment from 'moment';
+
+import OrderService from "~/services/orderServices";
 import notify from "~/components/Notify";
 
 function ManagerOrder() {
@@ -28,15 +29,18 @@ function ManagerOrder() {
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
-            const response = await OrderService.getAllOrder()
-            if (response?.data)
-                setData(response.data)
+            try {
+                const response = await OrderService.getAllOrder()
+                if (response?.data)
+                    setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [change])
 
     const handleChangeStatus = async (id, status) => {
-        console.log(status)
         try {
             await OrderService.updateStatus(id, status)
             setChange(true)

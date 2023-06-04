@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage"
 import {v4} from "uuid"
+import Button from "@mui/material/Button";
 
 import UserService from "~/services/userServices";
 import config from "~/config";
@@ -11,7 +11,6 @@ import token from "~/local/token";
 import {Avatar} from "~/assert/images";
 import {storage} from "~/firebase"
 import Notify from "~/components/Notify";
-import Button from "@mui/material/Button";
 
 function Profile() {
     const {id} = useParams()
@@ -36,36 +35,40 @@ function Profile() {
     useEffect(() => {
         setSuccess(false)
         const fetchData = async () => {
-            const response = (await UserService.getUser(id))
-            if (response?.data) {
-                if (response.data.avatar === null)
-                    setAvatar(Avatar)
-                else
-                    setAvatar(response.data.avatar)
-                if (response.data.firstname === null)
-                    setFirstname("")
-                else
-                    setFirstname(response.data.firstname)
-                if (response.data.lastname === null)
-                    setLastname("")
-                else
-                    setLastname(response.data.lastname)
-                if (response.data.email === null)
-                    setEmail("")
-                else
-                    setEmail(response.data.email)
-                if (response.data.address === null)
-                    setAddress("")
-                else
-                    setAddress(response.data.address)
-                if (response.data.phone === null)
-                    setPhone("")
-                else
-                    setPhone(response.data.phone)
-                if (response.data.birthyear === 0)
-                    setBirthday(0)
-                else
-                    setBirthday(response.data.birthyear)
+            try {
+                const response = (await UserService.getUser(id))
+                if (response?.data) {
+                    if (response.data.avatar === null)
+                        setAvatar(Avatar)
+                    else
+                        setAvatar(response.data.avatar)
+                    if (response.data.firstname === null)
+                        setFirstname("")
+                    else
+                        setFirstname(response.data.firstname)
+                    if (response.data.lastname === null)
+                        setLastname("")
+                    else
+                        setLastname(response.data.lastname)
+                    if (response.data.email === null)
+                        setEmail("")
+                    else
+                        setEmail(response.data.email)
+                    if (response.data.address === null)
+                        setAddress("")
+                    else
+                        setAddress(response.data.address)
+                    if (response.data.phone === null)
+                        setPhone("")
+                    else
+                        setPhone(response.data.phone)
+                    if (response.data.birthyear === 0)
+                        setBirthday(0)
+                    else
+                        setBirthday(response.data.birthyear)
+                }
+            } catch (error) {
+                console.log(error)
             }
         }
         fetchData()
@@ -123,15 +126,19 @@ function Profile() {
             Notify.notifyError("Cập nhật không thành công")
             return
         }
-        const imageRef = ref(storage, `images/avatar/${avatarChange.name + v4()}`)
-        const imageResponse = await uploadBytes(imageRef, avatarChange)
-        const response = await getDownloadURL(imageResponse.ref)
-        await UserService.changeAvatar(response, id)
-        setAvatar(response)
-        localStorage.setItem("avatar", response)
-        setAvatarChange("")
-        Notify.notifySuccess("Cập nhật thành công")
-        setSuccess(true)
+        try {
+            const imageRef = ref(storage, `images/avatar/${avatarChange.name + v4()}`)
+            const imageResponse = await uploadBytes(imageRef, avatarChange)
+            const response = await getDownloadURL(imageResponse.ref)
+            await UserService.changeAvatar(response, id)
+            setAvatar(response)
+            localStorage.setItem("avatar", response)
+            setAvatarChange("")
+            Notify.notifySuccess("Cập nhật thành công")
+            setSuccess(true)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
