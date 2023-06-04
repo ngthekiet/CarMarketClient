@@ -1,15 +1,14 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-
+import clsx from "clsx";
 import {FaFacebook, FaGoogle} from "react-icons/fa";
 import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
-
-import clsx from "clsx";
 
 import styles from "~/pages/Account/Account.module.scss";
 import AuthService from "~/services/authServices";
 import ValidService from "~/services/validServices";
+import notify from "~/components/Notify";
 
 function Register() {
     const {t} = useTranslation()
@@ -25,34 +24,44 @@ function Register() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (username !== "") {
-                const exist = await AuthService.checkUsername(username)
-                const valid = await ValidService.validUsername(username)
-                if (exist?.data === false && valid?.data === true) {
-                    setAcceptUsername(true)
+            try {
+                if (username !== "") {
+                    const exist = await AuthService.checkUsername(username)
+                    const valid = await ValidService.validUsername(username)
+                    if (exist?.data === false && valid?.data === true) {
+                        setAcceptUsername(true)
+                    }
+                    if (exist?.data === true || valid?.data === false) {
+                        setAcceptUsername(false)
+                    }
+                    return
                 }
-                if (exist?.data === true || valid?.data === false) {
-                    setAcceptUsername(false)
-                }
-                return
+                setAcceptUsername(false)
+            } catch (error) {
+                console.log(error)
+                notify.notifySuccess("Tải dữ liệu thất bại")
             }
-            setAcceptUsername(false)
         }
         fetchData()
     }, [username])
 
     useEffect(() => {
         const fetchData = async () => {
-            if (password !== "") {
-                const response = await ValidService.validPassword(password)
-                if (response?.data === true) {
-                    setValidPassword(true)
+            try {
+                if (password !== "") {
+                    const response = await ValidService.validPassword(password)
+                    if (response?.data === true) {
+                        setValidPassword(true)
+                        return
+                    }
+                    setValidPassword(false)
                     return
                 }
                 setValidPassword(false)
-                return
+            } catch (error) {
+                console.log(error)
+                notify.notifySuccess("Tải dữ liệu thất bại")
             }
-            setValidPassword(false)
         }
         fetchData();
     }, [password])
@@ -90,17 +99,17 @@ function Register() {
     }
 
     const handleRegister = async () => {
-        if (!activeSubmit) {
-            const response = await AuthService.register(username, password)
-            if (response?.data) {
-                console.log(response.data.token)
-                navigate("/")
+        try {
+            if (!activeSubmit) {
+                const response = await AuthService.register(username, password)
+                if (response?.data) {
+                    navigate("/")
+                    notify.notifySuccess("Thành công. Đã đăng nhập")
+                }
             }
-            if (response === 403) {
-                console.log('khong co quyen truy cap')
-                setPassword("")
-                setConfirmPassword("")
-            }
+        } catch (error) {
+            console.log(error)
+            notify.notifySuccess("Tải dữ liệu thất bại")
         }
     }
 

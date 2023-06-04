@@ -1,22 +1,22 @@
-import Grid from "@mui/material/Unstable_Grid2";
+import * as React from "react";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDropzone} from 'react-dropzone';
 import clsx from "clsx";
+import {v4} from "uuid";
+import Grid from "@mui/material/Unstable_Grid2";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import Modal from '@mui/material/Modal';
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 
 import styles from "~/pages/Dashboard/ManagerProduct/ProductInfo/ProductInfo.module.scss"
-import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import {useEffect, useState} from "react";
 import BrandService from "~/services/brandServices";
 import CategoriesService from "~/services/categoryServices";
-import Button from "@mui/material/Button";
-import * as React from "react";
-import {useDropzone} from 'react-dropzone';
 import ProductService from "~/services/productServices";
 import Notify from "~/components/Notify";
-import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {storage} from "~/firebase";
-import {v4} from "uuid";
-import {useNavigate} from "react-router-dom";
-import Modal from '@mui/material/Modal';
-import Box from "@mui/material/Box";
 import notify from "~/components/Notify";
 
 function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActionEdit}) {
@@ -52,19 +52,23 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
-            const resBrand = await BrandService.getAllBrands()
-            const resCategory = await CategoriesService.getAllCategories()
-            if (resBrand?.data) {
-                setListBrand(resBrand.data)
-            }
-            if (resCategory?.data) {
-                setListCategories(resCategory.data)
-            }
-            if (editId === undefined) {
-                setBrandId(resBrand.data[0].id)
-                setBrand(resBrand.data[0].name)
-                setCategoryId(resCategory.data[0].id)
-                setCategories(resCategory.data[0].name)
+            try {
+                const resBrand = await BrandService.getAllBrands()
+                const resCategory = await CategoriesService.getAllCategories()
+                if (resBrand?.data) {
+                    setListBrand(resBrand.data)
+                }
+                if (resCategory?.data) {
+                    setListCategories(resCategory.data)
+                }
+                if (editId === undefined) {
+                    setBrandId(resBrand.data[0].id)
+                    setBrand(resBrand.data[0].name)
+                    setCategoryId(resCategory.data[0].id)
+                    setCategories(resCategory.data[0].name)
+                }
+            } catch (error) {
+                console.log(error)
             }
         }
         fetchData()
@@ -74,24 +78,28 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
         if (editId === undefined)
             return
         const fetchData = async () => {
-            const response = await ProductService.getProduct(editId)
-            if (response?.data) {
-                const data = response.data
-                setName(data.name)
-                setPrice(data.price)
-                setSize(data.size)
-                setPower(data.power)
-                setDescription(data.description)
-                setDetail(data.details)
-                setColor(data.color)
-                setFuel(data.fuel)
-                setType(data.type)
-                setBrand(data.brand.name)
-                setBrandId(data.brand.id)
-                setCategories(data.category.name)
-                setCategoryId(data.category.id)
-                setImageOld(data.image)
-                setHaveImageOld(true)
+            try {
+                const response = await ProductService.getProduct(editId)
+                if (response?.data) {
+                    const data = response.data
+                    setName(data.name)
+                    setPrice(data.price)
+                    setSize(data.size)
+                    setPower(data.power)
+                    setDescription(data.description)
+                    setDetail(data.details)
+                    setColor(data.color)
+                    setFuel(data.fuel)
+                    setType(data.type)
+                    setBrand(data.brand.name)
+                    setBrandId(data.brand.id)
+                    setCategories(data.category.name)
+                    setCategoryId(data.category.id)
+                    setImageOld(data.image)
+                    setHaveImageOld(true)
+                }
+            } catch (error) {
+                console.log(error)
             }
         }
         fetchData()
@@ -119,9 +127,9 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
         } catch (error) {
             imgURL = ""
         }
-        const brandResponse = await BrandService.getBrand(brandId)
-        const categoryResponse = await CategoriesService.getCategory(categoryId)
         try {
+            const brandResponse = await BrandService.getBrand(brandId)
+            const categoryResponse = await CategoriesService.getCategory(categoryId)
             await ProductService.addProduct(name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
         } catch (error) {
             Notify.notifyError("Thêm sản phẩm thất bại")
@@ -144,9 +152,9 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                 imgURL = ""
             }
         }
-        const brandResponse = await BrandService.getBrand(brandId)
-        const categoryResponse = await CategoriesService.getCategory(categoryId)
         try {
+            const brandResponse = await BrandService.getBrand(brandId)
+            const categoryResponse = await CategoriesService.getCategory(categoryId)
             await ProductService.editProduct(editId, name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
         } catch (error) {
             Notify.notifyError("Cập nhật thất bại")

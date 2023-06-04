@@ -1,14 +1,13 @@
 import React from "react";
 import {useEffect, useState} from "react";
-import OrderService from "~/services/orderServices";
 import {useParams, useNavigate} from "react-router-dom";
-
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import clsx from "clsx";
 
+import OrderService from "~/services/orderServices";
 import GeneralInfo from "~/pages/MyOrder/GeneralInfo";
 import UserInfo from "~/pages/MyOrder/UserInfo";
 import OrderInfo from "~/pages/MyOrder/OrderInfo";

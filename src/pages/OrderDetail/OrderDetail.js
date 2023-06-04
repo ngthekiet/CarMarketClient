@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
-import OrderService from "~/services/orderServices";
 import {useParams} from "react-router-dom";
 import {styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import clsx from "clsx";
-import styles from "~/pages/OrderDetail/OrderDetail.module.scss";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
+
+import styles from "~/pages/OrderDetail/OrderDetail.module.scss";
+import OrderService from "~/services/orderServices";
 import GeneralInfo from "~/pages/MyOrder/GeneralInfo";
 import UserInfo from "~/pages/MyOrder/UserInfo";
 import OrderInfo from "~/pages/MyOrder/OrderInfo";
-import Box from "@mui/material/Box";
 import notify from "~/components/Notify";
 import CartService from "~/services/cartServices";
-import Button from "@mui/material/Button";
 
 function OrderDetail() {
     const {id} = useParams()
@@ -25,9 +26,13 @@ function OrderDetail() {
     useEffect(() => {
         setChange(false)
         const fetchData = async () => {
-            const response = await OrderService.getOrder(id)
-            if (response?.data)
-                setData(response.data)
+            try {
+                const response = await OrderService.getOrder(id)
+                if (response?.data)
+                    setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [change])

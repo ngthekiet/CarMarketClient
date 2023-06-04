@@ -2,23 +2,11 @@ import request from "~/utils/request";
 import token from "~/local/token";
 
 const getAllProducts = async () => {
-    try {
-        const response = await request.get("/pub/products")
-        if (response?.data)
-            return response
-    } catch (error) {
-        console.log(error)
-    }
+    return await request.get("/pub/products")
 }
 
 const getProduct = async (id) => {
-    try {
-        const response = await request.get(`/pub/product/${id}`)
-        if (response?.data)
-            return response
-    } catch (error) {
-        console.log(error)
-    }
+    return await request.get(`/pub/product/${id}`)
 }
 const getProductsByBrand = async (cid) => {
     return await request.get(`/pub/productBrand/${cid}`)

@@ -1,15 +1,20 @@
-import clsx from "clsx";
-import styles from "~/pages/Content/BrandItem/BrandItem.module.scss";
 import React from "react";
+import clsx from "clsx";
+
+import styles from "~/pages/Content/BrandItem/BrandItem.module.scss";
 import ProductService from "~/services/productServices";
 
 function BrandItem({data, handleSearchByBrand}) {
 
     const handleBrand = async (cid) => {
-        if (handleSearchByBrand !== undefined) {
-            const response = await ProductService.getProductsByBrand(cid)
-            if (response?.data)
-                handleSearchByBrand(response.data)
+        try {
+            if (handleSearchByBrand !== undefined) {
+                const response = await ProductService.getProductsByBrand(cid)
+                if (response?.data)
+                    handleSearchByBrand(response.data)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 

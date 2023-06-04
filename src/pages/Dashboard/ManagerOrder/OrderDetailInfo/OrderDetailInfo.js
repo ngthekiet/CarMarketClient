@@ -1,13 +1,14 @@
-import {Link, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import OrderService from "~/services/orderServices";
-import Grid from "@mui/material/Grid";
-import styles from "~/pages/Dashboard/ManagerOrder/OrderDetailInfo/OrderDetailInfo.module.scss"
-import clsx from "clsx";
 import * as React from "react";
-import DataTable from "react-data-table-component";
+import {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
 import {NumericFormat} from "react-number-format";
+import DataTable from "react-data-table-component";
+import clsx from "clsx";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+
+import OrderService from "~/services/orderServices";
+import styles from "~/pages/Dashboard/ManagerOrder/OrderDetailInfo/OrderDetailInfo.module.scss"
 import config from "~/config";
 
 function OrderDetailInfo() {
@@ -16,10 +17,13 @@ function OrderDetailInfo() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await OrderService.orderDetail(id)
-            if (response?.data)
-                setData(response.data)
-            console.log(response.data)
+            try {
+                const response = await OrderService.orderDetail(id)
+                if (response?.data)
+                    setData(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchData()
     }, [])

@@ -1,5 +1,4 @@
 import config from "~/config";
-
 import Home from "~/pages/Home";
 import Account from "~/pages/Account";
 import Notfound from "~/pages/Notfound";

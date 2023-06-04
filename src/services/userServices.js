@@ -6,41 +6,24 @@ const getUsers = async () => {
 }
 
 const getUser = async (id) => {
-    try {
-        const response = await request.get(`/pri/user/${id}`, {
-            headers: token()
-        })
-        return response
-    } catch (error) {
-        console.log(error)
-    }
+    return await request.get(`/pri/user/${id}`, {
+        headers: token()
+    })
 }
 
 const updateProfile = async (id, address, birthyear, email, firstname, lastname, phone) => {
-    const response = await request.put(`/pri/user/${id}`, {
+    return await request.put(`/pri/user/${id}`, {
         address,
         birthyear,
         email,
         firstname,
         lastname,
         phone
-    }, {
-        headers: token()
-    })
-    return response
+    }, {headers: token()})
 }
 
 const changeAvatar = async (avatar, id) => {
-    try {
-        const response = await request.put(`/pri/avatar/${id}`, {
-            avatar
-        }, {
-            headers: token()
-        })
-        return response
-    } catch (error) {
-        console.log(error)
-    }
+    return await request.put(`/pri/avatar/${id}`, {avatar}, {headers: token()})
 }
 
 const updateRole = async (id, role) => {

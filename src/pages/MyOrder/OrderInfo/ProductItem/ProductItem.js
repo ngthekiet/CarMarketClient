@@ -1,9 +1,9 @@
 import React from "react";
 import clsx from "clsx";
-
-import styles from "~/pages/MyOrder/OrderInfo/ProductItem/ProductItem.module.scss"
 import {NumericFormat} from "react-number-format";
 import {Link} from "react-router-dom";
+
+import styles from "~/pages/MyOrder/OrderInfo/ProductItem/ProductItem.module.scss"
 
 function ProductItem({data}) {
     return (
