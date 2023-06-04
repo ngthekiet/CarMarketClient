@@ -1,9 +1,8 @@
 import {Link} from "react-router-dom";
-
 import clsx from "clsx";
+import {NumericFormat} from "react-number-format";
 
 import styles from "~/components/Layout/DefaultLayout/Header/Search/Search.module.scss";
-import {NumericFormat} from "react-number-format";
 
 function SearchItem({data}) {
     return (

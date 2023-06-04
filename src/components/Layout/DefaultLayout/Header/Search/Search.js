@@ -1,9 +1,7 @@
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next"
-
 import {FaSearch} from "react-icons/fa";
 import {RxDividerVertical} from "react-icons/rx";
-
 import clsx from "clsx";
 
 import styles from "~/components/Layout/DefaultLayout/Header/Search/Search.module.scss";
@@ -22,12 +20,16 @@ function Search() {
         let timeout
         const fetchData = async () => {
             timeout = setTimeout(async () => {
-                if (text !== "") {
-                    const response = await SearchService.search(text)
-                    setData(response.data)
-                    return
+                try {
+                    if (text !== "") {
+                        const response = await SearchService.search(text)
+                        setData(response.data)
+                        return
+                    }
+                    setData([])
+                } catch (error) {
+                    console.log(error)
                 }
-                setData([])
             }, 300)
         }
         fetchData()

@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next"
-
 import {FaUserCircle, FaShoppingBag, FaCog, FaTools, FaBox} from "react-icons/fa"
 import {IoMdLogOut} from "react-icons/io"
-
 import clsx from "clsx";
+
 import styles from "~/components/Layout/DefaultLayout/Header/Header.module.scss"
 import Search from "~/components/Layout/DefaultLayout/Header/Search";
 import AuthService from "~/services/authServices";
@@ -102,7 +101,7 @@ function Header() {
                             <a href={""}>{t("navbar-reviews")}</a>
                         </li>
                         <li>
-                            <Link to={config.routes.news}>{t("navbar-new")}</Link>
+                            <Link to={config.routes.news}>{t("navbar-news")}</Link>
                         </li>
                     </ul>
                 </div>
@@ -123,23 +122,23 @@ function Header() {
                                         &&
                                         <li>
                                             <Link to={config.routes.dashboard}>
-                                                <FaTools/><span>Manage</span>
+                                                <FaTools/><span>{t("nb-user-manage")}</span>
                                             </Link>
                                         </li>
                                     }
                                     <li>
                                         <Link to={`/order/${id}`}>
-                                            <FaBox/><span>My Order</span>
+                                            <FaBox/><span>{t("nb-user-myorder")}</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to={`/profile/${id}`}>
-                                            <FaCog/><span>Setting</span>
+                                            <FaCog/><span>{t("nb-user-setting")}</span>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to={config.routes.account} onClick={logout}>
-                                            <IoMdLogOut/><span>Logout</span>
+                                            <IoMdLogOut/><span>{t("nb-user-logout")}</span>
                                         </Link>
                                     </li>
                                 </ul>
