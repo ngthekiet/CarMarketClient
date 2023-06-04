@@ -6,6 +6,7 @@ import clsx from "clsx";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
+import {useTranslation} from "react-i18next";
 
 import styles from "~/pages/OrderDetail/OrderDetail.module.scss";
 import OrderService from "~/services/orderServices";
@@ -22,6 +23,7 @@ function OrderDetail() {
     const [cancel, setCancel] = useState(true)
     const [repurchase, setRepurchase] = useState(false)
     const [change, setChange] = useState(false)
+    const {t} = useTranslation()
 
     useEffect(() => {
         setChange(false)
@@ -91,7 +93,7 @@ function OrderDetail() {
     return (
         <>
             <div className={clsx(styles.title)}>
-                Order Detail
+                {t("od-title")}
             </div>
             <Box className={clsx(styles.containerItems)} sx={{flexGrow: 1}}>
                 {
@@ -118,9 +120,9 @@ function OrderDetail() {
                                     {
                                         cancel
                                         &&
-                                        <span>Hủy</span>
+                                        <span>{t("share-cancel")}</span>
                                         ||
-                                        <span>Mua lại</span>
+                                        <span>{t("share-rebuy")}</span>
                                     }
                                 </button>
                             </Item>
@@ -131,7 +133,7 @@ function OrderDetail() {
                     <Button onClick={() => {
                         window.history.back()
                     }} variant="outlined">
-                        Back
+                        {t("share-back")}
                     </Button>
                 </div>
             </Box>

@@ -162,7 +162,7 @@ function Profile() {
                                 }
                                 } type={"file"}/>
                                 <Button onClick={changeAvatar} variant={"outlined"}>
-                                    {t("profile-change")}
+                                    {t("share-change")}
                                 </Button>
                             </div>
                         </div>
@@ -210,7 +210,7 @@ function Profile() {
 
                         <div className="sm:col-span-4">
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                {t("profile-email")}
+                                Email
                             </label>
                             <div className="mt-2">
                                 <input
@@ -227,7 +227,7 @@ function Profile() {
                         <div className="col-span-full">
                             <label htmlFor="street-address"
                                    className="block text-sm font-medium leading-6 text-gray-900">
-                                {t("profile-address")}
+                                {t("share-address")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -243,7 +243,7 @@ function Profile() {
                         </div>
                         <div className="sm:col-span-3">
                             <label htmlFor="phone-number" className="block text-sm font-medium leading-6 text-gray-900">
-                                {t("profile-phone")}
+                                {t("share-phone")}
                             </label>
                             <div className="mt-2">
                                 <input
@@ -280,9 +280,9 @@ function Profile() {
             </div>
             <div className="mt-6 flex items-center justify-end gap-x-6">
                 <Link to={config.routes.home}>
-                    <Button variant={"outlined"} color={"error"}>{t("profile-cancel")}</Button>
+                    <Button variant={"outlined"} color={"error"}>{t("share-cancel")}</Button>
                 </Link>
-                <Button onClick={handleSave} variant={"contained"}>{t("profile-save")}</Button>
+                <Button onClick={handleSave} variant={"contained"}>{t("share-save")}</Button>
             </div>
         </div>
     )

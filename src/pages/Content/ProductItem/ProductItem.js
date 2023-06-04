@@ -68,7 +68,7 @@ function ProductItem({data}) {
                             {t("content-power")}: {data.power}
                         </div>
                         <div>
-                            {t("content-fuel")}: {data.fuel}
+                            {t("share-fuel")}: {data.fuel}
                         </div>
                     </div>
                     <div className={clsx(styles.brand, styles.paddingItemCar)}>

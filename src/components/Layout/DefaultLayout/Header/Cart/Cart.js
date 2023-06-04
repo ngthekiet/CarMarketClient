@@ -1,15 +1,16 @@
 import {useEffect, useState} from "react";
-
+import {Link} from "react-router-dom";
+import {NumericFormat} from "react-number-format";
+import {useTranslation} from "react-i18next"
 import clsx from "clsx";
 
 import styles from "~/components/Layout/DefaultLayout/Header/Cart/Cart.module.scss"
 import CartService from "~/services/cartServices";
 import userID from "~/local/userID";
 import CartItem from "~/components/Layout/DefaultLayout/Header/Cart/CartItem";
-import {Link} from "react-router-dom";
-import {NumericFormat} from "react-number-format";
 
 function Cart({handleHideBag}) {
+    const {t} = useTranslation()
     const [data, setData] = useState([])
     const [haveData, setHaveData] = useState(false)
     const [total, setTotal] = useState(0)
@@ -18,13 +19,17 @@ function Cart({handleHideBag}) {
         if (uid === "")
             return
         const fetchData = async () => {
-            const response = await CartService.getCart(uid)
-            if (response?.data) {
-                setTotal(response.data.total)
-                setData(response.data.products)
-                return
+            try {
+                const response = await CartService.getCart(uid)
+                if (response?.data) {
+                    setTotal(response.data.total)
+                    setData(response.data.products)
+                    return
+                }
+                setTotal(0)
+            } catch (error) {
+                console.log(error)
             }
-            setTotal(0)
         }
         fetchData()
     }, [])
@@ -39,7 +44,7 @@ function Cart({handleHideBag}) {
     return (
         <div className={clsx(styles.container)}>
             <div className={clsx(styles.cart)}>
-                GIỎ HÀNG
+                {t("share-cart")}
             </div>
             {
                 haveData
@@ -50,9 +55,9 @@ function Cart({handleHideBag}) {
                     ))}
                 </div>
                 ||
-                <div>Không có sản phẩm</div>
+                <div>{t("share-nodata")}</div>
             }
-            <div className="text-right mr-10"><span className="font-bold">Total:</span> <NumericFormat
+            <div className="text-right mr-10"><span className="font-bold">{t("share-total")}:</span> <NumericFormat
                 className="font-bold text-blue-700"
                 value={total}
                 displayType={"text"}
@@ -62,13 +67,13 @@ function Cart({handleHideBag}) {
                 <div onClick={() => {
                     handleHideBag()
                 }}>
-                    Đóng
+                    {t("share-close")}
                 </div>
                 <Link onClick={() => {
                     handleHideBag()
                 }} to={`/cart/${uid}`}>
                     <div>
-                        Đặt hàng
+                        {t("share-order")}
                     </div>
                 </Link>
             </div>

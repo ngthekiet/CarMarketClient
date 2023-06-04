@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useNavigate, Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import ProductService from "~/services/productServices";
 import {NumericFormat} from "react-number-format";
@@ -13,6 +14,7 @@ function ProductDetail() {
     const {id} = useParams()
     const userId = userID()
     const navigate = useNavigate()
+    const {t} = useTranslation()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,9 +52,8 @@ function ProductDetail() {
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data.name}</h1>
                     </div>
                     <div className="mt-4 lg:row-span-3 lg:mt-0">
-                        <h2 className="sr-only">Product information</h2>
                         <p className="text-3xl tracking-tight text-gray-900"><span
-                            className="mr-4 text-zinc-500">Price only</span><span
+                            className="mr-4 text-zinc-500">{t("pd-price")}</span><span
                             className="text-blue-600 font-bold text-4xl"><NumericFormat value={data.price}
                                                                                         displayType={"text"}
                                                                                         thousandSeparator={true}
@@ -62,7 +63,7 @@ function ProductDetail() {
                         </p>
                         <div className="mt-10">
                             <div className="flex items-center">
-                                <h3 className="text-sm font-medium text-gray-900">Color:</h3>
+                                <h3 className="text-sm font-medium text-gray-900">{t("share-color")}:</h3>
                                 <div style={{backgroundColor: data.color}}
                                      className="w-16 h-6 rounded-full ml-5 border-solid border-2 border-black">
                                 </div>
@@ -81,7 +82,7 @@ function ProductDetail() {
                                 <button
                                     type="button"
                                     className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                    Pay now
+                                    {t("pd-paynow")}
                                 </button>
                             </Link>
                             <button
@@ -90,18 +91,18 @@ function ProductDetail() {
                                 }}
                                 type="button"
                                 className="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                                Add to bag
+                                {t("pd-addtobag")}
                             </button>
                         </div>
                         <div className="w-full h-0.5 bg-gray-300 mt-5"></div>
                         <div className="font-bold">
-                            Key Info
+                            {t("pd-keyinfo")}
                         </div>
                         <table className="w-full mt-1">
                             <tbody>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    Color
+                                    {t("share-color")}
                                 </td>
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
                                     {data?.color || "-"}
@@ -109,15 +110,15 @@ function ProductDetail() {
                             </tr>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    Fuel Type
+                                    {t("share-fuel")}
                                 </td>
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    {data?.type || "-"}
+                                    {data?.fuel || "-"}
                                 </td>
                             </tr>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    Power
+                                    {t("share-power")}
                                 </td>
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
                                     {data?.power || "-"}
@@ -125,7 +126,7 @@ function ProductDetail() {
                             </tr>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    Body Size (L x W x H)
+                                    {t("share-bodysize")} (L x W x H)
                                 </td>
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
                                     {data?.size || "-"}
@@ -133,7 +134,7 @@ function ProductDetail() {
                             </tr>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    Body Type
+                                    {t("share-bodytype")}
                                 </td>
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
                                     {data?.type || "-"}
@@ -141,7 +142,7 @@ function ProductDetail() {
                             </tr>
                             <tr className="border-collapse border border-slate-500">
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
-                                    Brand
+                                    {t("share-brand")}
                                 </td>
                                 <td className="w-1/2 leading-10 indent-2 border-collapse border border-gray-400">
                                     {data.brand?.name || "-"}
@@ -162,13 +163,12 @@ function ProductDetail() {
                             </div>
                         </div>
                         <div>
-                            <h3 className="sr-only">Description</h3>
                             <div className="space-y-6">
                                 <p className="text-base text-gray-900">{data.description}</p>
                             </div>
                         </div>
                         <div className="mt-10">
-                            <h2 className="text-sm font-medium text-gray-900">Details</h2>
+                            <h2 className="text-sm font-medium text-gray-900">{t("pd-details")}</h2>
                             <div className="mt-4 space-y-6">
                                 <p className="text-sm text-gray-600">{data.details}</p>
                             </div>

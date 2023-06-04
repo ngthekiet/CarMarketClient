@@ -3,8 +3,9 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Navigator from './Navigator/Navigator';
-import Header from './Header/Header';
+
+import Navigator from "~/components/Layout/DashboardLayout/Paperbase/Navigator/Navigator";
+import Header from "~/components/Layout/DashboardLayout/Paperbase/Header/Header";
 
 let theme = createTheme({
     palette: {

@@ -1,14 +1,16 @@
 import React from "react";
 import Moment from 'moment';
+import {useTranslation} from "react-i18next";
 
 function GeneralInfo({data}) {
+    const {t} = useTranslation()
     return (
         <React.Fragment>
             <div>
-                <b>Order date: </b>{Moment(data.createDate).format('DD/MM/yyyy HH:mm:ss')}
+                <b>{t("share-purchasedate")}: </b>{Moment(data.createDate).format('DD/MM/yyyy HH:mm:ss')}
             </div>
             <div>
-                <b>Status: </b>{data.status}
+                <b>{t("share-status")}: </b>{data.status}
             </div>
         </React.Fragment>
     )

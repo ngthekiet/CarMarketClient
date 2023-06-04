@@ -57,9 +57,6 @@ function MyOrder() {
     return (
         <React.Fragment>
             <div className={clsx(styles.container)}>
-                <div className={clsx(styles.title)}>
-                    My order
-                </div>
                 {haveData
                     &&
                     <>

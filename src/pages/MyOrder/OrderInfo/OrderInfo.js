@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {NumericFormat} from "react-number-format";
 import clsx from "clsx";
+import {useTranslation} from "react-i18next";
+
 
 import OrderService from "~/services/orderServices";
 import ProductItem from "~/pages/MyOrder/OrderInfo/ProductItem";
@@ -9,6 +11,7 @@ import styles from "~/pages/MyOrder/OrderInfo/OrderInfo.module.scss"
 function OrderInfo({oid}) {
     const [data, setData] = useState([])
     const [products, setProduct] = useState([])
+    const {t} = useTranslation()
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -32,12 +35,12 @@ function OrderInfo({oid}) {
             </div>
             <div className={clsx(styles.total)}>
                 <span>
-                    <b>Total: </b><NumericFormat className={clsx(styles.priceTotal)} value={data.total}
-                                                 displayType={"text"}
-                                                 thousandSeparator={true}
-                                                 decimalScale={2}
-                                                 fixedDecimalScale={true}
-                                                 prefix={"$"}/>
+                    <b>{t("share-total")}: </b><NumericFormat className={clsx(styles.priceTotal)} value={data.total}
+                                                              displayType={"text"}
+                                                              thousandSeparator={true}
+                                                              decimalScale={2}
+                                                              fixedDecimalScale={true}
+                                                              prefix={"$"}/>
                 </span>
             </div>
         </React.Fragment>
