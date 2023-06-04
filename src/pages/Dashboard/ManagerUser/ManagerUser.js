@@ -14,14 +14,16 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import {FormControl, MenuItem, Select} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 import UserService from "~/services/userServices";
-import notify from "~/components/Notify";
+import Notify from "~/components/Notify";
 
 
 function ManagerUser() {
     const [data, setData] = useState([])
     const [change, setChange] = useState(false)
+    const {t} = useTranslation()
 
     useEffect(() => {
         setChange(false)
@@ -41,22 +43,22 @@ function ManagerUser() {
         try {
             await UserService.updateRole(id, role)
             setChange(true)
-            notify.notifySuccess("Cập nhật thành công")
+            Notify.notifySuccess(t("updatesuccess"))
         } catch (error) {
-            notify.notifyError("Cập nhật thất bại")
+            Notify.notifyError(t("updatefail"))
         }
     }
 
     const columns = [
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Username</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-username")}</div>,
             selector: row => row.username,
             style: {
                 justifyContent: "center"
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Last Name</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("profile-lastname")}</div>,
             selector: row => row.lastname,
             style: {
                 justifyContent: "center"
@@ -70,14 +72,14 @@ function ManagerUser() {
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Phone</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-phone")}</div>,
             selector: row => row.phone,
             style: {
                 justifyContent: "center"
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Role</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-role")}</div>,
             selector: row =>
                 <FormControl variant="standard" size={"small"}>
                     <Select style={{fontSize: "100%", fontWeight: "bold"}}
@@ -111,7 +113,7 @@ function ManagerUser() {
                     <Grid container alignItems="center" spacing={1}>
                         <Grid item xs>
                             <Typography color="inherit" variant="h5" component="h1">
-                                Manager Users
+                                {t("db-manageuser")}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -119,7 +121,7 @@ function ManagerUser() {
             </AppBar>
             <AppBar component="div" position="static" elevation={0} sx={{zIndex: 0}}>
                 <Tabs value={0} textColor="inherit">
-                    <Tab label="Users"/>
+                    <Tab label={t("db-users")}/>
                 </Tabs>
             </AppBar>
             <AppBar
@@ -136,7 +138,7 @@ function ManagerUser() {
                         <Grid item xs>
                             <TextField
                                 fullWidth
-                                placeholder="Search by email address, phone number, or user UID"
+                                placeholder={t("share-search")}
                                 InputProps={{
                                     disableUnderline: true,
                                     sx: {fontSize: 'default'},

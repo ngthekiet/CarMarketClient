@@ -19,6 +19,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import config from "~/config";
 
@@ -74,6 +75,7 @@ const itemCategory = {
 export default function Navigator(props) {
     const {...other} = props;
     const [change, setChange] = useState(false)
+    const {t} = useTranslation()
     const setActive = (index) => {
         categories[0].children.map(item => {
             item.active = false
@@ -93,14 +95,14 @@ export default function Navigator(props) {
             <List disablePadding>
                 <Link to={config.routes.home}>
                     <ListItem sx={{...item, ...itemCategory, fontSize: 22, color: '#fff'}}>
-                        Home Ucar
+                        {t("db-homeucar")}
                     </ListItem>
                 </Link>
                 <ListItem sx={{...item, ...itemCategory}}>
                     <ListItemIcon>
                         <HomeIcon/>
                     </ListItemIcon>
-                    <ListItemText>Project Overview</ListItemText>
+                    <ListItemText>{t("db-home")}</ListItemText>
                 </ListItem>
                 {categories.map(({id, children}) => (
                     <Box key={id} sx={{bgcolor: '#101F33'}}>
@@ -125,5 +127,5 @@ export default function Navigator(props) {
                 ))}
             </List>
         </Drawer>
-    );
+    )
 }

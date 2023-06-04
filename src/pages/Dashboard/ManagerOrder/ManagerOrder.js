@@ -18,6 +18,7 @@ import {Link} from "react-router-dom";
 import DataTable from "react-data-table-component";
 import {BiDetail} from "react-icons/bi";
 import Moment from 'moment';
+import {useTranslation} from "react-i18next";
 
 import OrderService from "~/services/orderServices";
 import notify from "~/components/Notify";
@@ -25,6 +26,7 @@ import notify from "~/components/Notify";
 function ManagerOrder() {
     const [data, setData] = useState([])
     const [change, setChange] = useState(false)
+    const {t} = useTranslation()
 
     useEffect(() => {
         setChange(false)
@@ -44,9 +46,9 @@ function ManagerOrder() {
         try {
             await OrderService.updateStatus(id, status)
             setChange(true)
-            notify.notifySuccess("Cập nhật thành công")
+            notify.notifySuccess(t("updatesuccess"))
         } catch (error) {
-            notify.notifyError("Cập nhật thất bại")
+            notify.notifyError(t("updatefail"))
         }
     }
 
@@ -59,28 +61,28 @@ function ManagerOrder() {
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Bought By</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-boughtby")}</div>,
             selector: row => row.user.lastname,
             style: {
                 justifyContent: "center"
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Purchase Date</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-purchasedate")}</div>,
             selector: row => Moment(row.createDate).format('DD/MM/yyyy HH:mm:ss'),
             style: {
                 justifyContent: "center"
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Last Update</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-lastupdate")}</div>,
             selector: row => Moment(row.updateDate).format('DD/MM/yyyy HH:mm:ss'),
             style: {
                 justifyContent: "center"
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Status</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-status")}</div>,
             selector: row =>
                 <FormControl variant="standard" size={"small"}>
                     <Select style={{fontSize: "100%", fontWeight: "bold"}}
@@ -100,11 +102,11 @@ function ManagerOrder() {
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Action</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-action")}</div>,
             selector: row =>
                 <Link to={`/dashboard/order/detail/${row.id}`}>
                     <Button style={{margin: "5px"}} variant="outlined" startIcon={<BiDetail/>}>
-                        Detail
+                        {t("share-detail")}
                     </Button>
                 </Link>,
             style: {
@@ -125,7 +127,7 @@ function ManagerOrder() {
                     <Grid container alignItems="center" spacing={1}>
                         <Grid item xs>
                             <Typography color="inherit" variant="h5" component="h1">
-                                Manager Orders
+                                {t("db-manageorder")}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -133,7 +135,7 @@ function ManagerOrder() {
             </AppBar>
             <AppBar component="div" position="static" elevation={0} sx={{zIndex: 0}}>
                 <Tabs value={0} textColor="inherit">
-                    <Tab label="Orders"/>
+                    <Tab label={t("db-orders")}/>
                 </Tabs>
             </AppBar>
             <AppBar
@@ -150,7 +152,7 @@ function ManagerOrder() {
                         <Grid item xs>
                             <TextField
                                 fullWidth
-                                placeholder="Search by name, phone number, or user UID"
+                                placeholder={t("share-search")}
                                 InputProps={{
                                     disableUnderline: true,
                                     sx: {fontSize: 'default'},

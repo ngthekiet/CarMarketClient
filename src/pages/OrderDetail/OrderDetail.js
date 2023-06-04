@@ -13,7 +13,7 @@ import OrderService from "~/services/orderServices";
 import GeneralInfo from "~/pages/MyOrder/GeneralInfo";
 import UserInfo from "~/pages/MyOrder/UserInfo";
 import OrderInfo from "~/pages/MyOrder/OrderInfo";
-import notify from "~/components/Notify";
+import Notify from "~/components/Notify";
 import CartService from "~/services/cartServices";
 
 function OrderDetail() {
@@ -61,18 +61,18 @@ function OrderDetail() {
         try {
             await OrderService.cancelOrder(data.id)
             setChange(true)
-            notify.notifySuccess("Đã hủy đơn hàng")
+            Notify.notifySuccess(t("cancelordersuccess"))
         } catch (error) {
-            notify.notifyError("Không thể hủy đơn hàng")
+            Notify.notifyError(t("cancelorderfail"))
         }
     }
 
     const handleRepurchase = async () => {
         try {
             await CartService.repurchase(id)
-            notify.notifySuccess("Đã thêm vào giỏ")
+            Notify.notifySuccess(t("addsuccess"))
         } catch (error) {
-            notify.notifyError("Mua lại thất bại")
+            Notify.notifyError(t("rebuyfail"))
         }
     }
 

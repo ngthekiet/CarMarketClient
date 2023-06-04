@@ -18,7 +18,7 @@ import styles from "~/components/Layout/DashboardLayout/Paperbase/Header/Header.
 
 function Header(props) {
     const {onDrawerToggle} = props;
-    const {i18n} = useTranslation()
+    const {i18n, t} = useTranslation()
     const [avatar, setAvatar] = useState("")
 
     const handleLogout = () => {
@@ -56,7 +56,7 @@ function Header(props) {
                         <Grid item xs/>
                         <Grid item>
                             <Link onClick={handleLogout} to={config.routes.account}>
-                                Logout
+                                {t("share-logout")}
                             </Link>
                         </Grid>
                         <Grid item>

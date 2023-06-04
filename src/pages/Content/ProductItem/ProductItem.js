@@ -25,10 +25,10 @@ function ProductItem({data}) {
         try {
             await CartService.addToCart(uid, product, 1)
             if (notify)
-                Notify.notifySuccess("Đã thêm vào giỏ")
+                Notify.notifySuccess(t("addsuccess"))
         } catch (error) {
             if (notify)
-                Notify.notifyError("Chưa thêm vào giỏ")
+                Notify.notifyError(t("addfail"))
             console.log(error)
         }
     }
