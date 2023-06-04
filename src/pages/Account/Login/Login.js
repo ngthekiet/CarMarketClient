@@ -8,7 +8,7 @@ import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
 import styles from "~/pages/Account/Account.module.scss";
 import AuthService from "~/services/authServices";
 import {UserRole} from "~/App";
-import notify from "~/components/Notify";
+import Notify from "~/components/Notify";
 
 function Login() {
     const {t} = useTranslation()
@@ -36,7 +36,7 @@ function Login() {
                 }
             } catch (error) {
                 console.log(error)
-                notify.notifyError("Tải dữ liệu thất bại")
+                Notify.notifyError(t("loadfail"))
             }
         }
         fetchData()
@@ -54,7 +54,7 @@ function Login() {
                 }
             } catch (error) {
                 console.log(error)
-                notify.notifyError("Tải dữ liệu thất bại")
+                Notify.notifyError(t("loadfail"))
             }
         }
         fetchData()
@@ -83,11 +83,11 @@ function Login() {
                 if (response?.data) {
                     handleChangeRole(true)
                     navigate("/")
-                    notify.notifySuccess("Đã đăng nhập")
+                    Notify.notifySuccess(t("logged"))
                 }
             } catch (error) {
                 console.log(error)
-                notify.notifyError("Tải dữ liệu thất bại")
+                Notify.notifyError(t("loadfail"))
             }
         }
     }

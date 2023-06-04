@@ -8,7 +8,7 @@ import {AiFillCheckCircle, AiFillCloseCircle} from "react-icons/ai";
 import styles from "~/pages/Account/Account.module.scss";
 import AuthService from "~/services/authServices";
 import ValidService from "~/services/validServices";
-import notify from "~/components/Notify";
+import Notify from "~/components/Notify";
 
 function Register() {
     const {t} = useTranslation()
@@ -39,7 +39,7 @@ function Register() {
                 setAcceptUsername(false)
             } catch (error) {
                 console.log(error)
-                notify.notifySuccess("Tải dữ liệu thất bại")
+                Notify.notifyError(t("loadfail"))
             }
         }
         fetchData()
@@ -60,7 +60,7 @@ function Register() {
                 setValidPassword(false)
             } catch (error) {
                 console.log(error)
-                notify.notifySuccess("Tải dữ liệu thất bại")
+                Notify.notifyError(t("loadfail"))
             }
         }
         fetchData();
@@ -104,12 +104,12 @@ function Register() {
                 const response = await AuthService.register(username, password)
                 if (response?.data) {
                     navigate("/")
-                    notify.notifySuccess("Thành công. Đã đăng nhập")
+                    Notify.notifySuccess(t("registersuccess"))
                 }
             }
         } catch (error) {
             console.log(error)
-            notify.notifySuccess("Tải dữ liệu thất bại")
+            Notify.notifyError(t("loadfail"))
         }
     }
 

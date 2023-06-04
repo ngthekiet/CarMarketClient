@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import Modal from '@mui/material/Modal';
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {useTranslation} from "react-i18next";
 
 import styles from "~/pages/Dashboard/ManagerProduct/ProductInfo/ProductInfo.module.scss"
 import BrandService from "~/services/brandServices";
@@ -17,7 +18,6 @@ import CategoriesService from "~/services/categoryServices";
 import ProductService from "~/services/productServices";
 import Notify from "~/components/Notify";
 import {storage} from "~/firebase";
-import notify from "~/components/Notify";
 
 function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActionEdit}) {
     const [change, setChange] = useState(false)
@@ -48,6 +48,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
     const [categoryNew, setCategoryNew] = useState("")
 
     const navigate = useNavigate()
+    const {t} = useTranslation()
 
     useEffect(() => {
         setChange(false)
@@ -132,9 +133,9 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             const categoryResponse = await CategoriesService.getCategory(categoryId)
             await ProductService.addProduct(name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
         } catch (error) {
-            Notify.notifyError("Thêm sản phẩm thất bại")
+            Notify.notifyError(t("addfail"))
         }
-        Notify.notifySuccess("Đã thêm sản phẩm")
+        Notify.notifySuccess(t("addsuccess"))
         await navigate("/dashboard/product")
     }
 
@@ -157,9 +158,9 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             const categoryResponse = await CategoriesService.getCategory(categoryId)
             await ProductService.editProduct(editId, name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
         } catch (error) {
-            Notify.notifyError("Cập nhật thất bại")
+            Notify.notifyError(t("updatefail"))
         }
-        Notify.notifySuccess("Cập nhật thành công")
+        Notify.notifySuccess(t("updatesuccess"))
         await navigate("/dashboard/product")
     }
 
@@ -252,9 +253,9 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             await CategoriesService.newCategory(categoryNew)
             setChange(true)
             setOpenModalCategory(false)
-            notify.notifySuccess("Thêm thành công")
+            Notify.notifySuccess(t("addsuccess"))
         } catch (error) {
-            notify.notifyError("Thêm thất bại")
+            Notify.notifyError(t("addfail"))
         }
     }
 
@@ -279,9 +280,9 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             await BrandService.newBrand(brandNew, imgURL)
             await setChange(true)
             setOpenModalBrand(false)
-            notify.notifySuccess("Thêm thành công")
+            Notify.notifySuccess(t("addsuccess"))
         } catch (error) {
-            notify.notifyError("Thêm thất bại")
+            Notify.notifyError(t("addfail"))
         }
     }
 
@@ -289,17 +290,17 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
         <div className={clsx(styles.container)}>
             <Grid container spacing={2}>
                 <Grid className={clsx(styles.title)} xs={12}>
-                    Add Product
+                    {t("share-addproduct")}
                 </Grid>
                 <Grid xs={8}>
                     <div className={clsx(styles.frame)}>
                         <div className={clsx(styles.productInfo)}>
-                            Product Information
+                            {t("db-productinfor")}
                         </div>
                         <div className={clsx(styles.productName)}>
                             <TextField value={name} onChange={(e) => {
                                 setName(e.target.value)
-                            }} id="outlined-basic" label="Name"
+                            }} id="outlined-basic" label={t("share-name")}
                                        variant="outlined"
                                        size="small"/>
                         </div>
@@ -307,22 +308,22 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                             <TextField value={size} onChange={(e) => {
                                 setSize(e.target.value)
                             }} id="outlined-basic"
-                                       label="Size (L x W x H)" variant="outlined" size="small"/>
+                                       label={t("db-size")} variant="outlined" size="small"/>
                             <TextField value={power} onChange={(e) => {
                                 setPower(e.target.value)
-                            }} id="outlined-basic" label="Power (HP)"
+                            }} id="outlined-basic" label={t("db-power")}
                                        variant="outlined" size="small"/>
                         </div>
                         <div className={clsx(styles.productDes)}>
                             <TextField value={description} onChange={(e) => {
                                 setDescription(e.target.value)
                             }} id="outlined-basic"
-                                       label="Description" variant="outlined" multiline/>
+                                       label={t("db-description")} variant="outlined" multiline/>
                         </div>
                         <div className={clsx(styles.productDetail)}>
                             <TextField value={detail} onChange={(e) => {
                                 setDetail(e.target.value)
-                            }} id="outlined-basic" label="Details"
+                            }} id="outlined-basic" label={t("db-details")}
                                        variant="outlined" multiline/>
                         </div>
                     </div>
@@ -330,16 +331,16 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                 <Grid xs={4}>
                     <div className={clsx(styles.frame)}>
                         <div className={clsx(styles.productInfo)}>
-                            More Information
+                            {t("db-moreinfor")}
                         </div>
                         <div className={clsx(styles.moreInfoItem)}>
                             <FormControl fullWidth size="small">
-                                <InputLabel id="color">Color</InputLabel>
+                                <InputLabel id="color">{t("share-color")}</InputLabel>
                                 <Select
                                     labelId="color"
                                     id="color-select"
                                     value={color}
-                                    label="Color"
+                                    label={t("share-color")}
                                     onChange={(e) => {
                                         setColor(e.target.value)
                                     }}
@@ -358,12 +359,12 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                         </div>
                         <div className={clsx(styles.moreInfoItem)}>
                             <FormControl fullWidth size="small">
-                                <InputLabel id="fuel">Fuel</InputLabel>
+                                <InputLabel id="fuel">{t("share-fuel")}</InputLabel>
                                 <Select
                                     labelId="fuel"
                                     id="fuel-select"
                                     value={fuel}
-                                    label="Fuel"
+                                    label={t("share-fuel")}
                                     onChange={(e) => {
                                         setFuel(e.target.value)
                                     }}
@@ -376,12 +377,12 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                         </div>
                         <div className={clsx(styles.moreInfoItem)}>
                             <FormControl fullWidth size="small">
-                                <InputLabel id="type">Type</InputLabel>
+                                <InputLabel id="type">{t("db-type")}</InputLabel>
                                 <Select
                                     labelId="type"
                                     id="type-select"
                                     value={type}
-                                    label="Type"
+                                    label={t("db-type")}
                                     onChange={(e) => {
                                         setType(e.target.value)
                                     }}
@@ -404,12 +405,12 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                         </div>
                         <div className={clsx(styles.moreInfoItem, styles.add)}>
                             <FormControl className={clsx(styles.addItem)} size="small">
-                                <InputLabel id="brand">Brand</InputLabel>
+                                <InputLabel id="brand">{t("share-brand")}</InputLabel>
                                 <Select
                                     labelId="brand"
                                     id="brand-select"
                                     value={brand}
-                                    label="Brand"
+                                    label={t("share-brand")}
                                     onChange={(e) => {
                                         setBrand(e.target.value)
                                     }}
@@ -456,12 +457,12 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                         </div>
                         <div className={clsx(styles.moreInfoItem, styles.add)}>
                             <FormControl className={clsx(styles.addItem)} size="small">
-                                <InputLabel id="categories">Categories</InputLabel>
+                                <InputLabel id="categories">{t("share-category")}</InputLabel>
                                 <Select
                                     labelId="categories"
                                     id="categories-select"
                                     value={categories}
-                                    label="Categories"
+                                    label={t("share-category")}
                                     onChange={(e) => {
                                         setCategories(e.target.value)
                                     }}
@@ -527,7 +528,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                 <Grid xs={8}>
                     <div className={clsx(styles.frame)}>
                         <div className={clsx(styles.productInfo)}>
-                            Media
+                            {t("db-media")}
                         </div>
                         <section className={clsx(styles.image, "container")}>
                             <aside style={thumbsContainer}>
@@ -548,7 +549,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
                             <div {...getRootProps({className: 'dropzone'})}>
                                 <input {...getInputProps()} />
                                 <span
-                                    className={clsx(styles.dropImage)}>Drag drop file here, or click to select file</span>
+                                    className={clsx(styles.dropImage)}>{t("db-drag")}</span>
                             </div>
                         </section>
                     </div>

@@ -56,9 +56,9 @@ function Cart() {
         try {
             await CartService.removeFromCart(id)
             setChange(true)
-            Notify.notifySuccess("Xóa thành công")
+            Notify.notifySuccess(t("deletesuccess"))
         } catch (error) {
-            Notify.notifyError("Xóa thất bại")
+            Notify.notifyError(t("deletefail"))
             console.log(error)
         }
     }
@@ -68,7 +68,7 @@ function Cart() {
             await CartService.updateCart(cartID, quantity)
             setChange(true)
         } catch (error) {
-            Notify.notifyError("Update thất bại")
+            Notify.notifyError(t("updatefail"))
             console.log(error)
         }
     }
@@ -76,15 +76,15 @@ function Cart() {
     const handleOrder = async () => {
         try {
             if (!haveData) {
-                Notify.notifyError("Không có sản phẩm")
+                Notify.notifyError(t("noproduct"))
                 return
             }
             await OrderService.order(id)
             setChange(true)
-            Notify.notifySuccess("Đặt hàng thành công")
+            Notify.notifySuccess(t("ordersuccess"))
             navigate("/confirm")
         } catch (error) {
-            Notify.notifyError("Đặt hàng thất bại")
+            Notify.notifyError(t("orderfail"))
             console.log(error)
         }
     }

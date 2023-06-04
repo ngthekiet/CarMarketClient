@@ -6,6 +6,7 @@ import DataTable from "react-data-table-component";
 import clsx from "clsx";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import {useTranslation} from "react-i18next";
 
 import OrderService from "~/services/orderServices";
 import styles from "~/pages/Dashboard/ManagerOrder/OrderDetailInfo/OrderDetailInfo.module.scss"
@@ -14,6 +15,7 @@ import config from "~/config";
 function OrderDetailInfo() {
     const {id} = useParams()
     const [data, setData] = useState({})
+    const {t} = useTranslation()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -77,22 +79,22 @@ function OrderDetailInfo() {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid style={{margin: "0 auto"}} item xs={10}>
+                <Grid style={{margin: "0 auto"}} item xs={12}>
                     <div className={clsx(styles.frame)}>
                         <div className={clsx(styles.title)}>Purchase Order</div>
                         <div className={clsx(styles.company)}>UCAR company</div>
                         <div className={clsx(styles.hr)}></div>
                         <div className={clsx(styles.userInfo)}>
-                            Buyer: {data.user?.firstname + " " + data.user?.lastname}
+                            {t("share-boughtby")}: {data.user?.firstname + " " + data.user?.lastname}
                         </div>
                         <div className={clsx(styles.userInfo)}>
-                            Address: {data.user?.address}
+                            {t("share-address")}: {data.user?.address}
                         </div>
                         <div className={clsx(styles.userInfo)}>
                             Email: {data.user?.email}
                         </div>
                         <div className={clsx(styles.userInfo)}>
-                            Phone: {data.user?.phone}
+                            {t("share-phone")}: {data.user?.phone}
                         </div>
                         <div className={clsx(styles.hr)}></div>
                         <DataTable columns={columns}
@@ -102,7 +104,7 @@ function OrderDetailInfo() {
                         />
                         <div className={clsx(styles.hr)}></div>
                         <div className={clsx(styles.total)}>
-                            Total: <NumericFormat value={data?.total}
+                            {t("share-total")}: <NumericFormat value={data?.total}
                                                   displayType={"text"}
                                                   thousandSeparator={true}
                                                   decimalScale={2}
@@ -114,7 +116,7 @@ function OrderDetailInfo() {
             </Grid>
             <Link to={config.routes.managerOrder} className={clsx(styles.back)}>
                 <Button variant="outlined">
-                    Back
+                    {t("share-back")}
                 </Button>
             </Link>
         </>

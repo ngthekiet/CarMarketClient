@@ -36,10 +36,10 @@ function ProductDetail() {
         try {
             await CartService.addToCart(userId, product, 1)
             if (notify)
-                Notify.notifySuccess("Đã thêm vào giỏ")
+                Notify.notifySuccess(t("addsuccess"))
         } catch (error) {
             if (notify)
-                Notify.notifyError("Chưa thêm vào giỏ")
+                Notify.notifyError(t("addfail"))
         }
     }
 

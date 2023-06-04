@@ -108,22 +108,22 @@ function Profile() {
 
     const handleSave = async () => {
         if (token() === "") {
-            Notify.notifyError("Cập nhật không thành công")
+            Notify.notifyError(t("updatefail"))
             return
         }
 
         try {
             await UserService.updateProfile(id, address, birthyear, email, firstname, lastname, phone)
-            Notify.notifySuccess("Cập nhật thành công")
+            Notify.notifySuccess(t("updatesuccess"))
             setSuccess(true)
         } catch (error) {
-            Notify.notifyError("Cập nhật không thành công")
+            Notify.notifyError(t("updatefail"))
         }
     }
 
     const changeAvatar = async () => {
         if (avatarChange === "") {
-            Notify.notifyError("Cập nhật không thành công")
+            Notify.notifyError(t("updatefail"))
             return
         }
         try {
@@ -134,7 +134,7 @@ function Profile() {
             setAvatar(response)
             localStorage.setItem("avatar", response)
             setAvatarChange("")
-            Notify.notifySuccess("Cập nhật thành công")
+            Notify.notifySuccess(t("updatesuccess"))
             setSuccess(true)
         } catch (error) {
             console.log(error)

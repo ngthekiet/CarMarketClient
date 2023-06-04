@@ -17,15 +17,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import {useTranslation} from "react-i18next";
 
 import config from "~/config";
 import ProductService from "~/services/productServices";
-import notify from "~/components/Notify";
+import Notify from "~/components/Notify";
 
 function ManagerProduct() {
 
     const [data, setData] = useState([])
     const [change, setChange] = useState(false)
+    const {t} = useTranslation()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,22 +51,22 @@ function ManagerProduct() {
         try {
             await ProductService.deleteProduct(pid)
             setChange(true)
-            notify.notifySuccess("Đã xóa sản phẩm")
+            Notify.notifySuccess(t("deletesuccess"))
         } catch (error) {
-            notify.notifyError("Xóa thất bại")
+            Notify.notifyError(t("deletefail"))
         }
     }
 
     const columns = [
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Image</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-image")}</div>,
             selector: row => <img style={{width: "100px", height: "100px", margin: "0"}} src={row.image} alt={""}/>,
             style: {
                 justifyContent: "center"
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Name</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-name")}</div>,
             sortable: true,
             selector: row => <Link to={`/detail/${row.id}`}>{row.name}</Link>,
             style: {
@@ -74,7 +76,7 @@ function ManagerProduct() {
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Price</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-price")}</div>,
             sortable: true,
             selector: row => <NumericFormat value={row.price}
                                             displayType={"text"}
@@ -87,19 +89,19 @@ function ManagerProduct() {
             }
         },
         {
-            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>Action</div>,
+            name: <div style={{margin: "0 auto", fontWeight: "bold", fontSize: "120%"}}>{t("share-action")}</div>,
             selector: row =>
                 <div>
                     <Link to={`/dashboard/product/edit/${row.id}`}>
                         <Button style={{margin: "5px"}} variant="outlined" startIcon={<MdEdit/>}>
-                            Edit
+                            {t("share-edit")}
                         </Button>
                     </Link>
                     <Button onClick={() => {
                         handleDeleteProduct(row.id)
                     }} style={{margin: "5px"}} variant="outlined"
                             startIcon={<MdDelete/>} color={"error"}>
-                        Delete
+                        {t("share-delete")}
                     </Button>
                 </div>,
             style: {
@@ -121,7 +123,7 @@ function ManagerProduct() {
                     <Grid container alignItems="center" spacing={1}>
                         <Grid item xs>
                             <Typography color="inherit" variant="h5" component="h1">
-                                Manager Products
+                                {t("db-manageproduct")}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -129,7 +131,7 @@ function ManagerProduct() {
             </AppBar>
             <AppBar component="div" position="static" elevation={0} sx={{zIndex: 0}}>
                 <Tabs value={0} textColor="inherit">
-                    <Tab label="Products"/>
+                    <Tab label={t("db-products")}/>
                 </Tabs>
             </AppBar>
             <AppBar
@@ -146,7 +148,7 @@ function ManagerProduct() {
                         <Grid item xs>
                             <TextField
                                 fullWidth
-                                placeholder="Search by name, or price"
+                                placeholder={t("share-search")}
                                 InputProps={{
                                     disableUnderline: true,
                                     sx: {fontSize: 'default'},
@@ -157,7 +159,7 @@ function ManagerProduct() {
                         <Grid item>
                             <Link to={config.routes.addProduct}>
                                 <Button variant="contained" sx={{mr: 1}}>
-                                    Add product
+                                    {t("share-addproduct")}
                                 </Button>
                             </Link>
                             <Tooltip title="Reload">
