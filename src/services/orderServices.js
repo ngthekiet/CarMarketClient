@@ -2,31 +2,31 @@ import request from "~/utils/request";
 import token from "~/local/token";
 
 const getAllOrder = async () => {
-    return await request.get("/pri/orders", {headers: token()})
+    return await request.get("/auth/orders", {headers: token()})
 }
 
-const order = async (uid) => {
-    return await request.post(`/pri/order`, {uid}, {headers: token()})
+const order = async (id) => {
+    return await request.post(`/auth/order`, {id}, {headers: token()})
 }
 
-const myOrder = async (uid) => {
-    return await request.get(`/pri/order/${uid}`, {headers: token()})
+const myOrder = async (id) => {
+    return await request.get(`/auth/order/${id}`, {headers: token()})
 }
 
 const orderDetail = async (id) => {
-    return await request.get(`/pri/orderDetail/${id}`, {headers: token()})
+    return await request.get(`/auth/order/${id}/detail`, {headers: token()})
 }
 
-const cancelOrder = async (oid) => {
-    return await request.put("/pri/cancelOrder", {oid}, {headers: token()})
+const cancelOrder = async (id) => {
+    return await request.put("/auth/cancel-order", {id}, {headers: token()})
 }
 
-const getOrder = async (oid) => {
-    return await request.get(`/pri/orderBy/${oid}`, {headers: token()})
+const getOrder = async (id) => {
+    return await request.get(`/auth/user/${id}/orders`, {headers: token()})
 }
 
 const updateStatus = async (id, status) => {
-    return await request.put(`/pri/status/${id}`, {status}, {headers: token()})
+    return await request.put(`/auth/order/${id}/status`, {status}, {headers: token()})
 }
 
 const OrderService = {

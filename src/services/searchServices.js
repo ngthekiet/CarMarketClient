@@ -1,7 +1,7 @@
 import request from "~/utils/request";
 
 const search = async (text) => {
-    return await request.post("/pub/search", text)
+    return await request.post("/search", text)
 }
 
 const SearchService = {
