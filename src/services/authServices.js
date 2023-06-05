@@ -2,7 +2,7 @@ import request from "~/utils/request";
 import token from "~/local/token";
 
 const login = async (username, password) => {
-    const response = await request.post('/pub/authenticate', {username, password})
+    const response = await request.post('/authenticate', {username, password})
     if (response?.data) {
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('userID', response.data.userID)
@@ -13,7 +13,7 @@ const login = async (username, password) => {
 }
 
 const register = async (username, password) => {
-    const response = await request.post('/pub/register', {username, password})
+    const response = await request.post('/register', {username, password})
     if (response?.data) {
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('userID', response.data.userID)
@@ -28,12 +28,12 @@ const logout = () => {
 }
 
 const checkUsername = async (username) => {
-    return await request.post("/pub/checkUsername", {username})
+    return await request.post("/check-username", {username})
 }
 
 const checkPassword = async (username, password) => {
 
-    return await request.post('/pub/checkPassword', {
+    return await request.post('/check-password', {
         username,
         password
     })
