@@ -134,6 +134,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             await ProductService.addProduct(name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
         } catch (error) {
             Notify.notifyError(t("addfail"))
+            return
         }
         Notify.notifySuccess(t("addsuccess"))
         await navigate("/dashboard/product")
@@ -159,6 +160,7 @@ function ProductInfo({actionAdd, changeActionAdd, editId, actionEdit, changeActi
             await ProductService.editProduct(editId, name, imgURL, price, type, size, fuel, power, color, description, detail, categoryResponse.data, brandResponse.data)
         } catch (error) {
             Notify.notifyError(t("updatefail"))
+            return
         }
         Notify.notifySuccess(t("updatesuccess"))
         await navigate("/dashboard/product")
